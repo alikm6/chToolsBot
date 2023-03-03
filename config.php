@@ -27,6 +27,7 @@ const TOKEN = '1234567890:abcdefghijklmnopqrstuvwxyz';
 // To enable inline mode for your bot, you need to go to the BotFather chat and send the command /setinline.
 // Follow the instructions to enable inline mode for your bot.
 // Once you've enabled inline mode, your bot will be able to receive inline queries from users and return results.
+// Also make sure `Inline feedback` is set to 100%.
 
 // The Telegram bot username without @
 const BOT_USERNAME = "MyBot";
