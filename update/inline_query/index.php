@@ -44,7 +44,7 @@ if (stripos($inline_query['query'], 'share') === 0) {
         $tmp['reply_markup'] = array("inline_keyboard" => array(
             array(
                 array(
-                    "text" => __("Tools 🔧"),
+                    "text" => __(BOT_NAME),
                     "url" => 'https://t.me/' . BOT_USERNAME . '?start=' . $inline_query['query']
                 )
             ),
@@ -62,7 +62,7 @@ if (stripos($inline_query['query'], 'share') === 0) {
         $tmp['reply_markup'] = array("inline_keyboard" => array(
             array(
                 array(
-                    "text" => __("Tools 🔧"),
+                    "text" => __(BOT_NAME),
                     "url" => 'https://t.me/' . BOT_USERNAME
                 )
             ),
