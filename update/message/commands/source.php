@@ -10,7 +10,7 @@ if ($message['text'][0] == '/') {
             'chat_id' => $tg->update_from,
             'text' => "<b>" . __("This bot is open source.") . "</b>" . "\n\n" .
                 __("For more information, visit the following website.") . "\n" .
-                "https://github.com/",
+                "https://github.com/alikm6/chToolsBot/",
             'disable_web_page_preview' => true,
             'parse_mode' => 'html',
             'reply_markup' => mainMenu()
