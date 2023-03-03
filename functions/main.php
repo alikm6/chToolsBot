@@ -429,11 +429,7 @@ function get_url_of_str($str)
 function get_attach_link($str)
 {
     $urls = get_url_of_str($str);
-    if (stripos($urls[0], "://farsbot.ir/attach/") !== false ||
-        stripos($urls[0], "://farsbot.ir/attach_s2/") !== false ||
-        stripos($urls[0], "://farsbot.com/attach/") !== false ||
-        stripos($urls[0], "://farsbot.com/attach_s2/") !== false ||
-        stripos($urls[0], "://bots.farsbot.com/chtools/attach/") !== false) {
+    if (stripos($urls[0], str_replace(["https://", "http://"], ["://", "://"], MAIN_LINK) . "/attach.php?id=") !== false) {
         return $urls[0];
     }
 
