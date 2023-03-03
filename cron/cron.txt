@@ -1,0 +1,1 @@
+*/5 * * * * curl https://example.com/mybot/cron/forward.php >/dev/null 2>&1
