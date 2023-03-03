@@ -22,7 +22,7 @@ Before getting started, you will need to create a Telegram bot by following thes
 2. Start a chat with @BotFather and send the message /newbot.
 3. Follow the on-screen instructions to choose a name and username for your bot.
 4. Once you have successfully created your bot, you will receive an API token. Save this token as you will need it later.
-5. Also, make sure that the `Inline mode` for the bot is enabled in the BotFather settings and make sure `Inline feedback` is set to 100%..
+5. Also, make sure that the `Inline mode` for the bot is enabled in the BotFather settings and make sure `Inline feedback` is set to 100%.
 
 ### Clone Repository
 To clone the repository, run the following command in your terminal:
