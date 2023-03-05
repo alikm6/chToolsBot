@@ -22,48 +22,47 @@ function attach_file($user_id, $target_type, $target_id, $channel_id, $file_type
     ]);
 
     if (empty($attachment)) {
-        $ch_m = false;
-
+        $sendError = ['send_error' => false];
         if ($file_type == 'audio') {
-            $ch_m = $tg->sendDocument(array(
-                'chat_id' => '@' . $channel_id,
-                'document' => $file_id
-            ), ['send_error' => false]);
-        } else if ($file_type == 'document') {
-            $ch_m = $tg->sendDocument(array(
-                'chat_id' => '@' . $channel_id,
-                'document' => $file_id
-            ), ['send_error' => false]);
-        } else if ($file_type == 'animation') {
-            $ch_m = $tg->sendAnimation(array(
-                'chat_id' => '@' . $channel_id,
-                'animation' => $file_id
-            ), ['send_error' => false]);
-        } else if ($file_type == 'photo') {
-            $ch_m = $tg->sendPhoto(array(
-                'chat_id' => '@' . $channel_id,
-                'photo' => $file_id
-            ), ['send_error' => false]);
-        } else if ($file_type == 'sticker') {
-            $ch_m = $tg->sendSticker(array(
-                'chat_id' => '@' . $channel_id,
-                'sticker' => $file_id
-            ), ['send_error' => false]);
-        } else if ($file_type == 'video_note') {
-            $ch_m = $tg->sendVideoNote(array(
-                'chat_id' => '@' . $channel_id,
-                'video_note' => $file_id
-            ), ['send_error' => false]);
-        } else if ($file_type == 'video') {
-            $ch_m = $tg->sendVideo(array(
-                'chat_id' => '@' . $channel_id,
-                'video' => $file_id
-            ), ['send_error' => false]);
-        } else if ($file_type == 'voice') {
-            $ch_m = $tg->sendVoice(array(
-                'chat_id' => '@' . $channel_id,
-                'voice' => $file_id
-            ), ['send_error' => false]);
+            $ch_m = $tg->sendDocument([
+                'chat_id' => '@'.$channel_id,
+                'document' => $file_id,
+            ], $sendError);
+        } elseif ($file_type == 'document') {
+            $ch_m = $tg->sendDocument([
+                'chat_id' => '@'.$channel_id,
+                'document' => $file_id,
+            ], $sendError);
+        } elseif ($file_type == 'animation') {
+            $ch_m = $tg->sendAnimation([
+                'chat_id' => '@'.$channel_id,
+                'animation' => $file_id,
+            ], $sendError);
+        } elseif ($file_type == 'photo') {
+            $ch_m = $tg->sendPhoto([
+                'chat_id' => '@'.$channel_id,
+                'photo' => $file_id,
+            ], $sendError);
+        } elseif ($file_type == 'sticker') {
+            $ch_m = $tg->sendSticker([
+                'chat_id' => '@'.$channel_id,
+                'sticker' => $file_id,
+            ], $sendError);
+        } elseif ($file_type == 'video_note') {
+            $ch_m = $tg->sendVideoNote([
+                'chat_id' => '@'.$channel_id,
+                'video_note' => $file_id,
+            ], $sendError);
+        } elseif ($file_type == 'video') {
+            $ch_m = $tg->sendVideo([
+                'chat_id' => '@'.$channel_id,
+                'video' => $file_id,
+            ], $sendError);
+        } elseif ($file_type == 'voice') {
+            $ch_m = $tg->sendVoice([
+                'chat_id' => '@'.$channel_id,
+                'voice' => $file_id,
+            ], $sendError);
         } else {
             return false;
         }
