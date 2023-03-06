@@ -28,43 +28,43 @@ function get_file_from_message($message): array
             'type' => 'photo',
             'details' => $message['photo'][count($message['photo']) - 1]
         ];
-    } else if (!empty($message['animation'])) {
+    } elseif (!empty($message['animation'])) {
         $r = [
             'status' => true,
             'type' => 'animation',
             'details' => $message['animation']
         ];
-    } else if (!empty($message['video'])) {
+    } elseif (!empty($message['video'])) {
         $r = [
             'status' => true,
             'type' => 'video',
             'details' => $message['video']
         ];
-    } else if (!empty($message['voice'])) {
+    } elseif (!empty($message['voice'])) {
         $r = [
             'status' => true,
             'type' => 'voice',
             'details' => $message['voice']
         ];
-    } else if (!empty($message['audio'])) {
+    } elseif (!empty($message['audio'])) {
         $r = [
             'status' => true,
             'type' => 'audio',
             'details' => $message['audio']
         ];
-    } else if (!empty($message['document'])) {
+    } elseif (!empty($message['document'])) {
         $r = [
             'status' => true,
             'type' => 'document',
             'details' => $message['document']
         ];
-    } else if (!empty($message['video_note'])) {
+    } elseif (!empty($message['video_note'])) {
         $r = [
             'status' => true,
             'type' => 'video_note',
             'details' => $message['video_note']
         ];
-    } else if (!empty($message['sticker'])) {
+    } elseif (!empty($message['sticker'])) {
         $r = [
             'status' => true,
             'type' => 'sticker',
@@ -79,95 +79,36 @@ function send_file_with_unknown_type(
     $file_id,
     $global_parameters,
     $probable_types = ['photo', 'animation', 'video', 'voice', 'audio', 'document', 'video_note', 'sticker']
-)
-{
+) {
     global $tg;
 
-    $m = false;
-
-    if (in_array('photo', $probable_types)) {
-        $m = $tg->sendPhoto(array_merge(
-            $global_parameters,
-            [
-                'photo' => $file_id
-            ]
-        ), ['send_error' => false]);
-    }
-
-    if (!$m) {
-        if (in_array('animation', $probable_types)) {
-            $m = $tg->sendAnimation(array_merge(
-                $global_parameters,
-                [
-                    'animation' => $file_id
-                ]
-            ), ['send_error' => false]);
+    $send = function ($type, $method) use ($probable_types, $global_parameters, $file_id, $tg) {
+        $m = false;
+        if (in_array($type, $probable_types)) {
+            $m = $tg->$method(array_merge($global_parameters, [
+                $type => $file_id,
+            ]), ['send_error' => false]);
         }
 
-        if (!$m) {
-            if (in_array('video', $probable_types)) {
-                $m = $tg->sendVideo(array_merge(
-                    $global_parameters,
-                    [
-                        'video' => $file_id
-                    ]
-                ), ['send_error' => false]);
-            }
+        return $m;
+    };
 
-            if (!$m) {
-                if (in_array('voice', $probable_types)) {
-                    $m = $tg->sendVoice(array_merge(
-                        $global_parameters,
-                        [
-                            'voice' => $file_id
-                        ]
-                    ), ['send_error' => false]);
-                }
+    $methods = [
+        ['photo', 'sendPhoto'],
+        ['animation', 'sendAnimation'],
+        ['video', 'sendVideo'],
+        ['voice', 'sendVoice'],
+        ['audio', 'sendAudio'],
+        ['document', 'sendDocument'],
+        ['video_note', 'sendVideoNote'],
+        ['sticker', 'sendSticker'],
+    ];
 
-                if (!$m) {
-                    if (in_array('audio', $probable_types)) {
-                        $m = $tg->sendAudio(array_merge(
-                            $global_parameters,
-                            [
-                                'audio' => $file_id
-                            ]
-                        ), ['send_error' => false]);
-                    }
+    foreach ($methods as [$type, $method]) {
+        $m = $send($type, $method);
 
-                    if (!$m) {
-                        if (in_array('document', $probable_types)) {
-                            $m = $tg->sendDocument(array_merge(
-                                $global_parameters,
-                                [
-                                    'document' => $file_id
-                                ]
-                            ), ['send_error' => false]);
-                        }
-
-                        if (!$m) {
-                            if (in_array('video_note', $probable_types)) {
-                                $m = $tg->sendVideoNote(array_merge(
-                                    $global_parameters,
-                                    [
-                                        'video_note' => $file_id
-                                    ]
-                                ), ['send_error' => false]);
-                            }
-
-                            if (!$m) {
-                                if (in_array('sticker', $probable_types)) {
-                                    $m = $tg->sendSticker(array_merge(
-                                        $global_parameters,
-                                        [
-                                            'sticker' => $file_id
-                                        ]
-                                    ), ['send_error' => false]);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+        if ($m) {
+            return $m;
         }
     }
 
