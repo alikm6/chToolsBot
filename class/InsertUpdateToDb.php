@@ -53,64 +53,64 @@ class InsertUpdateToDb
             }
 
             return $db_chat_id;
-        } else {
-            if (
-                (isset($chat['type']) && $db_chat['type'] != $chat['type']) ||
-                (!isset($chat['type']) && $db_chat['type'] != null) ||
-                (isset($chat['title']) && $db_chat['title'] != $chat['title']) ||
-                (!isset($chat['title']) && $db_chat['title'] != null) ||
-                (isset($chat['username']) && $db_chat['username'] != $chat['username']) ||
-                (!isset($chat['username']) && $db_chat['username'] != null) ||
-                (isset($chat['first_name']) && $db_chat['first_name'] != $chat['first_name']) ||
-                (!isset($chat['first_name']) && $db_chat['first_name'] != null) ||
-                (isset($chat['last_name']) && $db_chat['last_name'] != $chat['last_name']) ||
-                (!isset($chat['last_name']) && $db_chat['last_name'] != null)
-            ) {
-                $p = [];
+        }
 
-                if (isset($chat['type']) && $chat['type'] != null) {
-                    $p['type'] = $chat['type'];
-                } else {
-                    $p['type'] = NULL;
-                }
+        if (
+            (isset($chat['type']) && $db_chat['type'] != $chat['type']) ||
+            (!isset($chat['type']) && $db_chat['type'] != null) ||
+            (isset($chat['title']) && $db_chat['title'] != $chat['title']) ||
+            (!isset($chat['title']) && $db_chat['title'] != null) ||
+            (isset($chat['username']) && $db_chat['username'] != $chat['username']) ||
+            (!isset($chat['username']) && $db_chat['username'] != null) ||
+            (isset($chat['first_name']) && $db_chat['first_name'] != $chat['first_name']) ||
+            (!isset($chat['first_name']) && $db_chat['first_name'] != null) ||
+            (isset($chat['last_name']) && $db_chat['last_name'] != $chat['last_name']) ||
+            (!isset($chat['last_name']) && $db_chat['last_name'] != null)
+        ) {
+            $p = [];
 
-                if (isset($chat['title']) && $chat['title'] != null) {
-                    $p['title'] = $chat['title'];
-                } else {
-                    $p['title'] = NULL;
-                }
-
-                if (isset($chat['username']) && $chat['username'] != null) {
-                    $p['username'] = $chat['username'];
-                } else {
-                    $p['username'] = NULL;
-                }
-
-                if (isset($chat['first_name']) && $chat['first_name'] != null) {
-                    $p['first_name'] = $chat['first_name'];
-                } else {
-                    $p['first_name'] = NULL;
-                }
-
-                if (isset($chat['last_name']) && $chat['last_name'] != null) {
-                    $p['last_name'] = $chat['last_name'];
-                } else {
-                    $p['last_name'] = NULL;
-                }
-
-                $p['update_date'] = time();
-
-                $this->db->where('id', $db_chat['id']);
-
-                $tmp = $this->db->update('tg_Chat', $p);
-
-                if (!$tmp) {
-                    return false;
-                }
+            if (isset($chat['type']) && $chat['type'] != null) {
+                $p['type'] = $chat['type'];
+            } else {
+                $p['type'] = NULL;
             }
 
-            return $db_chat['id'];
+            if (isset($chat['title']) && $chat['title'] != null) {
+                $p['title'] = $chat['title'];
+            } else {
+                $p['title'] = NULL;
+            }
+
+            if (isset($chat['username']) && $chat['username'] != null) {
+                $p['username'] = $chat['username'];
+            } else {
+                $p['username'] = NULL;
+            }
+
+            if (isset($chat['first_name']) && $chat['first_name'] != null) {
+                $p['first_name'] = $chat['first_name'];
+            } else {
+                $p['first_name'] = NULL;
+            }
+
+            if (isset($chat['last_name']) && $chat['last_name'] != null) {
+                $p['last_name'] = $chat['last_name'];
+            } else {
+                $p['last_name'] = NULL;
+            }
+
+            $p['update_date'] = time();
+
+            $this->db->where('id', $db_chat['id']);
+
+            $tmp = $this->db->update('tg_Chat', $p);
+
+            if (!$tmp) {
+                return false;
+            }
         }
+
+        return $db_chat['id'];
     }
 
     /**
@@ -157,7 +157,7 @@ class InsertUpdateToDb
             }
 
             return $db_user_id;
-        } else {
+        }
             if (
                 (isset($user['is_bot']) && $db_user['is_bot'] == 0 && $user['is_bot'] == true) ||
                 (!isset($user['is_bot']) && $db_user['is_bot'] != 0) ||
@@ -172,7 +172,7 @@ class InsertUpdateToDb
             ) {
                 $p = [];
 
-                if (isset($user['is_bot']) && $user['is_bot'] == true) {
+                if (isset($user['is_bot']) && $user['is_bot']) {
                     $p['is_bot'] = 1;
                 } else {
                     $p['is_bot'] = 0;
@@ -214,7 +214,6 @@ class InsertUpdateToDb
             }
 
             return $db_user['id'];
-        }
     }
 
     /**
