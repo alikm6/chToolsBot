@@ -48,7 +48,11 @@ In addition to setting the config.php file, there is one more important step to 
 To receive updates from Telegram, you need to set up a webhook for your bot. This can be done using the following steps:
 1. First, make sure your server has a valid SSL certificate and is accessible over HTTPS.
 2. Next, obtain your bot's token from the BotFather on Telegram.
-3. Determine the URL where your bot will be hosted. This should be the full URL to your `webhook.php` file, including the domain and path. For example, https://example.com/mybot/webhook.php.
+3. Determine the URL where your bot will be hosted. This should be the full URL to your `webhook.php` file, including the domain and path.
+
+   The URL should also include the GET request parameter `token=<bot_token>` to pass the token for your bot.
+   
+   For example, https://example.com/mybot/webhook.php?token=1234567890:abcdefghijklmnopqrstuvwxyz.
 4. Set up the Telegram bot webhook manually by sending a request to the Telegram Bot API with the following parameters:
    ```consol
     https://api.telegram.org/bot<bot_token>/setWebhook?url=<webhook_url>&max_connections=100
