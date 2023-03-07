@@ -1,15 +1,22 @@
 {
-    "config": {
-        "platform": {
-            "php": "7.4.15"
-        }
-    },
-    "require": {
-        "morilog/jalali": "3.*",
-        "php-curl-class/php-curl-class": "@dev"
+  "config": {
+    "platform": {
+      "php": "7.4.15"
     }
-    ,
-    "require-dev": {
-        "roave/security-advisories": "dev-master"
+  },
+  "license": "MIT",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/alikm6/PHP-MySQLi-Database-Class"
     }
+  ],
+  "require": {
+    "php-curl-class/php-curl-class": "dev-master",
+    "morilog/jalali": "3.*",
+    "alikm6/php-telegram-bot": "1.6.5",
+    "alikm6/php-pomo": "1.*",
+    "thingengineer/mysqli-database-class": "dev-bugfix",
+    "ext-json": "*"
+  }
 }
