@@ -95,10 +95,10 @@ function encode_callback_data($data)
     if ($action && $target_id) {
         $q = "select id from callback_data where action = ? and target_id = ? and data = ? limit 1";
         $p = ['action' => $action, 'target_id' => $target_id, 'data' => $data];
-    } else if ($action) {
+    } elseif ($action) {
         $q = "select id from callback_data where action = ? and target_id is null and data = ? limit 1";
         $p = ['action' => $action, 'data' => $data];
-    } else if ($target_id) {
+    } elseif ($target_id) {
         $q = "select id from callback_data where action is null and target_id = ? and data = ? limit 1";
         $p = ['target_id' => $target_id, 'data' => $data];
     } else {
@@ -228,7 +228,7 @@ function tgUserToText($user, $parse_mode = ''): string
     $link = "";
     if (!empty($user['username'])) {
         $link = "https://t.me/{$user['username']}";
-    } else if (!empty($user['id'])) {
+    } elseif (!empty($user['id'])) {
         $link = "tg://user?id={$user['id']}";
     }
 
@@ -239,7 +239,7 @@ function tgUserToText($user, $parse_mode = ''): string
         } else {
             $r = "[{$name}]({$link})";
         }
-    } else if ($parse_mode == 'html') {
+    } elseif ($parse_mode == 'html') {
         if (empty($link)) {
             $r = htmlspecialchars($name);
         } else {
@@ -276,16 +276,16 @@ function tgChatToText($chat, $parse_mode = '')
     $title = "";
     if (!empty($chat['title'])) {
         $title = $chat['title'];
-    } else if (!empty($chat['first_name'])) {
+    } elseif (!empty($chat['first_name'])) {
         $title = trim($chat['first_name'] . " " . $chat['last_name']);
     }
 
     $link = "";
     if (!empty($chat['username'])) {
         $link = "https://t.me/{$chat['username']}";
-    } else if ($chat['type'] == 'supergroup' || $chat['type'] == 'channel') {
+    } elseif ($chat['type'] == 'supergroup' || $chat['type'] == 'channel') {
         $link = "https://t.me/c/" . substr($chat['id'], 4) . "/100000000";
-    } else if (!empty($chat['invite_link'])) {
+    } elseif (!empty($chat['invite_link'])) {
         $link = $chat['invite_link'];
     }
 
@@ -296,7 +296,7 @@ function tgChatToText($chat, $parse_mode = '')
         } else {
             $r = "[" . markdownspecialchars($title) . "]({$link})";
         }
-    } else if ($parse_mode == 'html') {
+    } elseif ($parse_mode == 'html') {
         if (empty($link)) {
             $r = htmlspecialchars($title);
         } else {
@@ -407,7 +407,7 @@ function send_error($err_message, $err_code = null)
         (!empty($update['callback_query']) && mb_strlen($err_message, 'utf-8') > 200)
     ) {
         $tg->send_error($err_message, $err_code);
-    } else if (!empty($update['callback_query'])) {
+    } elseif (!empty($update['callback_query'])) {
         $tg->answerCallbackQuery(array(
             "callback_query_id" => $update['callback_query']['id'],
             "text" => $err_message,
@@ -504,7 +504,7 @@ function convert_to_hyper($text, $entities = [])
 
                 if ($sub_entity_key == 0) {
                     $replacement = htmlspecialchars($replacement);
-                } else if ($grouped_entities[$grouped_entities_key][$sub_entity_key - 1]['length'] != $entity['length']) {
+                } elseif ($grouped_entities[$grouped_entities_key][$sub_entity_key - 1]['length'] != $entity['length']) {
                     $replacement = mb_convert_encoding(
                         $replacement,
                         'UTF-16',
@@ -538,17 +538,17 @@ function convert_to_hyper($text, $entities = [])
 
                 if ($entity['type'] == 'bold') {
                     $replacement = "<b>" . $replacement . "</b>";
-                } else if ($entity['type'] == 'italic') {
+                } elseif ($entity['type'] == 'italic') {
                     $replacement = "<i>" . $replacement . "</i>";
-                } else if ($entity['type'] == 'underline') {
+                } elseif ($entity['type'] == 'underline') {
                     $replacement = "<u>" . $replacement . "</u>";
-                } else if ($entity['type'] == 'strikethrough') {
+                } elseif ($entity['type'] == 'strikethrough') {
                     $replacement = "<s>" . $replacement . "</s>";
-                } else if ($entity['type'] == 'code') {
+                } elseif ($entity['type'] == 'code') {
                     $replacement = "<code>" . $replacement . "</code>";
-                } else if ($entity['type'] == 'pre') {
+                } elseif ($entity['type'] == 'pre') {
                     $replacement = "<pre>" . $replacement . "</pre>";
-                } else if ($entity['type'] == 'text_link') {
+                } elseif ($entity['type'] == 'text_link') {
                     $replacement = "<a href=\"{$entity['url']}\">" . $replacement . "</a>";
                 }
 
@@ -710,7 +710,7 @@ function limit_access_to_telegram_only()
 
     if (filter_var($client, FILTER_VALIDATE_IP)) {
         $ipAddress = $client;
-    } else if (filter_var($forward, FILTER_VALIDATE_IP)) {
+    } elseif (filter_var($forward, FILTER_VALIDATE_IP)) {
         $ipAddress = $forward;
     } else {
         $ipAddress = $remote;
@@ -768,7 +768,7 @@ function convert_time_to_text($time): string
         } else {
             $text .= " (" . date('l H:i', $time) . ")";
         }
-    } else if (abs($tmp) < 60 * 60) {
+    } elseif (abs($tmp) < 60 * 60) {
         $text .= (int)(abs($tmp) / 60) . " " . __("minutes") . " ";
         if ($tmp < 0) {
             $text .= __("ago");
@@ -781,7 +781,7 @@ function convert_time_to_text($time): string
         } else {
             $text .= " (" . date('l H:i', $time) . ")";
         }
-    } else if (abs($tmp) < 60 * 60 * 24) {
+    } elseif (abs($tmp) < 60 * 60 * 24) {
         $text .= (int)(abs($tmp) / (60 * 60)) . " " . __("hours") . " ";
         if ($tmp < 0) {
             $text .= __("ago");
@@ -794,7 +794,7 @@ function convert_time_to_text($time): string
         } else {
             $text .= " (" . date('l H:i', $time) . ")";
         }
-    } else if (abs($tmp) < 60 * 60 * 24 * 30) {
+    } elseif (abs($tmp) < 60 * 60 * 24 * 30) {
         $text .= (int)(abs($tmp) / (60 * 60 * 24)) . " " . __("days") . " ";
         if ($tmp < 0) {
             $text .= __("ago");
@@ -807,7 +807,7 @@ function convert_time_to_text($time): string
         } else {
             $text .= " (" . date('j F y \a\t H:i', $time) . ")";
         }
-    } else if (abs($tmp) < 60 * 60 * 24 * 365) {
+    } elseif (abs($tmp) < 60 * 60 * 24 * 365) {
         $text .= (int)(abs($tmp) / (60 * 60 * 24 * 30)) . " " . __("months") . " ";
         if ($tmp < 0) {
             $text .= __("ago");

@@ -70,7 +70,7 @@ foreach ($requests as $key => $request) {
 
     if (!$response || (!$response['ok'] && $response['error_code'] == 429)) {
         $pending_chats_id[] = $key;
-    } else if (!$response['ok']) {
+    } elseif (!$response['ok']) {
         $unsuccessful_chats_id[] = $key;
     } else {
         $successful_chats_id[] = $key;

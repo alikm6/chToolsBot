@@ -121,7 +121,7 @@ function get_inlinekey_edit_keyboard($inlinekey)
                 $keyboard[] = [__("Disable link preview")];
             }
         }
-    } else if ($inlinekey['type'] == 'photo' || $inlinekey['type'] == 'video' || $inlinekey['type'] == 'animation' || $inlinekey['type'] == 'document' || $inlinekey['type'] == 'audio' || $inlinekey['type'] == 'voice') {
+    } elseif ($inlinekey['type'] == 'photo' || $inlinekey['type'] == 'video' || $inlinekey['type'] == 'animation' || $inlinekey['type'] == 'document' || $inlinekey['type'] == 'audio' || $inlinekey['type'] == 'voice') {
         if (!empty($inlinekey['text'])) {
             $keyboard[] = [__("Edit caption"), __("Delete caption")];
         } else {
@@ -189,9 +189,9 @@ function send_inlinekey_message($chat_id, $parameters, $send_error = true)
             if (empty($parameters['parse_mode'])) {
                 $tmp_text = hide_link($parameters['attach_url'], 'html') . htmlspecialchars($tmp_text);
                 $parameters['parse_mode'] = 'html';
-            } else if ($parameters['parse_mode'] == 'markdown') {
+            } elseif ($parameters['parse_mode'] == 'markdown') {
                 $tmp_text = hide_link($parameters['attach_url'], 'markdown') . $tmp_text;
-            } else if ($parameters['parse_mode'] == 'html') {
+            } elseif ($parameters['parse_mode'] == 'html') {
                 $tmp_text = hide_link($parameters['attach_url'], 'html') . $tmp_text;
             }
 
@@ -206,7 +206,7 @@ function send_inlinekey_message($chat_id, $parameters, $send_error = true)
             'disable_web_page_preview' => $parameters['web_page_preview'] == 0
         ), ['send_error' => $send_error]);
 
-    } else if ($parameters['type'] == 'photo') {
+    } elseif ($parameters['type'] == 'photo') {
         $m = $tg->sendPhoto(array(
             'chat_id' => $chat_id,
             'photo' => get_file_id_from_file_unique_id($parameters['file_unique_id']),
@@ -214,7 +214,7 @@ function send_inlinekey_message($chat_id, $parameters, $send_error = true)
             'parse_mode' => $parameters['parse_mode'],
             'caption' => $parameters['text']
         ), ['send_error' => $send_error]);
-    } else if ($parameters['type'] == 'video') {
+    } elseif ($parameters['type'] == 'video') {
         $m = $tg->sendVideo(array(
             'chat_id' => $chat_id,
             'video' => get_file_id_from_file_unique_id($parameters['file_unique_id']),
@@ -222,7 +222,7 @@ function send_inlinekey_message($chat_id, $parameters, $send_error = true)
             'parse_mode' => $parameters['parse_mode'],
             'caption' => $parameters['text']
         ), ['send_error' => $send_error]);
-    } else if ($parameters['type'] == 'animation') {
+    } elseif ($parameters['type'] == 'animation') {
         $m = $tg->sendAnimation(array(
             'chat_id' => $chat_id,
             'animation' => get_file_id_from_file_unique_id($parameters['file_unique_id']),
@@ -230,7 +230,7 @@ function send_inlinekey_message($chat_id, $parameters, $send_error = true)
             'parse_mode' => $parameters['parse_mode'],
             'caption' => $parameters['text']
         ), ['send_error' => $send_error]);
-    } else if ($parameters['type'] == 'document') {
+    } elseif ($parameters['type'] == 'document') {
         $m = $tg->sendDocument(array(
             'chat_id' => $chat_id,
             'document' => get_file_id_from_file_unique_id($parameters['file_unique_id']),
@@ -238,7 +238,7 @@ function send_inlinekey_message($chat_id, $parameters, $send_error = true)
             'parse_mode' => $parameters['parse_mode'],
             'caption' => $parameters['text']
         ), ['send_error' => $send_error]);
-    } else if ($parameters['type'] == 'audio') {
+    } elseif ($parameters['type'] == 'audio') {
         $m = $tg->sendAudio(array(
             'chat_id' => $chat_id,
             'audio' => get_file_id_from_file_unique_id($parameters['file_unique_id']),
@@ -246,19 +246,19 @@ function send_inlinekey_message($chat_id, $parameters, $send_error = true)
             'parse_mode' => $parameters['parse_mode'],
             'caption' => $parameters['text']
         ), ['send_error' => $send_error]);
-    } else if ($parameters['type'] == 'sticker') {
+    } elseif ($parameters['type'] == 'sticker') {
         $m = $tg->sendSticker(array(
             'chat_id' => $chat_id,
             'sticker' => get_file_id_from_file_unique_id($parameters['file_unique_id']),
             'reply_markup' => $parameters['keyboard']
         ), ['send_error' => $send_error]);
-    } else if ($parameters['type'] == 'video_note') {
+    } elseif ($parameters['type'] == 'video_note') {
         $m = $tg->sendVideoNote(array(
             'chat_id' => $chat_id,
             'video_note' => get_file_id_from_file_unique_id($parameters['file_unique_id']),
             'reply_markup' => $parameters['keyboard']
         ), ['send_error' => $send_error]);
-    } else if ($parameters['type'] == 'voice') {
+    } elseif ($parameters['type'] == 'voice') {
         $m = $tg->sendVoice(array(
             'chat_id' => $chat_id,
             'voice' => get_file_id_from_file_unique_id($parameters['file_unique_id']),
@@ -266,7 +266,7 @@ function send_inlinekey_message($chat_id, $parameters, $send_error = true)
             'parse_mode' => $parameters['parse_mode'],
             'caption' => $parameters['text']
         ), ['send_error' => $send_error]);
-    } else if ($parameters['type'] == 'contact') {
+    } elseif ($parameters['type'] == 'contact') {
         $contact = json_decode($parameters['data'], true);
         $m = $tg->sendContact(array(
             'chat_id' => $chat_id,
@@ -275,7 +275,7 @@ function send_inlinekey_message($chat_id, $parameters, $send_error = true)
             'last_name' => $contact['last_name'],
             'reply_markup' => $parameters['keyboard']
         ), ['send_error' => $send_error]);
-    } else if ($parameters['type'] == 'venue') {
+    } elseif ($parameters['type'] == 'venue') {
         $venue = json_decode($parameters['data'], true);
         $m = $tg->sendVenue(array(
             'chat_id' => $chat_id,
@@ -286,7 +286,7 @@ function send_inlinekey_message($chat_id, $parameters, $send_error = true)
             'foursquare_id' => $venue['foursquare_id'],
             'reply_markup' => $parameters['keyboard']
         ), ['send_error' => $send_error]);
-    } else if ($parameters['type'] == 'location') {
+    } elseif ($parameters['type'] == 'location') {
         $location = json_decode($parameters['data'], true);
         $m = $tg->sendLocation(array(
             'chat_id' => $chat_id,
@@ -313,7 +313,7 @@ function add_one_item_to_keyboard($current_keyboard, $is_edit = false)
     $item['text'] = $comm['col5'];
     if ($comm['col3'] == 'link') {
         $item['url'] = $comm['col6'];
-    } else if ($comm['col3'] == 'counter') {
+    } elseif ($comm['col3'] == 'counter') {
         $inlinekey_counter_id = $db->insert('inlinekey_counter', [
             'keyboard_id' => $comm['col1']
         ]);
@@ -321,15 +321,15 @@ function add_one_item_to_keyboard($current_keyboard, $is_edit = false)
             send_error(__("Unspecified error occurred. Please try again."), 291);
         }
         $item['callback_data'] = encode_callback_data(['action' => 'inlinekey', 'process' => 'counter', 'id' => $inlinekey_counter_id]);
-    } else if ($comm['col3'] == 'publisher') {
+    } elseif ($comm['col3'] == 'publisher') {
         $item['switch_inline_query'] = $result['inline_id'];
-    } else if ($comm['col3'] == 'alerter') {
+    } elseif ($comm['col3'] == 'alerter') {
         $item['callback_data'] = encode_callback_data(['action' => 'inlinekey', 'process' => 'alert', 'text' => $comm['col6']]);
     }
     $new_keyboard = $current_keyboard;
     if ($comm['col4'] == 'under') {
         $new_keyboard[] = [$item];
-    } else if ($comm['col4'] == 'next') {
+    } elseif ($comm['col4'] == 'next') {
         $new_keyboard[count($new_keyboard) - 1][] = $item;
     }
 
