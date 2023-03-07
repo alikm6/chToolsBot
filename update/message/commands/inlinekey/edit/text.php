@@ -1,6 +1,6 @@
 ﻿<?php
 /** @var MysqliDb $db */
-/** @var Telegram $tg */
+/** @var TelegramBot\Telegram $tg */
 /** @var array $message */
 /** @var array $comm */
 
@@ -16,7 +16,7 @@ if ($comm['name'] == "inlinekey_edit_text") {
                 'chat_id' => $tg->update_from,
                 'text' => __("Input is incorrect, you must send a text.") .
                     cancel_text(),
-                'reply_markup' => $tg->replyKeyboardHide(),
+                'reply_markup' => $tg->ReplyKeyboardRemove(),
             ));
             exit;
         }
@@ -83,7 +83,7 @@ if ($comm['name'] == "inlinekey_edit_text") {
 
         if ($message['text'] == sprintf(__("%s Format"), 'markdown')) {
             $p['col3'] = 'markdown';
-        } else if ($message['text'] == sprintf(__("%s Format"), 'html')) {
+        } elseif ($message['text'] == sprintf(__("%s Format"), 'html')) {
             $p['col3'] = 'html';
         }
 

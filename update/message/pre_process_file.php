@@ -1,6 +1,6 @@
 <?php
 /** @var MysqliDb $db */
-/** @var Telegram $tg */
+/** @var TelegramBot\Telegram $tg */
 /** @var array $message */
 
 $tmp_file = get_file_from_message($message);

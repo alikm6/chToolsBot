@@ -1,5 +1,5 @@
 <?php
-/** @var Telegram $tg */
+/** @var TelegramBot\Telegram $tg */
 
 $is_member = true;
 

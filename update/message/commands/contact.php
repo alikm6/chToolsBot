@@ -1,6 +1,6 @@
 <?php
 /** @var MysqliDb $db */
-/** @var Telegram $tg */
+/** @var TelegramBot\Telegram $tg */
 /** @var array $message */
 
 if ($message['text'][0] == '/') {
@@ -13,7 +13,7 @@ if ($message['text'][0] == '/') {
             'text' => __("Please send us your criticism, suggestion or problem.") . "\n\n" .
                 __("Note that you can send us any type of message and multi message.") .
                 cancel_text(),
-            'reply_markup' => $tg->replyKeyboardHide()
+            'reply_markup' => $tg->ReplyKeyboardRemove()
         ));
         exit;
     }

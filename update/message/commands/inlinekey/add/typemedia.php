@@ -1,6 +1,6 @@
 ﻿<?php
 /** @var MysqliDb $db */
-/** @var Telegram $tg */
+/** @var TelegramBot\Telegram $tg */
 /** @var array $message */
 
 $comm = get_com($tg->update_from);
@@ -19,28 +19,28 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_typemedia") {
         if (!empty($message['photo'])) {
             $p['col1'] = 'photo';
             $p['col2'] = $message['photo'][count($message['photo']) - 1]['file_unique_id'];
-        } else if (!empty($message['video'])) {
+        } elseif (!empty($message['video'])) {
             $p['col1'] = 'video';
             $p['col2'] = $message['video']['file_unique_id'];
-        } else if (!empty($message['animation'])) {
+        } elseif (!empty($message['animation'])) {
             $p['col1'] = 'animation';
             $p['col2'] = $message['animation']['file_unique_id'];
-        } else if (!empty($message['document'])) {
+        } elseif (!empty($message['document'])) {
             $p['col1'] = 'document';
             $p['col2'] = $message['document']['file_unique_id'];
-        } else if (!empty($message['audio'])) {
+        } elseif (!empty($message['audio'])) {
             $p['col1'] = 'audio';
             $p['col2'] = $message['audio']['file_unique_id'];
-        } else if (!empty($message['voice'])) {
+        } elseif (!empty($message['voice'])) {
             $p['col1'] = 'voice';
             $p['col2'] = $message['voice']['file_unique_id'];
-        } else if (!empty($message['video_note'])) {
+        } elseif (!empty($message['video_note'])) {
             $p['col1'] = 'video_note';
             $p['col2'] = $message['video_note']['file_unique_id'];
 
             $p['col5'] = 'null';
             $p['col6'] = 'null';
-        } else if (!empty($message['sticker'])) {
+        } elseif (!empty($message['sticker'])) {
             $p['col1'] = 'sticker';
             $p['col2'] = $message['sticker']['file_unique_id'];
 
@@ -52,7 +52,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_typemedia") {
                 'text' => __("The post you sent is invalid.") . "\n\n" .
                     __("Please send another post.") .
                     cancel_text(),
-                'reply_markup' => $tg->replyKeyboardHide()
+                'reply_markup' => $tg->ReplyKeyboardRemove()
             ));
             empty_com($tg->update_from);
             add_com($tg->update_from, 'inlinekey_add');
@@ -78,7 +78,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_typemedia") {
             ));
             exit;
         }
-    } else if (count($comm) == 5) {
+    } elseif (count($comm) == 5) {
         if (empty($message['text'])) {
             $tg->sendMessage(array(
                 'chat_id' => $tg->update_from,
@@ -137,7 +137,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_typemedia") {
                 exit;
             }
         }
-    } else if (count($comm) == 6) {
+    } elseif (count($comm) == 6) {
         if (
             empty($message['text']) ||
             (
@@ -158,7 +158,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_typemedia") {
 
         if ($message['text'] == sprintf(__("%s Format"), 'markdown')) {
             $p['col6'] = 'markdown';
-        } else if ($message['text'] == sprintf(__("%s Format"), 'html')) {
+        } elseif ($message['text'] == sprintf(__("%s Format"), 'html')) {
             $p['col6'] = 'html';
         }
 

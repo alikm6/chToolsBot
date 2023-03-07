@@ -1,6 +1,6 @@
 ﻿<?php
 /** @var MysqliDb $db */
-/** @var Telegram $tg */
+/** @var TelegramBot\Telegram $tg */
 /** @var array $message */
 
 $comm = get_com($tg->update_from);
@@ -65,7 +65,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_typetext") {
 
         if ($message['text'] == sprintf(__("%s Format"), 'markdown')) {
             $p['col2'] = 'markdown';
-        } else if ($message['text'] == sprintf(__("%s Format"), 'html')) {
+        } elseif ($message['text'] == sprintf(__("%s Format"), 'html')) {
             $p['col2'] = 'html';
         }
 
@@ -109,7 +109,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_typetext") {
             ))
         ));
         exit;
-    } else if (count($comm) == 3) {
+    } elseif (count($comm) == 3) {
         if (
             empty($message['photo']) &&
             empty($message['video']) &&

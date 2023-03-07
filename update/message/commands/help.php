@@ -1,5 +1,5 @@
 ﻿<?php
-/** @var Telegram $tg */
+/** @var TelegramBot\Telegram $tg */
 /** @var array $message */
 
 if ($message['text'][0] == '/') {
@@ -75,7 +75,7 @@ if (!empty($comm) && $comm['name'] == "help") {
 
             if ($type == 'text') {
                 $tg->sendMessage(array_merge($data, $help_message));
-            } else if ($type == 'animation') {
+            } elseif ($type == 'animation') {
                 $tg->sendAnimation(array_merge($data, $help_message));
             }
         }

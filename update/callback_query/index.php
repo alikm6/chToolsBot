@@ -1,6 +1,6 @@
 <?php
 /** @var array $update */
-/** @var Telegram $tg */
+/** @var TelegramBot\Telegram $tg */
 /** @var MysqliDb $db */
 
 $callback_query = $update['callback_query'];

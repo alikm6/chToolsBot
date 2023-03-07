@@ -1,6 +1,6 @@
 ﻿<?php
 /** @var MysqliDb $db */
-/** @var Telegram $tg */
+/** @var TelegramBot\Telegram $tg */
 /** @var array $message */
 
 if ($message['text'][0] == '/') {
@@ -70,13 +70,13 @@ if (!empty($comm) && $comm['name'] == "inlinekey") {
         }
         if ($message['text'] == __("➕ Add")) {
             $message['text'] = '/inlinekey_add';
-        } else if ($message['text'] == __("👀 View List")) {
+        } elseif ($message['text'] == __("👀 View List")) {
             $message['text'] = '/inlinekey_list';
-        } else if ($message['text'] == __("📊 Statistics")) {
+        } elseif ($message['text'] == __("📊 Statistics")) {
             $message['text'] = '/inlinekey_stats';
-        } else if ($message['text'] == __("✏️ Edit")) {
+        } elseif ($message['text'] == __("✏️ Edit")) {
             $message['text'] = '/inlinekey_edit';
-        } else if ($message['text'] == __("❌ Delete")) {
+        } elseif ($message['text'] == __("❌ Delete")) {
             $message['text'] = '/inlinekey_delete';
         }
         empty_com($tg->update_from);

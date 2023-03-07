@@ -1,6 +1,6 @@
 ﻿<?php
 /** @var MysqliDb $db */
-/** @var Telegram $tg */
+/** @var TelegramBot\Telegram $tg */
 /** @var array $message */
 
 if ($message['text'][0] == '/') {
@@ -25,7 +25,7 @@ if ($message['text'][0] == '/') {
                 'chat_id' => $tg->update_from,
                 'text' => __("Please send us the inline code of the item you want to delete.") .
                     cancel_text(),
-                'reply_markup' => $tg->replyKeyboardHide()
+                'reply_markup' => $tg->ReplyKeyboardRemove()
             ));
             exit;
         }
@@ -39,7 +39,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_delete") {
                 'chat_id' => $tg->update_from,
                 'text' => __("Input is incorrect, you must send the inline code.") .
                     cancel_text(),
-                'reply_markup' => $tg->replyKeyboardHide()
+                'reply_markup' => $tg->ReplyKeyboardRemove()
             ));
             exit;
         }
@@ -58,7 +58,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_delete") {
                 'chat_id' => $tg->update_from,
                 'text' => __("If you are sure you want to delete this message containing the inline button, send us \"Yes\".") .
                     cancel_text(),
-                'reply_markup' => $tg->replyKeyboardHide(),
+                'reply_markup' => $tg->ReplyKeyboardRemove(),
                 'reply_to_message_id' => $m['message_id']
             ));
         } else {
@@ -67,16 +67,16 @@ if (!empty($comm) && $comm['name'] == "inlinekey_delete") {
                 'text' => __("No message found with this inline code.") . "\n\n" .
                     __("Please send us the inline code of the item you want to delete correctly.") .
                     cancel_text(),
-                'reply_markup' => $tg->replyKeyboardHide()
+                'reply_markup' => $tg->ReplyKeyboardRemove()
             ));
         }
-    } else if (count($comm) == 2) {
+    } elseif (count($comm) == 2) {
         if (empty($message['text']) || $message['text'] != __("Yes")) {
             $tg->sendMessage(array(
                 'chat_id' => $tg->update_from,
                 'text' => __("Input is incorrect, If you are sure you want to delete this message containing the inline button, send us \"Yes\".") .
                     cancel_text(),
-                'reply_markup' => $tg->replyKeyboardHide()
+                'reply_markup' => $tg->ReplyKeyboardRemove()
             ));
             exit;
         }

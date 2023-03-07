@@ -1,6 +1,6 @@
 <?php
 /** @var MysqliDb $db */
-/** @var Telegram $tg */
+/** @var TelegramBot\Telegram $tg */
 /** @var array $message */
 
 if ($message['text'][0] == '/') {
@@ -47,7 +47,7 @@ if (!empty($comm) && $comm['name'] == "forward") {
 
         if ($message['text'] == __("Copy")) {
             $method = 'copy';
-        } else if ($message['text'] == __("Forward")) {
+        } elseif ($message['text'] == __("Forward")) {
             $method = 'forward';
         }
 
@@ -70,7 +70,7 @@ if (!empty($comm) && $comm['name'] == "forward") {
                 'one_time_keyboard' => true
             ))
         ));
-    } else if (count($comm) == 3) {
+    } elseif (count($comm) == 3) {
         $languages = false;
 
         if (!empty($message['text'])) {
@@ -119,10 +119,10 @@ if (!empty($comm) && $comm['name'] == "forward") {
                 __("Users languages:") . " " . implode(', ', $languages) . "\n" .
                 __("Send 'Yes' if you are sure.") .
                 cancel_text(),
-            'reply_markup' => $tg->replyKeyboardHide(),
+            'reply_markup' => $tg->ReplyKeyboardRemove(),
             'reply_to_message_id' => $comm['col1']
         ));
-    } else if (count($comm) == 4) {
+    } elseif (count($comm) == 4) {
         if (empty($message['text']) || $message['text'] != __("Yes")) {
             $tg->sendMessage(array(
                 'chat_id' => $tg->update_from,

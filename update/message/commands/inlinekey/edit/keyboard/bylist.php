@@ -1,6 +1,6 @@
 ﻿<?php
 /** @var MysqliDb $db */
-/** @var Telegram $tg */
+/** @var TelegramBot\Telegram $tg */
 /** @var array $message */
 
 $comm = get_com($tg->update_from);
@@ -17,7 +17,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_edit_keyboard_bylist") {
                 'text' => __("Please send the inline buttons in the said format.") . "\n\n" .
                     __("⚠ Error: You must send a text in the said format.") .
                     cancel_text(),
-                'reply_markup' => $tg->replyKeyboardHide()
+                'reply_markup' => $tg->ReplyKeyboardRemove()
             ));
             exit;
         }
@@ -27,7 +27,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_edit_keyboard_bylist") {
                 'chat_id' => $tg->update_from,
                 'text' =>  __("Please send the inline buttons in the said format.") . "\n\n" .
                     __("⚠ Error: The number of titles is not equal to the number of links.") . cancel_text(),
-                'reply_markup' => $tg->replyKeyboardHide()
+                'reply_markup' => $tg->ReplyKeyboardRemove()
             ));
             exit;
         }
@@ -42,7 +42,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_edit_keyboard_bylist") {
                         __("⚠ Error: The following link has a problem:") . "\n" .
                         $line[$i] .
                         cancel_text(),
-                    'reply_markup' => $tg->replyKeyboardHide(),
+                    'reply_markup' => $tg->ReplyKeyboardRemove(),
                     'disable_web_page_preview' => true
                 ));
                 exit;
@@ -54,7 +54,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_edit_keyboard_bylist") {
                         __("⚠ Error: The title for the following link is empty:") ."\n" .
                         $line[$i] .
                         cancel_text(),
-                    'reply_markup' => $tg->replyKeyboardHide(),
+                    'reply_markup' => $tg->ReplyKeyboardRemove(),
                     'disable_web_page_preview' => true
                 ));
                 exit;
@@ -75,7 +75,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_edit_keyboard_bylist") {
             $tg->sendMessage(array(
                 'chat_id' => $tg->update_from,
                 'text' => __("Please send the inline buttons in the said format.") . cancel_text(),
-                'reply_markup' => $tg->replyKeyboardHide()
+                'reply_markup' => $tg->ReplyKeyboardRemove()
             ));
             exit;
         }

@@ -1,6 +1,6 @@
 ﻿<?php
 /** @var array $update */
-/** @var Telegram $tg */
+/** @var TelegramBot\Telegram $tg */
 /** @var MysqliDb $db */
 
 $inline_query = $update['inline_query'];
@@ -77,7 +77,7 @@ if (stripos($inline_query['query'], 'share') === 0) {
     $p['results'][0] = $tmp;
     $p['results'] = json_encode($p['results']);
     $tg->answerInlineQuery($p, ['send_error' => false]);
-} else if (trim($inline_query['query']) == '') {
+} elseif (trim($inline_query['query']) == '') {
     $p['inline_query_id'] = $inline_query['id'];
     $p['results'] = json_encode([]);
     $p['switch_pm_text'] = __("Create a new message");
@@ -135,9 +135,9 @@ function convert_to_inline_results($p): array
             if (empty($p['parse_mode'])) {
                 $tmp_text = hide_link($p['attach_url'], 'html') . htmlspecialchars($tmp_text);
                 $p['parse_mode'] = 'html';
-            } else if ($p['parse_mode'] == 'markdown') {
+            } elseif ($p['parse_mode'] == 'markdown') {
                 $tmp_text = hide_link($p['attach_url'], 'markdown') . $tmp_text;
-            } else if ($p['parse_mode'] == 'html') {
+            } elseif ($p['parse_mode'] == 'html') {
                 $tmp_text = hide_link($p['attach_url'], 'html') . $tmp_text;
             }
 
@@ -154,7 +154,7 @@ function convert_to_inline_results($p): array
         $tmp['parse_mode'] = $p['parse_mode'];
         $tmp['disable_web_page_preview'] = $p['web_page_preview'] == 0;
         $tmp['reply_markup'] = json_decode($p['keyboard']);
-    } else if ($p['type'] == 'photo') {
+    } elseif ($p['type'] == 'photo') {
         $tmp['type'] = 'photo';
         $tmp['id'] = $p['inline_id'];
         $tmp['title'] = sprintf(
@@ -167,7 +167,7 @@ function convert_to_inline_results($p): array
         $tmp['parse_mode'] = $p['parse_mode'];
         $tmp['photo_file_id'] = get_file_id_from_file_unique_id($p['file_unique_id']);
         $tmp['reply_markup'] = json_decode($p['keyboard']);
-    } else if ($p['type'] == 'video') {
+    } elseif ($p['type'] == 'video') {
         $tmp['type'] = 'video';
         $tmp['id'] = $p['inline_id'];
         $tmp['title'] = sprintf(
@@ -180,7 +180,7 @@ function convert_to_inline_results($p): array
         $tmp['parse_mode'] = $p['parse_mode'];
         $tmp['video_file_id'] = get_file_id_from_file_unique_id($p['file_unique_id']);
         $tmp['reply_markup'] = json_decode($p['keyboard']);
-    } else if ($p['type'] == 'animation') {
+    } elseif ($p['type'] == 'animation') {
         $tmp['type'] = 'gif';
         $tmp['id'] = $p['inline_id'];
         $tmp['title'] = sprintf(
@@ -193,7 +193,7 @@ function convert_to_inline_results($p): array
         $tmp['parse_mode'] = $p['parse_mode'];
         $tmp['gif_file_id'] = get_file_id_from_file_unique_id($p['file_unique_id']);
         $tmp['reply_markup'] = json_decode($p['keyboard']);
-    } else if ($p['type'] == 'document') {
+    } elseif ($p['type'] == 'document') {
         $tmp['type'] = 'document';
         $tmp['id'] = $p['inline_id'];
         $tmp['title'] = sprintf(
@@ -206,7 +206,7 @@ function convert_to_inline_results($p): array
         $tmp['parse_mode'] = $p['parse_mode'];
         $tmp['document_file_id'] = get_file_id_from_file_unique_id($p['file_unique_id']);
         $tmp['reply_markup'] = json_decode($p['keyboard']);
-    } else if ($p['type'] == 'audio') {
+    } elseif ($p['type'] == 'audio') {
         $tmp['type'] = 'audio';
         $tmp['id'] = $p['inline_id'];
         $tmp['title'] = sprintf(
@@ -219,17 +219,17 @@ function convert_to_inline_results($p): array
         $tmp['parse_mode'] = $p['parse_mode'];
         $tmp['audio_file_id'] = get_file_id_from_file_unique_id($p['file_unique_id']);
         $tmp['reply_markup'] = json_decode($p['keyboard']);
-    } else if ($p['type'] == 'sticker') {
+    } elseif ($p['type'] == 'sticker') {
         $tmp['type'] = 'sticker';
         $tmp['id'] = $p['inline_id'];
         $tmp['sticker_file_id'] = get_file_id_from_file_unique_id($p['file_unique_id']);
         $tmp['reply_markup'] = json_decode($p['keyboard']);
-    }/* else if($p['type'] == 'video_note') {
+    }/* elseif($p['type'] == 'video_note') {
 		$tmp['type'] = 'video_note';
 		$tmp['id'] = $p['inline_id'];
 		$tmp['video_note_file_id'] = get_file_id_from_file_unique_id($p['file_unique_id']);
 		$tmp['reply_markup'] = json_decode($p['keyboard']);
-	}*/ else if ($p['type'] == 'voice') {
+	}*/ elseif ($p['type'] == 'voice') {
         $tmp['type'] = 'voice';
         $tmp['id'] = $p['inline_id'];
         $tmp['title'] = sprintf(
@@ -242,7 +242,7 @@ function convert_to_inline_results($p): array
         $tmp['parse_mode'] = $p['parse_mode'];
         $tmp['voice_file_id'] = get_file_id_from_file_unique_id($p['file_unique_id']);
         $tmp['reply_markup'] = json_decode($p['keyboard']);
-    } else if ($p['type'] == 'contact') {
+    } elseif ($p['type'] == 'contact') {
         $contact = json_decode($p['data'], true);
         $tmp['type'] = 'contact';
         $tmp['id'] = $p['inline_id'];
@@ -252,7 +252,7 @@ function convert_to_inline_results($p): array
             $tmp['last_name'] = $contact['last_name'];
         }
         $tmp['reply_markup'] = json_decode($p['keyboard']);
-    } else if ($p['type'] == 'venue') {
+    } elseif ($p['type'] == 'venue') {
         $venue = json_decode($p['data'], true);
         $tmp['type'] = 'venue';
         $tmp['id'] = $p['inline_id'];
@@ -264,7 +264,7 @@ function convert_to_inline_results($p): array
             $tmp['foursquare_id'] = $venue['foursquare_id'];
         }
         $tmp['reply_markup'] = json_decode($p['keyboard']);
-    } else if ($p['type'] == 'location') {
+    } elseif ($p['type'] == 'location') {
         $location = json_decode($p['data'], true);
         $tmp['type'] = 'location';
         $tmp['id'] = $p['inline_id'];

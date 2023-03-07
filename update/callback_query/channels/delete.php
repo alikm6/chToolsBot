@@ -1,6 +1,6 @@
 <?php
 /** @var MysqliDb $db */
-/** @var Telegram $tg */
+/** @var TelegramBot\Telegram $tg */
 /** @var array $callback_query */
 /** @var array $callback_data */
 

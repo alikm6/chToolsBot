@@ -1,5 +1,5 @@
 ﻿<?php
-/** @var Telegram $tg */
+/** @var TelegramBot\Telegram $tg */
 /** @var array $message */
 
 if ($message['text'][0] == '/') {
@@ -14,7 +14,7 @@ if ($message['text'][0] == '/') {
                 __("This can be text 📝, photo 🖼, video 🎥, gif 📹, voice 🔊, sticker, file 📎 and anything else.") . "\n\n" .
                 __("Also note that you can submit your text in html format or the original telegram format (for hyper). (Read /help_html and /help_markdown to learn formatting)") .
                 cancel_text(),
-            'reply_markup' => $tg->replyKeyboardHide()
+            'reply_markup' => $tg->ReplyKeyboardRemove()
         ));
         exit;
     }
@@ -24,7 +24,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add") {
     if (!empty($message['text'])) {
         empty_com($tg->update_from);
         add_com($tg->update_from, 'inlinekey_add_typetext');
-    } else if (
+    } elseif (
         !empty($message['photo']) ||
         !empty($message['video']) ||
         !empty($message['animation']) ||
@@ -36,7 +36,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add") {
     ) {
         empty_com($tg->update_from);
         add_com($tg->update_from, 'inlinekey_add_typemedia');
-    } else if (
+    } elseif (
         !empty($message['contact']) ||
         !empty($message['venue']) ||
         !empty($message['location'])
@@ -49,7 +49,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add") {
             'text' => __("The post you sent is invalid.") . "\n" .
                 __("Please send another post.") .
                 cancel_text(),
-            'reply_markup' => $tg->replyKeyboardHide()
+            'reply_markup' => $tg->ReplyKeyboardRemove()
         ));
         exit;
     }

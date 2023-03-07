@@ -1,6 +1,6 @@
 <?php
 /** @var MysqliDb $db */
-/** @var Telegram $tg */
+/** @var TelegramBot\Telegram $tg */
 /** @var array $message */
 /** @var InsertUpdateToDb $insert_update_to_db */
 
@@ -127,7 +127,7 @@ if (!empty($comm) && $comm['name'] == "sendto") {
                 'text' => __("Please forward the message you want to post in your channel without quotes to the robot.") . "\n\n" .
                     __("If you want to post the message containing the inline button that you made with this robot in your channel, send the inline code of this message to the robot.") .
                     cancel_text(),
-                'reply_markup' => $tg->replyKeyboardHide()
+                'reply_markup' => $tg->ReplyKeyboardRemove()
             ]);
 
             exit();
@@ -200,7 +200,7 @@ if (!empty($comm) && $comm['name'] == "sendto") {
                     'one_time_keyboard' => true
                 ));
             } else {
-                $keyboard = $tg->replyKeyboardHide();
+                $keyboard = $tg->ReplyKeyboardRemove();
             }
 
             $tg->sendMessage([
@@ -354,7 +354,7 @@ if (!empty($comm) && $comm['name'] == "sendto") {
                     'disable_notification' => !$setting['sendto_notification']
                 ], ['send_error' => false]);
             }
-        } else if ($message_details['type'] == 'inlinekey') {
+        } elseif ($message_details['type'] == 'inlinekey') {
             $q = "select * from inlinekey where inline_id=? and status = 1 limit 1";
             $result = $db->rawQueryOne($q, [
                 "inline_id" => $message_details['inline_id']
@@ -424,7 +424,7 @@ if (!empty($comm) && $comm['name'] == "sendto") {
         $text = __("The content was successfully posted on the channel.");
         if (!empty($target_chat['username'])) {
             $text .= "\n" . "https://t.me/{$target_chat['username']}/{$m['message_id']}";
-        } else if (!empty($target_chat['id'])) {
+        } elseif (!empty($target_chat['id'])) {
             $text .= "\n" . "https://t.me/c/" . substr($target_chat['id'], 4) . "/{$m['message_id']}";
         }
 

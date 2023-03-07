@@ -1,5 +1,5 @@
 ﻿<?php
-/** @var Telegram $tg */
+/** @var TelegramBot\Telegram $tg */
 /** @var array $message */
 
 $comm = get_com($tg->update_from);
@@ -57,7 +57,7 @@ if (!empty($comm) && $comm['name'] == "hyper_typetext") {
             'reply_markup' => $keyboard
         ));
 
-    } else if (count($comm) == 3) {
+    } elseif (count($comm) == 3) {
         if (
             (empty($message['audio']) && empty($message['animation']) && empty($message['document']) && empty($message['photo']) && empty($message['sticker']) && empty($message['video']) && empty($message['voice']) && empty($message['text']) && empty($message['video_note'])) ||
             (!empty($message['text']) && strtolower($message['text']) != "skip")
@@ -138,7 +138,7 @@ if (!empty($comm) && $comm['name'] == "hyper_typetext") {
             'text' => $comm['col2'],
             'parse_mode' => $comm['col1'],
             'disable_web_page_preview' => $disable_web_page_preview,
-            'reply_markup' => $tg->replyKeyboardHide()
+            'reply_markup' => $tg->ReplyKeyboardRemove()
         ), ['send_error' => false]);
         if (!$m) {
             $tg->sendMessage(array(

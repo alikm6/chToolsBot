@@ -1,6 +1,6 @@
 ﻿<?php
 /** @var MysqliDb $db */
-/** @var Telegram $tg */
+/** @var TelegramBot\Telegram $tg */
 /** @var array $message */
 
 $comm = get_com($tg->update_from);
@@ -8,10 +8,10 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_typeother") {
     if (!empty($message['contact'])) {
         $type = 'contact';
         $data = json_encode($message['contact']);
-    } else if (!empty($message['venue'])) {
+    } elseif (!empty($message['venue'])) {
         $type = 'venue';
         $data = json_encode($message['venue']);
-    } else if (!empty($message['location'])) {
+    } elseif (!empty($message['location'])) {
         $type = 'location';
         $data = json_encode($message['location']);
     } else {
@@ -20,7 +20,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_typeother") {
             'text' => __("The post you sent is invalid.") . "\n" .
                 __("Please send another post.") .
                 cancel_text(),
-            'reply_markup' => $tg->replyKeyboardHide()
+            'reply_markup' => $tg->ReplyKeyboardRemove()
         ));
         empty_com($tg->update_from);
         add_com($tg->update_from, 'inlinekey_add');

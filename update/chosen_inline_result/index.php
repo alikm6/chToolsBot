@@ -1,6 +1,6 @@
 ﻿<?php
 /** @var array $update */
-/** @var Telegram $tg */
+/** @var TelegramBot\Telegram $tg */
 /** @var MysqliDb $db */
 
 $chosen_inline_result = $update['chosen_inline_result'];

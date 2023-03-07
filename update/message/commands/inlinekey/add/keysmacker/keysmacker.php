@@ -1,6 +1,6 @@
 ﻿<?php
 /** @var MysqliDb $db */
-/** @var Telegram $tg */
+/** @var TelegramBot\Telegram $tg */
 /** @var array $message */
 
 $comm = get_com($tg->update_from);
@@ -27,7 +27,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_keysmacker") {
                 'one_time_keyboard' => true
             ))
         ));
-    } else if (count($comm) == 9) {
+    } elseif (count($comm) == 9) {
         if ($message['text'] != __("List") && $message['text'] != __("One by One")) {
             $tg->sendMessage(array(
                 'chat_id' => $tg->update_from,
@@ -75,11 +75,11 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_keysmacker") {
                     __("⚠ Important Note:") . "\n" .
                     __("Your links must start with http:// or https://.") .
                     cancel_text(),
-                'reply_markup' => $tg->replyKeyboardHide(),
+                'reply_markup' => $tg->ReplyKeyboardRemove(),
                 'disable_web_page_preview' => true,
                 'parse_mode' => 'html'
             ));
-        } else if ($message['text'] == __("One by One")) {
+        } elseif ($message['text'] == __("One by One")) {
             add_com($tg->update_from, 'inlinekey_add_keysmacker_onebyone');
             $tg->sendMessage(array(
                 'chat_id' => $tg->update_from,

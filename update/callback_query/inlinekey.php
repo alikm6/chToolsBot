@@ -1,5 +1,5 @@
 <?php
-/** @var Telegram $tg */
+/** @var TelegramBot\Telegram $tg */
 /** @var MysqliDb $db */
 /** @var array $callback_data */
 /** @var array $callback_query */
@@ -44,7 +44,7 @@ if ($callback_data['action'] == 'inlinekey') {
                     $is_published = true;
                     break;
                 }
-            } else if (!empty($inlinekey_chosen['inline_message_id'])) {
+            } elseif (!empty($inlinekey_chosen['inline_message_id'])) {
                 if (!empty($callback_query['inline_message_id']) && $callback_query['inline_message_id'] == $inlinekey_chosen['inline_message_id']) {
                     $is_published = true;
                     break;
@@ -130,7 +130,7 @@ if ($callback_data['action'] == 'inlinekey') {
 
         if (empty($counter_stats)) {
             $answer_text = sprintf(__("☝️ You voted for \"%s\"."), $vote_options[$inlinekey_counter['id']]['text']);
-        } else if ($counter_stats['counter_id'] == $inlinekey_counter['id']) {
+        } elseif ($counter_stats['counter_id'] == $inlinekey_counter['id']) {
             $answer_text = __("☝️ You withdrew your vote.");
         } else {
             $answer_text = sprintf(__("☝️ You changed your vote to \"%s\"."), $vote_options[$inlinekey_counter['id']]['text']);
@@ -143,7 +143,7 @@ if ($callback_data['action'] == 'inlinekey') {
             foreach ($vote_options as $vote_option) {
                 if ($inlinekey['counter_type'] == 'percent' && $all_vote_count != 0) {
                     $tmp1 .= $vote_option['text'] . " - " . round($vote_option['count'] / $all_vote_count * 100) . "%" . "\n";
-                } else if ($inlinekey['counter_type'] == 'count') {
+                } elseif ($inlinekey['counter_type'] == 'count') {
                     if ($vote_option['count'] >= 1000) {
                         $vote_option['count'] = floor($vote_option['count'] / 100) / 10;
                         $vote_option['count'] .= "k";
@@ -156,7 +156,7 @@ if ($callback_data['action'] == 'inlinekey') {
 
             if (mb_strlen($answer_text . $tmp1 . $tmp2) <= 200) {
                 $answer_text .= $tmp1 . $tmp2;
-            } else if (mb_strlen($answer_text . $tmp2) <= 200) {
+            } elseif (mb_strlen($answer_text . $tmp2) <= 200) {
                 $answer_text .= $tmp2;
             }
         }
@@ -178,7 +178,7 @@ if ($callback_data['action'] == 'inlinekey') {
                     'message_id' => $callback_query['message']['message_id'],
                     'reply_markup' => $keyboard
                 ];
-            } else if (!empty($callback_query['inline_message_id'])) {
+            } elseif (!empty($callback_query['inline_message_id'])) {
                 $data = [
                     'inline_message_id' => $callback_query['inline_message_id'],
                     'reply_markup' => $keyboard
@@ -198,7 +198,7 @@ if ($callback_data['action'] == 'inlinekey') {
             "text" => $answer_text,
             "show_alert" => $inlinekey['show_alert'] == 1
         ), ['send_error' => false]);
-    } else if ($callback_data['process'] == 'alert') {
+    } elseif ($callback_data['process'] == 'alert') {
         $tg->answerCallbackQuery(array(
             "callback_query_id" => $callback_query['id'],
             "text" => $callback_data['text'],

@@ -1,6 +1,6 @@
 <?php
 /** @var MysqliDb $db */
-/** @var Telegram $tg */
+/** @var TelegramBot\Telegram $tg */
 /** @var array $message */
 
 if ($message['text'][0] == '/') {
@@ -66,21 +66,21 @@ if (!empty($comm) && $comm['name'] == "stats") {
 
     if ($message['text'] == __("Today")) {
         $date = strtotime('today 00:00');
-    } else if ($message['text'] == __("24 hours ago")) {
+    } elseif ($message['text'] == __("24 hours ago")) {
         $date = strtotime('-24 hour');
-    } else if ($message['text'] == __("1 week ago")) {
+    } elseif ($message['text'] == __("1 week ago")) {
         $date = strtotime('-1 week');
-    } else if ($message['text'] == __("10 days ago")) {
+    } elseif ($message['text'] == __("10 days ago")) {
         $date = strtotime('-10 day');
-    } else if ($message['text'] == __("1 month ago")) {
+    } elseif ($message['text'] == __("1 month ago")) {
         $date = strtotime('-1 month');
-    } else if ($message['text'] == __("3 months ago")) {
+    } elseif ($message['text'] == __("3 months ago")) {
         $date = strtotime('-3 month');
-    } else if ($message['text'] == __("6 months ago")) {
+    } elseif ($message['text'] == __("6 months ago")) {
         $date = strtotime('-6 month');
-    } else if ($message['text'] == __("1 year ago")) {
+    } elseif ($message['text'] == __("1 year ago")) {
         $date = strtotime('-1 year');
-    } else if ($message['text'] == __("Total")) {
+    } elseif ($message['text'] == __("Total")) {
         $date = 0;
     } else {
         $date = strtotime($message['text']);

@@ -1,5 +1,5 @@
 <?php
-/** @var Telegram $tg */
+/** @var TelegramBot\Telegram $tg */
 /** @var MysqliDb $db */
 /** @var array $message */
 
@@ -106,7 +106,7 @@ if (!empty($message['reply_to_message'])) {
                 'parse_mode' => 'html'
             ));
         }
-    } else if (!empty($content['animation'])) {
+    } elseif (!empty($content['animation'])) {
         $file = $content['animation'];
 
         if (mb_strlen($message['text'], "utf-8") <= 1024) {
@@ -134,7 +134,7 @@ if (!empty($message['reply_to_message'])) {
                 'parse_mode' => 'html'
             ));
         }
-    } else if (!empty($content['document'])) {
+    } elseif (!empty($content['document'])) {
         $file = $content['document'];
 
         if (mb_strlen($message['text'], "utf-8") <= 1024) {
@@ -162,7 +162,7 @@ if (!empty($message['reply_to_message'])) {
                 'parse_mode' => 'html'
             ));
         }
-    } else if (!empty($content['video'])) {
+    } elseif (!empty($content['video'])) {
         $file = $content['video'];
 
         if (mb_strlen($message['text'], "utf-8") <= 1024) {
@@ -190,7 +190,7 @@ if (!empty($message['reply_to_message'])) {
                 'parse_mode' => 'html'
             ));
         }
-    } else if (!empty($content['voice'])) {
+    } elseif (!empty($content['voice'])) {
         $file = $content['voice'];
 
         if (mb_strlen($message['text'], "utf-8") <= 1024) {
@@ -218,7 +218,7 @@ if (!empty($message['reply_to_message'])) {
                 'parse_mode' => 'html'
             ));
         }
-    } else if (!empty($content['audio'])) {
+    } elseif (!empty($content['audio'])) {
         $file = $content['audio'];
 
         if (mb_strlen($message['text'], "utf-8") <= 1024) {
@@ -246,7 +246,7 @@ if (!empty($message['reply_to_message'])) {
                 'parse_mode' => 'html'
             ));
         }
-    } else if (!empty($content['sticker'])) {
+    } elseif (!empty($content['sticker'])) {
         $file = $content['sticker'];
 
         $attachment_id = attach_file($tg->update_from, 'process', null, ATTACH_CHANNEL, 'sticker', $file['file_id'], $file['file_unique_id']);
@@ -265,7 +265,7 @@ if (!empty($message['reply_to_message'])) {
             'text' => hide_link(generate_attachment_url($attachment_id), 'html') . $new_text,
             'parse_mode' => 'html'
         ));
-    } else if (!empty($content['video_note'])) {
+    } elseif (!empty($content['video_note'])) {
         $file = $content['video_note'];
 
         $attachment_id = attach_file($tg->update_from, 'process', null, ATTACH_CHANNEL, 'video_note', $file['file_id'], $file['file_unique_id']);

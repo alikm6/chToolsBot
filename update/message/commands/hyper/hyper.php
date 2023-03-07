@@ -1,5 +1,5 @@
 ﻿<?php
-/** @var Telegram $tg */
+/** @var TelegramBot\Telegram $tg */
 /** @var array $message */
 
 if ($message['text'][0] == '/') {
@@ -12,9 +12,9 @@ if ($message['text'][0] == '/') {
                 edit_com($tg->update_from, ["col1" => $words[1]]);
 
                 $message = $message['reply_to_message'];
-            } else if ($words[1] == 'html') {
+            } elseif ($words[1] == 'html') {
                 $message['text'] = sprintf(__("%s Format"), 'html');
-            } else if ($words[1] == 'markdown') {
+            } elseif ($words[1] == 'markdown') {
                 $message['text'] = sprintf(__("%s Format"), 'markdown');
             }
         } else {
@@ -59,24 +59,24 @@ if (!empty($comm) && $comm['name'] == "hyper") {
                 'text' => __("Now send us your post in markdown format.") . "\n\n" .
                     __("If you want to hyper caption of a photo🖼, video🎥, gif📹, voice or music🔊 or file📎, submit that file first.") .
                     cancel_text(),
-                'reply_markup' => $tg->replyKeyboardHide()
+                'reply_markup' => $tg->ReplyKeyboardRemove()
             ));
-        } else if ($message['text'] == sprintf(__("%s Format"), 'html')) {
+        } elseif ($message['text'] == sprintf(__("%s Format"), 'html')) {
             edit_com($tg->update_from, ["col1" => 'html']);
             $tg->sendMessage(array(
                 'chat_id' => $tg->update_from,
                 'text' => __("Now send us your post in markdown format.") . "\n\n" .
                     __("If you want to hyper caption of a photo🖼, video🎥, gif📹, voice or music🔊 or file📎, submit that file first.") .
                     cancel_text(),
-                'reply_markup' => $tg->replyKeyboardHide()
+                'reply_markup' => $tg->ReplyKeyboardRemove()
             ));
         }
         exit;
-    } else if (count($comm) == 2) {
+    } elseif (count($comm) == 2) {
         if (!empty($message['text'])) {
             empty_com($tg->update_from);
             add_com($tg->update_from, 'hyper_typetext');
-        } else if (!empty($message['photo']) || !empty($message['video']) || !empty($message['animation']) || !empty($message['document']) || !empty($message['audio']) || !empty($message['voice'])) {
+        } elseif (!empty($message['photo']) || !empty($message['video']) || !empty($message['animation']) || !empty($message['document']) || !empty($message['audio']) || !empty($message['voice'])) {
             empty_com($tg->update_from);
             add_com($tg->update_from, 'hyper_typemedia');
         } else {
@@ -85,7 +85,7 @@ if (!empty($comm) && $comm['name'] == "hyper") {
                 'text' => __("The content you submitted is invalid.") . "\n\n" .
                     __("Please submit a text, photo, video, gif, Weiss, music, or file.") .
                     cancel_text(),
-                'reply_markup' => $tg->replyKeyboardHide()
+                'reply_markup' => $tg->ReplyKeyboardRemove()
             ));
             exit;
         }

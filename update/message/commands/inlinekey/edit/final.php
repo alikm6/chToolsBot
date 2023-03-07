@@ -1,6 +1,6 @@
 <?php
 /** @var MysqliDb $db */
-/** @var Telegram $tg */
+/** @var TelegramBot\Telegram $tg */
 /** @var array $message */
 /** @var array $comm */
 
@@ -90,7 +90,7 @@ if ($comm['name'] == "inlinekey_edit_final") {
             edit_com($tg->update_from, array("col3" => 'edited'));
         }
         add_stats_info($tg->update_from, 'Edit Inline Keyboard');
-    } else if (count($comm) == 4) {
+    } elseif (count($comm) == 4) {
         if ($message['text'] != __("Yes") && $message['text'] != __("No")) {
             $keyboard = $tg->replyKeyboardMarkup(array(
                 'keyboard' => apply_rtl_to_keyboard([
@@ -124,9 +124,9 @@ if ($comm['name'] == "inlinekey_edit_final") {
                     if (empty($result['parse_mode'])) {
                         $tmp_text = hide_link($result['attach_url'], 'html') . htmlspecialchars($tmp_text);
                         $result['parse_mode'] = 'html';
-                    } else if ($result['parse_mode'] == 'markdown') {
+                    } elseif ($result['parse_mode'] == 'markdown') {
                         $tmp_text = hide_link($result['attach_url'], 'markdown') . $tmp_text;
-                    } else if ($result['parse_mode'] == 'html') {
+                    } elseif ($result['parse_mode'] == 'html') {
                         $tmp_text = hide_link($result['attach_url'], 'html') . $tmp_text;
                     }
 
@@ -136,7 +136,7 @@ if ($comm['name'] == "inlinekey_edit_final") {
                 $same_data['text'] = $tmp_text;
                 $same_data['parse_mode'] = $result['parse_mode'];
                 $same_data['disable_web_page_preview'] = $result['web_page_preview'] == 0;
-            } else if ($result['type'] == 'photo' || $result['type'] == 'video' || $result['type'] == 'animation' || $result['type'] == 'document' || $result['type'] == 'voice' || $result['type'] == 'audio') {
+            } elseif ($result['type'] == 'photo' || $result['type'] == 'video' || $result['type'] == 'animation' || $result['type'] == 'document' || $result['type'] == 'voice' || $result['type'] == 'audio') {
                 $same_data['caption'] = $result['text'];
                 $same_data['parse_mode'] = $result['parse_mode'];
             }
@@ -155,7 +155,7 @@ if ($comm['name'] == "inlinekey_edit_final") {
                             'chat_id' => $inlinekey_chosen['chat_id'],
                             'message_id' => $inlinekey_chosen['message_id']
                         ] + $same_data;
-                } else if (!empty($inlinekey_chosen['inline_message_id'])) {
+                } elseif (!empty($inlinekey_chosen['inline_message_id'])) {
                     $data[] = [
                             'inline_message_id' => $inlinekey_chosen['inline_message_id']
                         ] + $same_data;
@@ -164,9 +164,9 @@ if ($comm['name'] == "inlinekey_edit_final") {
 
             if ($result['type'] == 'text') {
                 $tg->editMessageText($data, ['run_in_background' => true]);
-            } else if ($result['type'] == 'photo' || $result['type'] == 'video' || $result['type'] == 'animation' || $result['type'] == 'document' || $result['type'] == 'voice' || $result['type'] == 'audio') {
+            } elseif ($result['type'] == 'photo' || $result['type'] == 'video' || $result['type'] == 'animation' || $result['type'] == 'document' || $result['type'] == 'voice' || $result['type'] == 'audio') {
                 $tg->editMessageCaption($data, ['run_in_background' => true]);
-            } else if ($result['type'] == 'sticker' || $result['type'] == 'video_note' || $result['type'] == 'contact' || $result['type'] == 'venue' || $result['type'] == 'location') {
+            } elseif ($result['type'] == 'sticker' || $result['type'] == 'video_note' || $result['type'] == 'contact' || $result['type'] == 'venue' || $result['type'] == 'location') {
                 $tg->editMessageReplyMarkup($data, ['run_in_background' => true]);
             }
         }

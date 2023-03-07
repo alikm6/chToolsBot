@@ -1,5 +1,5 @@
 <?php
-/** @var Telegram $tg */
+/** @var TelegramBot\Telegram $tg */
 /** @var array $message */
 
 if ($message['text'][0] == '/') {
@@ -15,7 +15,7 @@ if ($message['text'][0] == '/') {
                 'chat_id' => $tg->update_from,
                 'text' => __("Please send us the hyper message so that the robot can send you the original text of the message.") .
                     cancel_text(),
-                'reply_markup' => $tg->replyKeyboardHide()
+                'reply_markup' => $tg->ReplyKeyboardRemove()
             ));
             exit;
         }
@@ -39,7 +39,7 @@ if (!empty($comm) && $comm['name'] == "decodehyper") {
         if (!empty($message['text'])) {
             $org_text = $message["text"];
             $decode_text = convert_to_hyper($message["text"], (!empty($message['entities']) ? $message['entities'] : []));
-        } else if (!empty($message['caption'])) {
+        } elseif (!empty($message['caption'])) {
             $org_text = $message["caption"];
             $decode_text = convert_to_hyper($message["caption"], (!empty($message['caption_entities']) ? $message['caption_entities'] : []));
         }

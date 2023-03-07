@@ -1,6 +1,6 @@
 ﻿<?php
 /** @var MysqliDb $db */
-/** @var Telegram $tg */
+/** @var TelegramBot\Telegram $tg */
 /** @var array $message */
 
 $comm = get_com($tg->update_from);
@@ -40,11 +40,11 @@ if (!empty($comm) && $comm['name'] == "inlinekey_edit_keyboard_onebyone") {
         }
         if ($message['text'] == __("Url 🔗")) {
             edit_com($tg->update_from, array("col3" => 'link'));
-        } else if ($message['text'] == __("Counter ➕")) {
+        } elseif ($message['text'] == __("Counter ➕")) {
             edit_com($tg->update_from, array("col3" => 'counter'));
-        } else if ($message['text'] == __("Alert 📭")) {
+        } elseif ($message['text'] == __("Alert 📭")) {
             edit_com($tg->update_from, array("col3" => 'alerter'));
-        } else if ($message['text'] == __("Publisher 🎁")) {
+        } elseif ($message['text'] == __("Publisher 🎁")) {
             edit_com($tg->update_from, array("col3" => 'publisher'));
         }
 
@@ -94,7 +94,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_edit_keyboard_onebyone") {
         }
         if ($message['text'] == __("➡️ Next to the Last Button")) {
             edit_com($tg->update_from, array("col4" => "next"));
-        } else if ($message['text'] == __("⬇️ Below the Last Button")) {
+        } elseif ($message['text'] == __("⬇️ Below the Last Button")) {
             edit_com($tg->update_from, array("col4" => "under"));
         }
         $tg->sendMessage(array(
@@ -104,7 +104,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_edit_keyboard_onebyone") {
                 cancel_text(),
             'reply_markup' => get_inlinekey_keysmacker_one_by_one_back_keyboard()
         ));
-    } else if (count($comm) == 5) {
+    } elseif (count($comm) == 5) {
         if (empty($message['text'])) {
             $tg->sendMessage(array(
                 'chat_id' => $tg->update_from,
@@ -123,7 +123,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_edit_keyboard_onebyone") {
                     cancel_text(),
                 'reply_markup' => get_inlinekey_keysmacker_one_by_one_back_keyboard()
             ));
-        } else if ($comm['col3'] == 'alerter') {
+        } elseif ($comm['col3'] == 'alerter') {
             $tg->sendMessage(array(
                 'chat_id' => $tg->update_from,
                 'text' => sprintf(__("#Button_%d"), $current_key_number) . "\n" .
@@ -134,7 +134,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_edit_keyboard_onebyone") {
         } else {
             add_one_item_to_keyboard($keys, true);
         }
-    } else if (count($comm) == 6) {
+    } elseif (count($comm) == 6) {
         if ($comm['col3'] == 'link') {
             if (empty($message['text']) || !is_url($message['text'])) {
                 $tg->sendMessage(array(
@@ -145,7 +145,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_edit_keyboard_onebyone") {
                 ));
                 exit;
             }
-        } else if ($comm['col3'] == 'alerter') {
+        } elseif ($comm['col3'] == 'alerter') {
             if (empty($message['text']) || mb_strlen($message['text'], "utf-8") > 200) {
                 $tg->sendMessage(array(
                     'chat_id' => $tg->update_from,

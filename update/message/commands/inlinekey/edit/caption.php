@@ -1,6 +1,6 @@
 ﻿<?php
 /** @var MysqliDb $db */
-/** @var Telegram $tg */
+/** @var TelegramBot\Telegram $tg */
 /** @var array $message */
 /** @var array $comm */
 
@@ -16,7 +16,7 @@ if ($comm['name'] == "inlinekey_edit_caption") {
                 'chat_id' => $tg->update_from,
                 'text' => __("Input is incorrect, you must send a text.") .
                     cancel_text(),
-                'reply_markup' => $tg->replyKeyboardHide(),
+                'reply_markup' => $tg->ReplyKeyboardRemove(),
             ));
             exit;
         }
@@ -73,7 +73,7 @@ if ($comm['name'] == "inlinekey_edit_caption") {
 
         if ($message['text'] == sprintf(__("%s Format"), 'markdown')) {
             $p['col3'] = 'markdown';
-        } else if ($message['text'] == sprintf(__("%s Format"), 'html')) {
+        } elseif ($message['text'] == sprintf(__("%s Format"), 'html')) {
             $p['col3'] = 'html';
         }
 
@@ -112,7 +112,7 @@ if ($comm['name'] == "inlinekey_edit_caption") {
                 'chat_id' => $tg->update_from,
                 'text' => __("The text sent is long, please send us a shorter text.") .
                     cancel_text(),
-                'reply_markup' => $tg->replyKeyboardHide()
+                'reply_markup' => $tg->ReplyKeyboardRemove()
             ));
             exit;
         }
@@ -132,7 +132,7 @@ if ($comm['name'] == "inlinekey_edit_caption") {
             $tg->sendMessage(array(
                 'chat_id' => $tg->update_from,
                 'text' => __("Unspecified error occurred. Please try again.") . cancel_text(),
-                'reply_markup' => $tg->replyKeyboardHide()
+                'reply_markup' => $tg->ReplyKeyboardRemove()
             ));
             exit;
         }

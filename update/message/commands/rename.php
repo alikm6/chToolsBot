@@ -1,5 +1,5 @@
 ﻿<?php
-/** @var Telegram $tg */
+/** @var TelegramBot\Telegram $tg */
 /** @var array $message */
 
 if ($message['text'][0] == '/') {
@@ -15,7 +15,7 @@ if ($message['text'][0] == '/') {
                 'chat_id' => $tg->update_from,
                 'text' => __("In this part of the robot you can edit Location or Contact information.") . "\n\n" .
                     __("Please send us a location or contact!") . cancel_text(),
-                'reply_markup' => $tg->replyKeyboardHide()
+                'reply_markup' => $tg->ReplyKeyboardRemove()
             ));
             exit;
         }
@@ -48,13 +48,13 @@ if (!empty($comm) && $comm['name'] == "rename") {
                     'one_time_keyboard' => true
                 ])
             ]);
-        } else if (!empty($message['location'])) {
+        } elseif (!empty($message['location'])) {
             $tg->sendMessage([
                 'chat_id' => $tg->update_from,
                 'text' => __("Please send us the new location title.") .
                     cancel_text()
             ]);
-        } else if (!empty($message['contact'])) {
+        } elseif (!empty($message['contact'])) {
             $tg->sendMessage([
                 'chat_id' => $tg->update_from,
                 'text' => __("Current Contact Name:") . "\n" .
@@ -98,7 +98,7 @@ if (!empty($comm) && $comm['name'] == "rename") {
                         'one_time_keyboard' => true
                     ))
                 ));
-            } else if (count($comm) == 3) {
+            } elseif (count($comm) == 3) {
                 if (empty($message['text'])) {
                     $tg->sendMessage(array(
                         'chat_id' => $tg->update_from,
@@ -118,7 +118,7 @@ if (!empty($comm) && $comm['name'] == "rename") {
                 empty_com($tg->update_from);
                 add_stats_info($tg->update_from, 'Rename');
             }
-        } else if (!empty($source_message['location'])) {
+        } elseif (!empty($source_message['location'])) {
             if (count($comm) == 2) {
                 if (empty($message['text'])) {
                     $tg->sendMessage(array(
@@ -134,7 +134,7 @@ if (!empty($comm) && $comm['name'] == "rename") {
                     'text' => __("Please send us the new location address.") .
                         cancel_text()
                 ));
-            } else if (count($comm) == 3) {
+            } elseif (count($comm) == 3) {
                 if (empty($message['text'])) {
                     $tg->sendMessage(array(
                         'chat_id' => $tg->update_from,
@@ -154,7 +154,7 @@ if (!empty($comm) && $comm['name'] == "rename") {
                 empty_com($tg->update_from);
                 add_stats_info($tg->update_from, 'Rename');
             }
-        } else if (!empty($source_message['contact'])) {
+        } elseif (!empty($source_message['contact'])) {
             if (count($comm) == 2) {
                 if (empty($message['text'])) {
                     $tg->sendMessage(array(
@@ -182,9 +182,9 @@ if (!empty($comm) && $comm['name'] == "rename") {
                         ],
                         'resize_keyboard' => true,
                         'one_time_keyboard' => true
-                    ]) : $tg->replyKeyboardHide())
+                    ]) : $tg->ReplyKeyboardRemove())
                 ]);
-            } else if (count($comm) == 3) {
+            } elseif (count($comm) == 3) {
                 if (empty($message['text'])) {
                     $tg->sendMessage(array(
                         'chat_id' => $tg->update_from,

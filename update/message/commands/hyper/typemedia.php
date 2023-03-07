@@ -1,5 +1,5 @@
 ﻿<?php
-/** @var Telegram $tg */
+/** @var TelegramBot\Telegram $tg */
 /** @var array $message */
 
 $comm = get_com($tg->update_from);
@@ -9,19 +9,19 @@ if (!empty($comm) && $comm['name'] == "hyper_typemedia") {
         if (!empty($message['photo'])) {
             $p['col2'] = 'photo';
             $p['col3'] = $message['photo'][count($message['photo']) - 1]['file_id'];
-        } else if (!empty($message['video'])) {
+        } elseif (!empty($message['video'])) {
             $p['col2'] = 'video';
             $p['col3'] = $message['video']['file_id'];
-        } else if (!empty($message['animation'])) {
+        } elseif (!empty($message['animation'])) {
             $p['col2'] = 'animation';
             $p['col3'] = $message['animation']['file_id'];
-        } else if (!empty($message['document'])) {
+        } elseif (!empty($message['document'])) {
             $p['col2'] = 'document';
             $p['col3'] = $message['document']['file_id'];
-        } else if (!empty($message['audio'])) {
+        } elseif (!empty($message['audio'])) {
             $p['col2'] = 'audio';
             $p['col3'] = $message['audio']['file_id'];
-        } else if (!empty($message['voice'])) {
+        } elseif (!empty($message['voice'])) {
             $p['col2'] = 'voice';
             $p['col3'] = $message['voice']['file_id'];
         } else {
@@ -44,16 +44,16 @@ if (!empty($comm) && $comm['name'] == "hyper_typemedia") {
             'text' => __("Now set your desired caption to the selected format and send it to us.") . "\n\n" .
                 __("Note that the caption can be up to 1024 characters.") .
                 cancel_text(),
-            'reply_markup' => $tg->replyKeyboardHide()
+            'reply_markup' => $tg->ReplyKeyboardRemove()
         ));
 
-    } else if (count($comm) == 4) {
+    } elseif (count($comm) == 4) {
         if (empty($message['text'])) {
             $tg->sendMessage(array(
                 'chat_id' => $tg->update_from,
                 'text' => __("Input is incorrect, you must send a text.") .
                     cancel_text(),
-                'reply_markup' => $tg->replyKeyboardHide()
+                'reply_markup' => $tg->ReplyKeyboardRemove()
             ));
             exit;
         }
@@ -69,7 +69,7 @@ if (!empty($comm) && $comm['name'] == "hyper_typemedia") {
                 'text' => __("Your text does not match the format of your choice.") . "\n\n" .
                     __("Please edit your text and send it to us.") .
                     cancel_text(),
-                'reply_markup' => $tg->replyKeyboardHide()
+                'reply_markup' => $tg->ReplyKeyboardRemove()
             ));
             exit;
         }
@@ -85,7 +85,7 @@ if (!empty($comm) && $comm['name'] == "hyper_typemedia") {
                 'chat_id' => $tg->update_from,
                 'text' => __("The text sent is long, please send us a shorter text.") .
                     cancel_text(),
-                'reply_markup' => $tg->replyKeyboardHide()
+                'reply_markup' => $tg->ReplyKeyboardRemove()
             ));
             exit;
         }
@@ -97,47 +97,47 @@ if (!empty($comm) && $comm['name'] == "hyper_typemedia") {
                 'photo' => $comm['col3'],
                 'caption' => $message['text'],
                 'parse_mode' => $comm['col1'],
-                'reply_markup' => $tg->replyKeyboardHide()
+                'reply_markup' => $tg->ReplyKeyboardRemove()
             ), ['send_error' => false]);
-        } else if ($comm['col2'] == 'video') {
+        } elseif ($comm['col2'] == 'video') {
             $m = $tg->sendVideo(array(
                 'chat_id' => $tg->update_from,
                 'video' => $comm['col3'],
                 'caption' => $message['text'],
                 'parse_mode' => $comm['col1'],
-                'reply_markup' => $tg->replyKeyboardHide()
+                'reply_markup' => $tg->ReplyKeyboardRemove()
             ), ['send_error' => false]);
-        } else if ($comm['col2'] == 'animation') {
+        } elseif ($comm['col2'] == 'animation') {
             $m = $tg->sendAnimation(array(
                 'chat_id' => $tg->update_from,
                 'animation' => $comm['col3'],
                 'caption' => $message['text'],
                 'parse_mode' => $comm['col1'],
-                'reply_markup' => $tg->replyKeyboardHide()
+                'reply_markup' => $tg->ReplyKeyboardRemove()
             ), ['send_error' => false]);
-        } else if ($comm['col2'] == 'document') {
+        } elseif ($comm['col2'] == 'document') {
             $m = $tg->sendDocument(array(
                 'chat_id' => $tg->update_from,
                 'document' => $comm['col3'],
                 'caption' => $message['text'],
                 'parse_mode' => $comm['col1'],
-                'reply_markup' => $tg->replyKeyboardHide()
+                'reply_markup' => $tg->ReplyKeyboardRemove()
             ), ['send_error' => false]);
-        } else if ($comm['col2'] == 'audio') {
+        } elseif ($comm['col2'] == 'audio') {
             $m = $tg->sendAudio(array(
                 'chat_id' => $tg->update_from,
                 'audio' => $comm['col3'],
                 'caption' => $message['text'],
                 'parse_mode' => $comm['col1'],
-                'reply_markup' => $tg->replyKeyboardHide()
+                'reply_markup' => $tg->ReplyKeyboardRemove()
             ), ['send_error' => false]);
-        } else if ($comm['col2'] == 'voice') {
+        } elseif ($comm['col2'] == 'voice') {
             $m = $tg->sendVoice(array(
                 'chat_id' => $tg->update_from,
                 'voice' => $comm['col3'],
                 'caption' => $message['text'],
                 'parse_mode' => $comm['col1'],
-                'reply_markup' => $tg->replyKeyboardHide()
+                'reply_markup' => $tg->ReplyKeyboardRemove()
             ), ['send_error' => false]);
         }
 

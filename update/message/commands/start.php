@@ -1,6 +1,6 @@
 ﻿<?php
 /** @var MysqliDb $db */
-/** @var Telegram $tg */
+/** @var TelegramBot\Telegram $tg */
 /** @var array $message */
 
 $q = "select * from users where user_id = ? limit 1";
@@ -75,7 +75,7 @@ if (empty($user_settings)) {
     if (!empty($message['from']['language_code'])) {
         if (strpos($message['from']['language_code'], "fa") === 0) {
             $language_code = 'fa_IR';
-        } else if (strpos($message['from']['language_code'], "en") === 0) {
+        } elseif (strpos($message['from']['language_code'], "en") === 0) {
             $language_code = 'en_US';
         }
     }

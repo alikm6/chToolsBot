@@ -1,5 +1,5 @@
 ﻿<?php
-/** @var Telegram $tg */
+/** @var TelegramBot\Telegram $tg */
 /** @var array $message */
 
 if ($message['text'][0] == '/') {
@@ -14,7 +14,7 @@ if ($message['text'][0] == '/') {
             $tg->sendMessage(array(
                 'chat_id' => $tg->update_from,
                 'text' => __("Please upload or forward the file you want to attach.") . cancel_text(),
-                'reply_markup' => $tg->replyKeyboardHide()
+                'reply_markup' => $tg->ReplyKeyboardRemove()
             ));
             exit;
         }
@@ -47,7 +47,7 @@ if (!empty($comm) && $comm['name'] == "attach") {
             'chat_id' => $tg->update_from,
             'text' => __("Please send the text to which you want the attachment to be attached.") . cancel_text()
         ));
-    } else if (count($comm) == 2) {
+    } elseif (count($comm) == 2) {
         if (empty($message['text'])) {
             $tg->sendMessage(array(
                 'chat_id' => $tg->update_from,

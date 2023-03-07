@@ -1,6 +1,6 @@
 ﻿<?php
 /** @var MysqliDb $db */
-/** @var Telegram $tg */
+/** @var TelegramBot\Telegram $tg */
 /** @var array $message */
 
 if ($message['text'][0] == '/') {
@@ -25,7 +25,7 @@ if ($message['text'][0] == '/') {
                 'chat_id' => $tg->update_from,
                 'text' => __("Please send us the inline code of the item you want to edit.") .
                     cancel_text(),
-                'reply_markup' => $tg->replyKeyboardHide()
+                'reply_markup' => $tg->ReplyKeyboardRemove()
             ));
             exit;
         }
@@ -40,7 +40,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_edit") {
                 'chat_id' => $tg->update_from,
                 'text' => __("Input is incorrect, you must send the inline code.") .
                     cancel_text(),
-                'reply_markup' => $tg->replyKeyboardHide()
+                'reply_markup' => $tg->ReplyKeyboardRemove()
             ));
             exit;
         }
@@ -69,10 +69,10 @@ if (!empty($comm) && $comm['name'] == "inlinekey_edit") {
                 'text' => __("No message found with this inline code.") . "\n\n" .
                     __("Please send us the inline code of the item you want to edit correctly.") .
                     cancel_text(),
-                'reply_markup' => $tg->replyKeyboardHide()
+                'reply_markup' => $tg->ReplyKeyboardRemove()
             ));
         }
-    } else if (count($comm) == 2) {
+    } elseif (count($comm) == 2) {
         $q = "select * from inlinekey where user_id=? and id=? and status = 1";
         $result = $db->rawQueryOne($q, [
             'user_id' => $tg->update_from,
@@ -137,7 +137,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_edit") {
                 )),
                 'reply_to_message_id' => $m['message_id']
             ));
-        } else if ($message['text'] == __("Display counter button statistics as a percentage")) {
+        } elseif ($message['text'] == __("Display counter button statistics as a percentage")) {
             $result['counter_type'] = $p['counter_type'] = 'percent';
 
             add_com($tg->update_from, 'inlinekey_edit_final');
@@ -164,7 +164,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_edit") {
                 )),
                 'reply_to_message_id' => $m['message_id']
             ));
-        } else if ($message['text'] == __("Do not show window after voting")) {
+        } elseif ($message['text'] == __("Do not show window after voting")) {
             $result['show_alert'] = $p['show_alert'] = 0;
 
             add_com($tg->update_from, 'inlinekey_edit_final');
@@ -192,7 +192,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_edit") {
                 )),
                 'reply_to_message_id' => $m['message_id']
             ));
-        } else if ($message['text'] == __("Show window after voting")) {
+        } elseif ($message['text'] == __("Show window after voting")) {
             $result['show_alert'] = $p['show_alert'] = 1;
 
             add_com($tg->update_from, 'inlinekey_edit_final');
@@ -219,7 +219,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_edit") {
                 )),
                 'reply_to_message_id' => $m['message_id']
             ));
-        } else if ($message['text'] == __("Enable link preview")) {
+        } elseif ($message['text'] == __("Enable link preview")) {
             $result['web_page_preview'] = $p['web_page_preview'] = 1;
 
             add_com($tg->update_from, 'inlinekey_edit_final');
@@ -247,7 +247,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_edit") {
                 )),
                 'reply_to_message_id' => $m['message_id']
             ));
-        } else if ($message['text'] == __("Disable link preview")) {
+        } elseif ($message['text'] == __("Disable link preview")) {
             $result['web_page_preview'] = $p['web_page_preview'] = 0;
 
             add_com($tg->update_from, 'inlinekey_edit_final');
@@ -275,7 +275,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_edit") {
                 )),
                 'reply_to_message_id' => $m['message_id']
             ));
-        } else if ($message['text'] == __("Delete attachment")) {
+        } elseif ($message['text'] == __("Delete attachment")) {
             $result['attach_url'] = $p['attach_url'] = null;
 
             add_com($tg->update_from, 'inlinekey_edit_final');
@@ -303,7 +303,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_edit") {
                 )),
                 'reply_to_message_id' => $m['message_id']
             ));
-        } else if ($message['text'] == __("Delete caption")) {
+        } elseif ($message['text'] == __("Delete caption")) {
             $result['text'] = $p['text'] = null;
 
             add_com($tg->update_from, 'inlinekey_edit_final');
@@ -331,7 +331,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_edit") {
                 )),
                 'reply_to_message_id' => $m['message_id']
             ));
-        } else if ($message['text'] == __("Edit buttons")) {
+        } elseif ($message['text'] == __("Edit buttons")) {
             add_com($tg->update_from, 'inlinekey_edit_keyboard');
             $tg->sendMessage(array(
                 'chat_id' => $tg->update_from,
@@ -350,24 +350,24 @@ if (!empty($comm) && $comm['name'] == "inlinekey_edit") {
                     'one_time_keyboard' => true
                 ))
             ));
-        } else if ($message['text'] == __("Edit text")) {
+        } elseif ($message['text'] == __("Edit text")) {
             add_com($tg->update_from, 'inlinekey_edit_text');
             $tg->sendMessage(array(
                 'chat_id' => $tg->update_from,
                 'text' => __("Please send us your new text.") . "\n\n" .
                     __("Also note that you can submit your text in html format or the original telegram format (for hyper). (Read /help_html and /help_markdown to learn formatting)") .
                     cancel_text(),
-                'reply_markup' => $tg->replyKeyboardHide()
+                'reply_markup' => $tg->ReplyKeyboardRemove()
             ));
-        } else if ($message['text'] == __("Edit attachment") || $message['text'] == __("Add attachment")) {
+        } elseif ($message['text'] == __("Edit attachment") || $message['text'] == __("Add attachment")) {
             add_com($tg->update_from, 'inlinekey_edit_attach');
             $tg->sendMessage(array(
                 'chat_id' => $tg->update_from,
                 'text' => __("Please send us the file you want to attach to this message.") .
                     cancel_text(),
-                'reply_markup' => $tg->replyKeyboardHide()
+                'reply_markup' => $tg->ReplyKeyboardRemove()
             ));
-        } else if ($message['text'] == __("Edit caption") || $message['text'] == __("Add caption")) {
+        } elseif ($message['text'] == __("Edit caption") || $message['text'] == __("Add caption")) {
             add_com($tg->update_from, 'inlinekey_edit_caption');
             $tg->sendMessage(array(
                 'chat_id' => $tg->update_from,
@@ -375,9 +375,9 @@ if (!empty($comm) && $comm['name'] == "inlinekey_edit") {
                     __("Your caption must be up to 1024 characters long.") . "\n\n" .
                     __("Also note that you can submit your text in html format or the original telegram format (for hyper). (Read /help_html and /help_markdown to learn formatting)") .
                     cancel_text(),
-                'reply_markup' => $tg->replyKeyboardHide()
+                'reply_markup' => $tg->ReplyKeyboardRemove()
             ));
-        } else if ($message['text'] == __("Edit language of successful vote registration message")) {
+        } elseif ($message['text'] == __("Edit language of successful vote registration message")) {
             add_com($tg->update_from, 'inlinekey_edit_language_code');
 
             $keyboard = [];

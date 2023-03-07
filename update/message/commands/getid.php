@@ -1,5 +1,5 @@
 ﻿<?php
-/** @var Telegram $tg */
+/** @var TelegramBot\Telegram $tg */
 /** @var array $message */
 
 if ($message['text'][0] == '/') {
@@ -20,7 +20,7 @@ if ($message['text'][0] == '/') {
                     __("To extract a private channel ID (this ID is required to send to a private channel without quoting), forward a message from the desired channel to us.") .
                     cancel_text(),
                 'parse_mode' => 'html',
-                'reply_markup' => $tg->replyKeyboardHide()
+                'reply_markup' => $tg->ReplyKeyboardRemove()
             ));
             exit;
         }
@@ -34,7 +34,7 @@ if (!empty($comm) && $comm['name'] == "getid") {
                 'chat_id' => $tg->update_from,
                 'text' => __("Input is incorrect, please forward a message from the desired channel to us correctly.") .
                     cancel_text(),
-                'reply_markup' => $tg->replyKeyboardHide()
+                'reply_markup' => $tg->ReplyKeyboardRemove()
             ));
             exit;
         }

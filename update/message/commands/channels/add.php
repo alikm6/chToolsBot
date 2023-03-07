@@ -1,6 +1,6 @@
 <?php
 /** @var MysqliDb $db */
-/** @var Telegram $tg */
+/** @var TelegramBot\Telegram $tg */
 /** @var array $message */
 /** @var InsertUpdateToDb $insert_update_to_db */
 
@@ -26,13 +26,13 @@ if (!empty($comm) && $comm['name'] == "channels_add") {
 
         if (!empty($message['forward_from_chat']) && $message['forward_from_chat']['type'] == 'channel') {
             $channel_id = $message['forward_from_chat']['id'];
-        } else if (!empty($message['text']) && strpos($message['text'], ' ') === false && strpos($message['text'], "\n") === false) {
+        } elseif (!empty($message['text']) && strpos($message['text'], ' ') === false && strpos($message['text'], "\n") === false) {
             $channel_id = $message['text'];
         } else {
             $tg->sendMessage(array(
                 'chat_id' => $tg->update_from,
                 'text' => __("Please forward a message from your channel to us correctly or send the channel Username along with @ to the robot.") . cancel_text(),
-                'reply_markup' => $tg->replyKeyboardHide()
+                'reply_markup' => $tg->ReplyKeyboardRemove()
             ));
             exit;
         }
@@ -42,7 +42,7 @@ if (!empty($comm) && $comm['name'] == "channels_add") {
             $tg->sendMessage(array(
                 'chat_id' => $tg->update_from,
                 'text' => __("Our bot does not have access to the target channel, please make the robot your channel admin first.") . cancel_text(),
-                'reply_markup' => $tg->replyKeyboardHide()
+                'reply_markup' => $tg->ReplyKeyboardRemove()
             ));
             exit;
         }
@@ -53,7 +53,7 @@ if (!empty($comm) && $comm['name'] == "channels_add") {
             $tg->sendMessage([
                 "chat_id" => $tg->update_from,
                 "text" => __("The submitted Username does not belong to the Telegram channel.") . cancel_text(),
-                'reply_markup' => $tg->replyKeyboardHide()
+                'reply_markup' => $tg->ReplyKeyboardRemove()
             ]);
             exit;
         }
@@ -63,7 +63,7 @@ if (!empty($comm) && $comm['name'] == "channels_add") {
             $tg->sendMessage([
                 "chat_id" => $tg->update_from,
                 "text" => sprintf(__("Our bot is not registered as \"%s\" channel admin, please make our robot the channel admin first."), tgChatToText($target_chat, 'html')) . cancel_text(),
-                'reply_markup' => $tg->replyKeyboardHide(),
+                'reply_markup' => $tg->ReplyKeyboardRemove(),
                 'parse_mode' => 'html',
                 'disable_web_page_preview' => true
             ]);
@@ -81,7 +81,7 @@ if (!empty($comm) && $comm['name'] == "channels_add") {
             $tg->sendMessage([
                 "chat_id" => $tg->update_from,
                 "text" => sprintf(__("It seems that the channel \"%s\" is not yours because you are not on the channel admin list."), tgChatToText($target_chat, 'html')) . cancel_text(),
-                'reply_markup' => $tg->replyKeyboardHide(),
+                'reply_markup' => $tg->ReplyKeyboardRemove(),
                 'parse_mode' => 'html',
                 'disable_web_page_preview' => true
             ]);
@@ -98,7 +98,7 @@ if (!empty($comm) && $comm['name'] == "channels_add") {
             $tg->sendMessage([
                 "chat_id" => $tg->update_from,
                 "text" => sprintf(__("Channel \"%s\" has already been added to your channel list."), tgChatToText($target_chat, 'html')) . cancel_text(),
-                'reply_markup' => $tg->replyKeyboardHide(),
+                'reply_markup' => $tg->ReplyKeyboardRemove(),
                 'parse_mode' => 'html',
                 'disable_web_page_preview' => true
             ]);

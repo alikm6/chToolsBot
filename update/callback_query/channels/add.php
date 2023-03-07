@@ -1,5 +1,5 @@
 <?php
-/** @var Telegram $tg */
+/** @var TelegramBot\Telegram $tg */
 /** @var array $callback_query */
 /** @var array $callback_data */
 
@@ -17,7 +17,7 @@ if ($callback_data['process'] == 'add') {
             sprintf(__("1️⃣ Make %s admin in target channel."), "@" . BOT_USERNAME) . "\n\n" .
             __("2️⃣ Forward a message from the channel here or send the Username of the channel along with @ to the robot.") .
             cancel_text(),
-        'reply_markup' => $tg->replyKeyboardHide()
+        'reply_markup' => $tg->ReplyKeyboardRemove()
     ));
 
     $tg->answerCallbackQuery(array(

@@ -1,6 +1,6 @@
 ﻿<?php
 /** @var MysqliDb $db */
-/** @var Telegram $tg */
+/** @var TelegramBot\Telegram $tg */
 /** @var array $message */
 /** @var array $comm */
 
@@ -40,11 +40,11 @@ if ($comm['name'] == "inlinekey_edit_keyboard") {
                     __("⚠ Important Note:") . "\n" .
                     __("Your links must start with http:// or https://.") .
                     cancel_text(),
-                'reply_markup' => $tg->replyKeyboardHide(),
+                'reply_markup' => $tg->ReplyKeyboardRemove(),
                 'disable_web_page_preview' => true,
                 'parse_mode' => 'html'
             ));
-        } else if ($message['text'] == __("One by One")) {
+        } elseif ($message['text'] == __("One by One")) {
             add_com($tg->update_from, 'inlinekey_edit_keyboard_onebyone');
             $tg->sendMessage(array(
                 'chat_id' => $tg->update_from,

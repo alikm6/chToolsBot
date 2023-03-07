@@ -1,6 +1,6 @@
 <?php
 /** @var array $update */
-/** @var Telegram $tg */
+/** @var TelegramBot\Telegram $tg */
 /** @var MysqliDb $db */
 
 $message = $update['message'];
@@ -48,21 +48,21 @@ if ($message['chat']['type'] == 'private') {
 
         if ($message['text'] == __("🔘 Inline Buttons")) {
             $message['text'] = '/inlinekey';
-        } else if ($message['text'] == __("🔗 Hyper")) {
+        } elseif ($message['text'] == __("🔗 Hyper")) {
             $message['text'] = '/hyper';
-        } else if ($message['text'] == __("📎 Attach")) {
+        } elseif ($message['text'] == __("📎 Attach")) {
             $message['text'] = '/attach';
-        } else if ($message['text'] == __("📮 Send without Quotes")) {
+        } elseif ($message['text'] == __("📮 Send without Quotes")) {
             $message['text'] = '/sendto';
-        } else if ($message['text'] == "🌐 Lang / زبان") {
+        } elseif ($message['text'] == "🌐 Lang / زبان") {
             $message['text'] = '/language';
-        } else if ($message['text'] == __("☎️ Contact Us")) {
+        } elseif ($message['text'] == __("☎️ Contact Us")) {
             $message['text'] = '/contact';
-        } else if ($message['text'] == __("❔ Help")) {
+        } elseif ($message['text'] == __("❔ Help")) {
             $message['text'] = '/help';
-        } else if ($message['text'] == __("📂 Bot Source")) {
+        } elseif ($message['text'] == __("📂 Bot Source")) {
             $message['text'] = '/source';
-        } else if ($message['text'] == "↩️ Cancel" || $message['text'] == __("↩️ Cancel")) {
+        } elseif ($message['text'] == "↩️ Cancel" || $message['text'] == __("↩️ Cancel")) {
             $message['text'] = '/cancel';
         }
     }
