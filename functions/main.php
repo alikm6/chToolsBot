@@ -702,51 +702,6 @@ function mb_substr_replace($string, $replacement, $start, $length = null, $encod
     return $result;
 }
 
-function limit_access_to_telegram_only()
-{
-    $client = @$_SERVER['HTTP_CLIENT_IP'];
-    $forward = @$_SERVER['HTTP_X_FORWARDED_FOR'];
-    $remote = $_SERVER['REMOTE_ADDR'];
-
-    if (filter_var($client, FILTER_VALIDATE_IP)) {
-        $ipAddress = $client;
-    } elseif (filter_var($forward, FILTER_VALIDATE_IP)) {
-        $ipAddress = $forward;
-    } else {
-        $ipAddress = $remote;
-    }
-
-    if (!isset($ipAddress)) {
-        //header("location: http://farsbot.ir");
-        die('Error. no ip detected');
-    }
-
-    $ip = sprintf('%u', ip2long($ipAddress));
-
-    # 149.154.160.0/20	=	149.154.160.0 ~ 149.154.175.255
-    # 91.108.4.0/22		=	91.108.4.0 ~ 91.108.7.255
-    # منبع آی‌پی‌های فوق core.telegram.org/bots/webhooks#the-short-version
-    # تبدیل آی پی به عدد ipconvertertools.com/ip-2-bin-hex-dec-converter
-
-    if (($ip >= 2509938688) && ($ip <= 2509942783)) # ok
-    {
-        return;
-    }
-
-    if (($ip >= 1533805568) && ($ip <= 1533806591)) # ok
-    {
-        return;
-    }
-
-    if (($ip >= 2509940677) && ($ip <= 2509940713)) # ok, OLD, remove current line at july 2019
-    {
-        return;
-    }
-
-    //header("location: http://farsbot.ir");
-    die('Error. you have not Telegram valid IP.');
-}
-
 function convert_time_to_text($time): string
 {
     $now = time();

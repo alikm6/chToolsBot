@@ -2,7 +2,7 @@
 
 require __DIR__ . "/includes.php";
 
-limit_access_to_telegram_only();
+TelegramBot\Telegram::limit_access_to_telegram_only();
 
 if (empty($_GET['id'])) {
     die();

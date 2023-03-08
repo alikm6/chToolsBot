@@ -1,10 +1,8 @@
 <?php
 
-use TelegramBot\Telegram;
-
 require realpath(__DIR__) . '/includes.php';
 
-limit_access_to_telegram_only();
+TelegramBot\Telegram::limit_access_to_telegram_only();
 
 if (empty($_GET['token']) || $_GET['token'] != TOKEN) {
     die('Error. The token is invalid.');
@@ -12,7 +10,7 @@ if (empty($_GET['token']) || $_GET['token'] != TOKEN) {
 
 $db = get_db();
 
-$tg = new Telegram(TOKEN, TG_ERROR_REPORTING_CHAT_ID);
+$tg = new TelegramBot\Telegram(TOKEN, TG_ERROR_REPORTING_CHAT_ID);
 $tg->setTimeout(30);
 
 $insert_update_to_db = new InsertUpdateToDb($db);
