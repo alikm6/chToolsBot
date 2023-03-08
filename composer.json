@@ -14,7 +14,7 @@
   "require": {
     "php-curl-class/php-curl-class": "dev-master",
     "morilog/jalali": "3.*",
-    "alikm6/php-telegram-bot": "1.6.5",
+    "alikm6/php-telegram-bot": "1.0.65",
     "alikm6/php-pomo": "1.*",
     "thingengineer/mysqli-database-class": "dev-bugfix",
     "ext-json": "*"
