@@ -16,7 +16,7 @@ if ($comm['name'] == "inlinekey_edit_attach") {
                 'chat_id' => $tg->update_from,
                 'text' => __("Input is incorrect, you must send us the attachment file.") .
                     cancel_text(),
-                'reply_markup' => $tg->ReplyKeyboardRemove()
+                'reply_markup' => $tg->replyKeyboardRemove()
             ));
             exit;
         }
@@ -28,7 +28,7 @@ if ($comm['name'] == "inlinekey_edit_attach") {
                 'chat_id' => $tg->update_from,
                 'text' => __("An error occurred while attaching the file. Please resend this file.") .
                     cancel_text(),
-                'reply_markup' => $tg->ReplyKeyboardRemove()
+                'reply_markup' => $tg->replyKeyboardRemove()
             ));
             exit;
         }
@@ -41,7 +41,7 @@ if ($comm['name'] == "inlinekey_edit_attach") {
             $tg->sendMessage(array(
                 'chat_id' => $tg->update_from,
                 'text' => __("Unspecified error occurred. Please try again.") . cancel_text(),
-                'reply_markup' => $tg->ReplyKeyboardRemove()
+                'reply_markup' => $tg->replyKeyboardRemove()
             ));
             exit;
         }

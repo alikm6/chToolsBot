@@ -14,7 +14,7 @@ if ($message['text'][0] == '/') {
                 __("This can be text 📝, photo 🖼, video 🎥, gif 📹, voice 🔊, sticker, file 📎 and anything else.") . "\n\n" .
                 __("Also note that you can submit your text in html format or the original telegram format (for hyper). (Read /help_html and /help_markdown to learn formatting)") .
                 cancel_text(),
-            'reply_markup' => $tg->ReplyKeyboardRemove()
+            'reply_markup' => $tg->replyKeyboardRemove()
         ));
         exit;
     }
@@ -49,7 +49,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add") {
             'text' => __("The post you sent is invalid.") . "\n" .
                 __("Please send another post.") .
                 cancel_text(),
-            'reply_markup' => $tg->ReplyKeyboardRemove()
+            'reply_markup' => $tg->replyKeyboardRemove()
         ));
         exit;
     }

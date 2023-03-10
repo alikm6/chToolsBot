@@ -63,7 +63,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_final") {
                     __("This can be text 📝, photo 🖼, video 🎥, gif 📹, voice 🔊, sticker, file 📎 and anything else.") . "\n\n" .
                     __("Also note that you can submit your text in html format or the original telegram format (for hyper). (Read /help_html and /help_markdown to learn formatting)") .
                     cancel_text(),
-                'reply_markup' => $tg->ReplyKeyboardRemove()
+                'reply_markup' => $tg->replyKeyboardRemove()
             ));
         }
     }

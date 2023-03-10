@@ -40,7 +40,7 @@ if ($comm['name'] == "inlinekey_edit_keyboard") {
                     __("⚠ Important Note:") . "\n" .
                     __("Your links must start with http:// or https://.") .
                     cancel_text(),
-                'reply_markup' => $tg->ReplyKeyboardRemove(),
+                'reply_markup' => $tg->replyKeyboardRemove(),
                 'disable_web_page_preview' => true,
                 'parse_mode' => 'html'
             ));

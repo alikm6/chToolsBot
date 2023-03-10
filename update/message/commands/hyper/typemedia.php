@@ -44,7 +44,7 @@ if (!empty($comm) && $comm['name'] == "hyper_typemedia") {
             'text' => __("Now set your desired caption to the selected format and send it to us.") . "\n\n" .
                 __("Note that the caption can be up to 1024 characters.") .
                 cancel_text(),
-            'reply_markup' => $tg->ReplyKeyboardRemove()
+            'reply_markup' => $tg->replyKeyboardRemove()
         ));
 
     } elseif (count($comm) == 4) {
@@ -53,7 +53,7 @@ if (!empty($comm) && $comm['name'] == "hyper_typemedia") {
                 'chat_id' => $tg->update_from,
                 'text' => __("Input is incorrect, you must send a text.") .
                     cancel_text(),
-                'reply_markup' => $tg->ReplyKeyboardRemove()
+                'reply_markup' => $tg->replyKeyboardRemove()
             ));
             exit;
         }
@@ -69,7 +69,7 @@ if (!empty($comm) && $comm['name'] == "hyper_typemedia") {
                 'text' => __("Your text does not match the format of your choice.") . "\n\n" .
                     __("Please edit your text and send it to us.") .
                     cancel_text(),
-                'reply_markup' => $tg->ReplyKeyboardRemove()
+                'reply_markup' => $tg->replyKeyboardRemove()
             ));
             exit;
         }
@@ -85,7 +85,7 @@ if (!empty($comm) && $comm['name'] == "hyper_typemedia") {
                 'chat_id' => $tg->update_from,
                 'text' => __("The text sent is long, please send us a shorter text.") .
                     cancel_text(),
-                'reply_markup' => $tg->ReplyKeyboardRemove()
+                'reply_markup' => $tg->replyKeyboardRemove()
             ));
             exit;
         }
@@ -97,7 +97,7 @@ if (!empty($comm) && $comm['name'] == "hyper_typemedia") {
                 'photo' => $comm['col3'],
                 'caption' => $message['text'],
                 'parse_mode' => $comm['col1'],
-                'reply_markup' => $tg->ReplyKeyboardRemove()
+                'reply_markup' => $tg->replyKeyboardRemove()
             ), ['send_error' => false]);
         } elseif ($comm['col2'] == 'video') {
             $m = $tg->sendVideo(array(
@@ -105,7 +105,7 @@ if (!empty($comm) && $comm['name'] == "hyper_typemedia") {
                 'video' => $comm['col3'],
                 'caption' => $message['text'],
                 'parse_mode' => $comm['col1'],
-                'reply_markup' => $tg->ReplyKeyboardRemove()
+                'reply_markup' => $tg->replyKeyboardRemove()
             ), ['send_error' => false]);
         } elseif ($comm['col2'] == 'animation') {
             $m = $tg->sendAnimation(array(
@@ -113,7 +113,7 @@ if (!empty($comm) && $comm['name'] == "hyper_typemedia") {
                 'animation' => $comm['col3'],
                 'caption' => $message['text'],
                 'parse_mode' => $comm['col1'],
-                'reply_markup' => $tg->ReplyKeyboardRemove()
+                'reply_markup' => $tg->replyKeyboardRemove()
             ), ['send_error' => false]);
         } elseif ($comm['col2'] == 'document') {
             $m = $tg->sendDocument(array(
@@ -121,7 +121,7 @@ if (!empty($comm) && $comm['name'] == "hyper_typemedia") {
                 'document' => $comm['col3'],
                 'caption' => $message['text'],
                 'parse_mode' => $comm['col1'],
-                'reply_markup' => $tg->ReplyKeyboardRemove()
+                'reply_markup' => $tg->replyKeyboardRemove()
             ), ['send_error' => false]);
         } elseif ($comm['col2'] == 'audio') {
             $m = $tg->sendAudio(array(
@@ -129,7 +129,7 @@ if (!empty($comm) && $comm['name'] == "hyper_typemedia") {
                 'audio' => $comm['col3'],
                 'caption' => $message['text'],
                 'parse_mode' => $comm['col1'],
-                'reply_markup' => $tg->ReplyKeyboardRemove()
+                'reply_markup' => $tg->replyKeyboardRemove()
             ), ['send_error' => false]);
         } elseif ($comm['col2'] == 'voice') {
             $m = $tg->sendVoice(array(
@@ -137,7 +137,7 @@ if (!empty($comm) && $comm['name'] == "hyper_typemedia") {
                 'voice' => $comm['col3'],
                 'caption' => $message['text'],
                 'parse_mode' => $comm['col1'],
-                'reply_markup' => $tg->ReplyKeyboardRemove()
+                'reply_markup' => $tg->replyKeyboardRemove()
             ), ['send_error' => false]);
         }
 

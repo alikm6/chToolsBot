@@ -47,7 +47,7 @@ if ($comm['name'] == "inlinekey_edit_language_code") {
             $tg->sendMessage(array(
                 'chat_id' => $tg->update_from,
                 'text' => __("Unspecified error occurred. Please try again.") . cancel_text(),
-                'reply_markup' => $tg->ReplyKeyboardRemove()
+                'reply_markup' => $tg->replyKeyboardRemove()
             ));
             exit;
         }

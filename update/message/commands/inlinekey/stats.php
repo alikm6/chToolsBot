@@ -72,7 +72,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_stats") {
                 'text' => __("No message found with this inline code.") . "\n\n" .
                     __("Please send us the inline code of the item you want to view statistics correctly.") .
                     cancel_text(),
-                'reply_markup' => $tg->ReplyKeyboardRemove()
+                'reply_markup' => $tg->replyKeyboardRemove()
             ));
         }
     }

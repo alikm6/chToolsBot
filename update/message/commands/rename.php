@@ -15,7 +15,7 @@ if ($message['text'][0] == '/') {
                 'chat_id' => $tg->update_from,
                 'text' => __("In this part of the robot you can edit Location or Contact information.") . "\n\n" .
                     __("Please send us a location or contact!") . cancel_text(),
-                'reply_markup' => $tg->ReplyKeyboardRemove()
+                'reply_markup' => $tg->replyKeyboardRemove()
             ));
             exit;
         }
@@ -182,7 +182,7 @@ if (!empty($comm) && $comm['name'] == "rename") {
                         ],
                         'resize_keyboard' => true,
                         'one_time_keyboard' => true
-                    ]) : $tg->ReplyKeyboardRemove())
+                    ]) : $tg->replyKeyboardRemove())
                 ]);
             } elseif (count($comm) == 3) {
                 if (empty($message['text'])) {

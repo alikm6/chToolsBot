@@ -13,7 +13,7 @@ if ($message['text'][0] == '/') {
             'text' => __("Please send us your criticism, suggestion or problem.") . "\n\n" .
                 __("Note that you can send us any type of message and multi message.") .
                 cancel_text(),
-            'reply_markup' => $tg->ReplyKeyboardRemove()
+            'reply_markup' => $tg->replyKeyboardRemove()
         ));
         exit;
     }

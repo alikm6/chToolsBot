@@ -119,7 +119,7 @@ if (!empty($comm) && $comm['name'] == "forward") {
                 __("Users languages:") . " " . implode(', ', $languages) . "\n" .
                 __("Send 'Yes' if you are sure.") .
                 cancel_text(),
-            'reply_markup' => $tg->ReplyKeyboardRemove(),
+            'reply_markup' => $tg->replyKeyboardRemove(),
             'reply_to_message_id' => $comm['col1']
         ));
     } elseif (count($comm) == 4) {

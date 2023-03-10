@@ -138,7 +138,7 @@ if (!empty($comm) && $comm['name'] == "hyper_typetext") {
             'text' => $comm['col2'],
             'parse_mode' => $comm['col1'],
             'disable_web_page_preview' => $disable_web_page_preview,
-            'reply_markup' => $tg->ReplyKeyboardRemove()
+            'reply_markup' => $tg->replyKeyboardRemove()
         ), ['send_error' => false]);
         if (!$m) {
             $tg->sendMessage(array(

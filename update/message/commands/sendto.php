@@ -127,7 +127,7 @@ if (!empty($comm) && $comm['name'] == "sendto") {
                 'text' => __("Please forward the message you want to post in your channel without quotes to the robot.") . "\n\n" .
                     __("If you want to post the message containing the inline button that you made with this robot in your channel, send the inline code of this message to the robot.") .
                     cancel_text(),
-                'reply_markup' => $tg->ReplyKeyboardRemove()
+                'reply_markup' => $tg->replyKeyboardRemove()
             ]);
 
             exit();
@@ -200,7 +200,7 @@ if (!empty($comm) && $comm['name'] == "sendto") {
                     'one_time_keyboard' => true
                 ));
             } else {
-                $keyboard = $tg->ReplyKeyboardRemove();
+                $keyboard = $tg->replyKeyboardRemove();
             }
 
             $tg->sendMessage([

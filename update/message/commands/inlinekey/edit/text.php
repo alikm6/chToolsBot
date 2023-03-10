@@ -16,7 +16,7 @@ if ($comm['name'] == "inlinekey_edit_text") {
                 'chat_id' => $tg->update_from,
                 'text' => __("Input is incorrect, you must send a text.") .
                     cancel_text(),
-                'reply_markup' => $tg->ReplyKeyboardRemove(),
+                'reply_markup' => $tg->replyKeyboardRemove(),
             ));
             exit;
         }

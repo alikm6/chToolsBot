@@ -52,7 +52,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_typemedia") {
                 'text' => __("The post you sent is invalid.") . "\n\n" .
                     __("Please send another post.") .
                     cancel_text(),
-                'reply_markup' => $tg->ReplyKeyboardRemove()
+                'reply_markup' => $tg->replyKeyboardRemove()
             ));
             empty_com($tg->update_from);
             add_com($tg->update_from, 'inlinekey_add');

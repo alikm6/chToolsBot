@@ -16,7 +16,7 @@ if ($comm['name'] == "inlinekey_edit_caption") {
                 'chat_id' => $tg->update_from,
                 'text' => __("Input is incorrect, you must send a text.") .
                     cancel_text(),
-                'reply_markup' => $tg->ReplyKeyboardRemove(),
+                'reply_markup' => $tg->replyKeyboardRemove(),
             ));
             exit;
         }
@@ -112,7 +112,7 @@ if ($comm['name'] == "inlinekey_edit_caption") {
                 'chat_id' => $tg->update_from,
                 'text' => __("The text sent is long, please send us a shorter text.") .
                     cancel_text(),
-                'reply_markup' => $tg->ReplyKeyboardRemove()
+                'reply_markup' => $tg->replyKeyboardRemove()
             ));
             exit;
         }
@@ -132,7 +132,7 @@ if ($comm['name'] == "inlinekey_edit_caption") {
             $tg->sendMessage(array(
                 'chat_id' => $tg->update_from,
                 'text' => __("Unspecified error occurred. Please try again.") . cancel_text(),
-                'reply_markup' => $tg->ReplyKeyboardRemove()
+                'reply_markup' => $tg->replyKeyboardRemove()
             ));
             exit;
         }

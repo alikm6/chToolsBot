@@ -59,7 +59,7 @@ if (!empty($comm) && $comm['name'] == "hyper") {
                 'text' => __("Now send us your post in markdown format.") . "\n\n" .
                     __("If you want to hyper caption of a photo🖼, video🎥, gif📹, voice or music🔊 or file📎, submit that file first.") .
                     cancel_text(),
-                'reply_markup' => $tg->ReplyKeyboardRemove()
+                'reply_markup' => $tg->replyKeyboardRemove()
             ));
         } elseif ($message['text'] == sprintf(__("%s Format"), 'html')) {
             edit_com($tg->update_from, ["col1" => 'html']);
@@ -68,7 +68,7 @@ if (!empty($comm) && $comm['name'] == "hyper") {
                 'text' => __("Now send us your post in markdown format.") . "\n\n" .
                     __("If you want to hyper caption of a photo🖼, video🎥, gif📹, voice or music🔊 or file📎, submit that file first.") .
                     cancel_text(),
-                'reply_markup' => $tg->ReplyKeyboardRemove()
+                'reply_markup' => $tg->replyKeyboardRemove()
             ));
         }
         exit;
@@ -85,7 +85,7 @@ if (!empty($comm) && $comm['name'] == "hyper") {
                 'text' => __("The content you submitted is invalid.") . "\n\n" .
                     __("Please submit a text, photo, video, gif, Weiss, music, or file.") .
                     cancel_text(),
-                'reply_markup' => $tg->ReplyKeyboardRemove()
+                'reply_markup' => $tg->replyKeyboardRemove()
             ));
             exit;
         }

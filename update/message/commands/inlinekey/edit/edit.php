@@ -25,7 +25,7 @@ if ($message['text'][0] == '/') {
                 'chat_id' => $tg->update_from,
                 'text' => __("Please send us the inline code of the item you want to edit.") .
                     cancel_text(),
-                'reply_markup' => $tg->ReplyKeyboardRemove()
+                'reply_markup' => $tg->replyKeyboardRemove()
             ));
             exit;
         }
@@ -40,7 +40,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_edit") {
                 'chat_id' => $tg->update_from,
                 'text' => __("Input is incorrect, you must send the inline code.") .
                     cancel_text(),
-                'reply_markup' => $tg->ReplyKeyboardRemove()
+                'reply_markup' => $tg->replyKeyboardRemove()
             ));
             exit;
         }
@@ -69,7 +69,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_edit") {
                 'text' => __("No message found with this inline code.") . "\n\n" .
                     __("Please send us the inline code of the item you want to edit correctly.") .
                     cancel_text(),
-                'reply_markup' => $tg->ReplyKeyboardRemove()
+                'reply_markup' => $tg->replyKeyboardRemove()
             ));
         }
     } elseif (count($comm) == 2) {
@@ -357,7 +357,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_edit") {
                 'text' => __("Please send us your new text.") . "\n\n" .
                     __("Also note that you can submit your text in html format or the original telegram format (for hyper). (Read /help_html and /help_markdown to learn formatting)") .
                     cancel_text(),
-                'reply_markup' => $tg->ReplyKeyboardRemove()
+                'reply_markup' => $tg->replyKeyboardRemove()
             ));
         } elseif ($message['text'] == __("Edit attachment") || $message['text'] == __("Add attachment")) {
             add_com($tg->update_from, 'inlinekey_edit_attach');
@@ -365,7 +365,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_edit") {
                 'chat_id' => $tg->update_from,
                 'text' => __("Please send us the file you want to attach to this message.") .
                     cancel_text(),
-                'reply_markup' => $tg->ReplyKeyboardRemove()
+                'reply_markup' => $tg->replyKeyboardRemove()
             ));
         } elseif ($message['text'] == __("Edit caption") || $message['text'] == __("Add caption")) {
             add_com($tg->update_from, 'inlinekey_edit_caption');
@@ -375,7 +375,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_edit") {
                     __("Your caption must be up to 1024 characters long.") . "\n\n" .
                     __("Also note that you can submit your text in html format or the original telegram format (for hyper). (Read /help_html and /help_markdown to learn formatting)") .
                     cancel_text(),
-                'reply_markup' => $tg->ReplyKeyboardRemove()
+                'reply_markup' => $tg->replyKeyboardRemove()
             ));
         } elseif ($message['text'] == __("Edit language of successful vote registration message")) {
             add_com($tg->update_from, 'inlinekey_edit_language_code');

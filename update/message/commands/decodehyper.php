@@ -15,7 +15,7 @@ if ($message['text'][0] == '/') {
                 'chat_id' => $tg->update_from,
                 'text' => __("Please send us the hyper message so that the robot can send you the original text of the message.") .
                     cancel_text(),
-                'reply_markup' => $tg->ReplyKeyboardRemove()
+                'reply_markup' => $tg->replyKeyboardRemove()
             ));
             exit;
         }

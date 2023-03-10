@@ -14,7 +14,7 @@ if ($message['text'][0] == '/') {
             $tg->sendMessage(array(
                 'chat_id' => $tg->update_from,
                 'text' => __("Please upload or forward the file you want to attach.") . cancel_text(),
-                'reply_markup' => $tg->ReplyKeyboardRemove()
+                'reply_markup' => $tg->replyKeyboardRemove()
             ));
             exit;
         }
