@@ -130,7 +130,7 @@ function get_inlinekey_edit_keyboard($inlinekey)
     }
 
     if (inlinekey_have_counter($inlinekey['keyboard'])) {
-        if ($inlinekey['counter_type'] == 'percent') {
+        if ($inlinekey['counter_type'] != 'percent') {
             $keyboard[] = [__("Display counter button statistics as a percentage")];
         } else {
             $keyboard[] = [__("Display counter button statistics as a count")];
