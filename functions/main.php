@@ -442,264 +442,121 @@ function convert_to_hyper($text, $entities = [])
         return htmlspecialchars($text);
     }
 
-    $offset = [];
-    foreach ($entities as $key => $row) {
-        $offset[$key] = $row['offset'];
+    foreach ($entities as $key => $entity) {
+        if (
+            $entity['type'] != 'bold' &&
+            $entity['type'] != 'italic' &&
+            $entity['type'] != 'underline' &&
+            $entity['type'] != 'strikethrough' &&
+            $entity['type'] != 'code' &&
+            $entity['type'] != 'pre' &&
+            $entity['type'] != 'text_link'
+        ) {
+            unset($entities[$key]);
+        }
     }
 
-    $length = [];
-    foreach ($entities as $key => $row) {
-        $length[$key] = $row['length'];
+    $offsets = [];
+    $lengths = [];
+    $keys = [];
+
+    foreach ($entities as $key => $entity) {
+        $keys[$key] = $key;
+        $offsets[$key] = $entity['offset'];
+        $lengths[$key] = $entity['length'];
     }
 
-    array_multisort($offset, SORT_ASC, $length, SORT_ASC, $entities);
+    array_multisort($offsets, SORT_ASC, $lengths, SORT_DESC, $keys, SORT_ASC, $entities);
 
-    $grouped_entities = [];
+    $sub_texts_offsets = [];
 
     foreach ($entities as $entity) {
-        $added = false;
-
-        foreach ($grouped_entities as $grouped_entity_key => $grouped_entity) {
-            if ($grouped_entity[0]['offset'] == $entity['offset']) {
-                $grouped_entities[$grouped_entity_key][] = $entity;
-                $added = true;
-                break;
-            }
-        }
-
-        if (!$added) {
-            $grouped_entities[][] = $entity;
-        }
+        $sub_texts_offsets[] = $entity['offset'];
+        $sub_texts_offsets[] = $entity['offset'] + $entity['length'];
     }
+
+    $sub_texts_offsets = array_unique($sub_texts_offsets);
+    sort($sub_texts_offsets);
 
     $str = mb_convert_encoding($text, 'UTF-16', 'UTF-8');
+    $sub_texts = [];
 
-    $grouped_entities_keys = array_keys($grouped_entities);
-
-    foreach ($grouped_entities_keys as $grouped_entities_key) {
-        $sub_entities_keys = array_keys($grouped_entities[$grouped_entities_key]);
-
-        foreach ($sub_entities_keys as $sub_entity_key) {
-            $entity = $grouped_entities[$grouped_entities_key][$sub_entity_key];
-
-            if (
-                $entity['type'] == 'bold' ||
-                $entity['type'] == 'italic' ||
-                $entity['type'] == 'underline' ||
-                $entity['type'] == 'strikethrough' ||
-                $entity['type'] == 'code' ||
-                $entity['type'] == 'pre' ||
-                $entity['type'] == 'text_link'
-            ) {
-                $replacement = mb_convert_encoding(
-                    mb_substr(
-                        $str,
-                        $entity['offset'],
-                        $entity['length'],
-                        'UCS-2'
-                    ),
-                    'UTF-8',
-                    'UTF-16'
-                );
-
-                if ($sub_entity_key == 0) {
-                    $replacement = htmlspecialchars($replacement);
-                } elseif ($grouped_entities[$grouped_entities_key][$sub_entity_key - 1]['length'] != $entity['length']) {
-                    $replacement = mb_convert_encoding(
-                        $replacement,
-                        'UTF-16',
-                        'UTF-8'
-                    );
-
-                    $replacement_html = mb_convert_encoding(
-                        mb_substr(
-                            $replacement,
-                            0,
-                            $grouped_entities[$grouped_entities_key][$sub_entity_key - 1]['length'],
-                            'UCS-2'
-                        ),
-                        'UTF-8',
-                        'UTF-16'
-                    );
-
-                    $replacement_none_html = mb_convert_encoding(
-                        mb_substr(
-                            $replacement,
-                            $grouped_entities[$grouped_entities_key][$sub_entity_key - 1]['length'],
-                            null,
-                            'UCS-2'
-                        ),
-                        'UTF-8',
-                        'UTF-16'
-                    );
-
-                    $replacement = $replacement_html . htmlspecialchars($replacement_none_html);
-                }
-
-                if ($entity['type'] == 'bold') {
-                    $replacement = "<b>" . $replacement . "</b>";
-                } elseif ($entity['type'] == 'italic') {
-                    $replacement = "<i>" . $replacement . "</i>";
-                } elseif ($entity['type'] == 'underline') {
-                    $replacement = "<u>" . $replacement . "</u>";
-                } elseif ($entity['type'] == 'strikethrough') {
-                    $replacement = "<s>" . $replacement . "</s>";
-                } elseif ($entity['type'] == 'code') {
-                    $replacement = "<code>" . $replacement . "</code>";
-                } elseif ($entity['type'] == 'pre') {
-                    $replacement = "<pre>" . $replacement . "</pre>";
-                } elseif ($entity['type'] == 'text_link') {
-                    $replacement = "<a href=\"{$entity['url']}\">" . $replacement . "</a>";
-                }
-
-                $replacement = mb_convert_encoding(
-                    $replacement,
-                    'UTF-16',
-                    'UTF-8'
-                );
-
-                $new_len = mb_strlen(
-                    $replacement,
-                    'UCS-2'
-                );
-
-                $str = mb_substr_replace(
-                    $str,
-                    $replacement,
-                    $entity['offset'],
-                    $entity['length'],
-                    'UCS-2'
-                );
-
-                $difference_len = $new_len - $entity['length'];
-
-                // update offset and length of entities
-                foreach ($grouped_entities_keys as $tmp_grouped_entities_key) {
-                    $tmp_sub_entities_keys = array_keys($grouped_entities[$tmp_grouped_entities_key]);
-
-                    foreach ($tmp_sub_entities_keys as $tmp_sub_entity_key) {
-                        $tmp_entity = $grouped_entities[$tmp_grouped_entities_key][$tmp_sub_entity_key];
-
-                        if ($tmp_entity['offset'] > $entity['offset']) {
-                            $grouped_entities[$tmp_grouped_entities_key][$tmp_sub_entity_key]['offset'] += $difference_len;
-                        }
-
-                        if ($tmp_entity['offset'] == $entity['offset']) {
-                            $grouped_entities[$tmp_grouped_entities_key][$tmp_sub_entity_key]['length'] += $difference_len;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    $first_entity = $grouped_entities[0][0];
-
-    if ($first_entity['offset'] != 0) {
-        array_unshift($grouped_entities,
-            [
-                [
-                    'offset' => 0,
-                    'length' => 0,
-                ]
-            ]
-        );
-
-        $grouped_entities_keys = array_keys($grouped_entities);
-    }
-
-    foreach ($grouped_entities_keys as $grouped_entities_key) {
-        $entity = $grouped_entities[$grouped_entities_key][count($grouped_entities[$grouped_entities_key]) - 1];
-        $next_entity = $grouped_entities[$grouped_entities_key + 1] ?? false;
-        if ($next_entity) {
-            $next_entity = $next_entity[count($next_entity) - 1];
+    for ($i = 0; $i < count($sub_texts_offsets) + 1; $i++) {
+        if (isset($sub_texts_offsets[$i]) && $sub_texts_offsets[$i] == 0) {
+            continue;
         }
 
-        if (!$next_entity || $entity['offset'] + $entity['length'] < $next_entity['offset']) {
-            $offset = $entity['offset'] + $entity['length'];
-            $length = null;
+        $start = $sub_texts_offsets[$i - 1] ?? 0;
+        $end = $sub_texts_offsets[$i] ?? null;
+        $length = $end != null ? ($end - $start) : null;
 
-            if ($next_entity) {
-                $length = $next_entity['offset'] - $offset;
-            }
-
-            $tmp_text = mb_convert_encoding(
-                mb_substr(
-                    $str,
-                    $offset,
-                    $length,
-                    'UCS-2'
-                ),
+        $segment = mb_substr($str, $start, $length, 'UCS-2');
+        $sub_texts[] = [
+            'offset' => $start,
+            'length' => $length,
+            'text' => mb_convert_encoding(
+                $segment,
                 'UTF-8',
                 'UTF-16'
-            );
+            )
+        ];
+    }
 
-            if ($tmp_text == htmlspecialchars($tmp_text)) {
+    $reversed_entities = array_reverse($entities);
+
+    $final_text = "";
+    $offset_index = 0;
+
+    foreach($sub_texts as $sub_text) {
+        foreach ($reversed_entities as $entity) {
+            if ($offset_index != $entity['offset'] + $entity['length']) {
                 continue;
             }
 
-            $tmp_text = mb_convert_encoding(
-                htmlspecialchars($tmp_text),
-                'UTF-16',
-                'UTF-8'
-            );
-
-            $new_len = mb_strlen(
-                $tmp_text,
-                'UCS-2'
-            );
-
-            $str = mb_substr_replace(
-                $str,
-                $tmp_text,
-                $offset,
-                $length,
-                'UCS-2'
-            );
-
-            $difference_len = $new_len - $length;
-
-            // update offset and length of entities
-            foreach ($grouped_entities_keys as $tmp_grouped_entities_key) {
-                $tmp_sub_entities_keys = array_keys($grouped_entities[$tmp_grouped_entities_key]);
-
-                foreach ($tmp_sub_entities_keys as $tmp_sub_entity_key) {
-                    $tmp_entity = $grouped_entities[$tmp_grouped_entities_key][$tmp_sub_entity_key];
-
-                    if ($tmp_entity['offset'] > $offset) {
-                        $grouped_entities[$tmp_grouped_entities_key][$tmp_sub_entity_key]['offset'] += $difference_len;
-                    }
-
-                    if ($tmp_entity['offset'] == $offset) {
-                        $grouped_entities[$tmp_grouped_entities_key][$tmp_sub_entity_key]['length'] += $difference_len;
-                    }
-                }
+            if ($entity['type'] == 'bold') {
+                $final_text .= "</b>";
+            } elseif ($entity['type'] == 'italic') {
+                $final_text .= "</i>";
+            } elseif ($entity['type'] == 'underline') {
+                $final_text .= "</u>";
+            } elseif ($entity['type'] == 'strikethrough') {
+                $final_text .= "</s>";
+            } elseif ($entity['type'] == 'code') {
+                $final_text .= "</code>";
+            } elseif ($entity['type'] == 'pre') {
+                $final_text .= "</pre>";
+            } elseif ($entity['type'] == 'text_link') {
+                $final_text .= "</a>";
             }
         }
+
+        foreach ($entities as $entity) {
+            if ($offset_index != $entity['offset']) {
+                continue;
+            }
+
+            if ($entity['type'] == 'bold') {
+                $final_text .= "<b>";
+            } elseif ($entity['type'] == 'italic') {
+                $final_text .= "<i>";
+            } elseif ($entity['type'] == 'underline') {
+                $final_text .= "<u>";
+            } elseif ($entity['type'] == 'strikethrough') {
+                $final_text .= "<s>";
+            } elseif ($entity['type'] == 'code') {
+                $final_text .= "<code>";
+            } elseif ($entity['type'] == 'pre') {
+                $final_text .= "<pre>";
+            } elseif ($entity['type'] == 'text_link') {
+                $final_text .= "<a href=\"{$entity['url']}\">";
+            }
+        }
+
+        $final_text .= htmlspecialchars($sub_text['text']);
+        $offset_index += $sub_text['length'];
     }
 
-    return mb_convert_encoding(
-        $str,
-        'UTF-8',
-        'UTF-16'
-    );
-}
-
-function mb_substr_replace($string, $replacement, $start, $length = null, $encoding = null)
-{
-    if (empty($encoding)) {
-        $encoding = mb_internal_encoding();
-    }
-
-    $result = "";
-
-    $result .= mb_substr($string, 0, $start, $encoding);
-    $result .= $replacement;
-    if ($length != null && mb_strlen($string, $encoding) > $start + $length) {
-        $result .= mb_substr($string, $start + $length, null, $encoding);
-    }
-
-    return $result;
+    return $final_text;
 }
 
 function convert_time_to_text($time): string
