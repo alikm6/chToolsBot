@@ -13,7 +13,7 @@ if ($message['text'][0] == '/') {
                 "https://github.com/alikm6/chToolsBot/",
             'disable_web_page_preview' => true,
             'parse_mode' => 'html',
-            'reply_markup' => mainMenu()
+            'reply_markup' => mainMenu(),
         ]);
 
         exit;

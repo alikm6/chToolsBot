@@ -17,17 +17,17 @@ if ($message['text'][0] == '/') {
             [__("↩️ Cancel")],
         ];
 
-        $reply_markup = $tg->replyKeyboardMarkup(array(
+        $reply_markup = $tg->replyKeyboardMarkup([
             'keyboard' => apply_rtl_to_keyboard($keyboard),
             'resize_keyboard' => true,
-            'one_time_keyboard' => true
-        ));
-        $tg->sendMessage(array(
+            'one_time_keyboard' => true,
+        ]);
+        $tg->sendMessage([
             'chat_id' => $tg->update_from,
             'text' => __("Please select an option or send your desired period as a meaningful phrase to the robot.") .
                 cancel_text(),
-            'reply_markup' => $reply_markup
-        ));
+            'reply_markup' => $reply_markup,
+        ]);
         exit;
     }
 }
@@ -46,17 +46,17 @@ if (!empty($comm) && $comm['name'] == "stats") {
                     __("1 month ago"),
                     __("3 months ago"),
                     __("6 months ago"),
-                    __("1 year ago")
+                    __("1 year ago"),
                 ]
             ) &&
             strtotime($message['text']) === false
         )
     ) {
-        $tg->sendMessage(array(
+        $tg->sendMessage([
             'chat_id' => $tg->update_from,
             'text' => __("Please select an item correctly.") .
-                cancel_text()
-        ));
+                cancel_text(),
+        ]);
         exit;
     }
 
@@ -89,14 +89,14 @@ if (!empty($comm) && $comm['name'] == "stats") {
     $q = "select count(id) as count from users where start_date >= ?";
 
     $result = $db->rawQueryOne($q, [
-        'start_date' => $date
+        'start_date' => $date,
     ]);
     $m .= __("Number of new users:") . " " . "<b>" . $result['count'] . "</b>" . "\n";
 
     $q = "select count(id) as count from users where start_date >= ? and referral_user_id != 0";
 
     $result = $db->rawQueryOne($q, [
-        'start_date' => $date
+        'start_date' => $date,
     ]);
     $m .= __("Number of users who have become members of the bot by referral link:") . " " . "<b>" . $result['count'] . "</b>" . "\n\n";
 
@@ -104,7 +104,7 @@ if (!empty($comm) && $comm['name'] == "stats") {
         $q = "select count(id) as count from users where last_m_date >= ?";
 
         $result = $db->rawQueryOne($q, [
-            'last_m_date' => $date
+            'last_m_date' => $date,
         ]);
         $m .= __("Number of users who sent the message to the robot:") . " " . "<b>" . $result['count'] . "</b>" . "\n\n";
     }
@@ -114,7 +114,7 @@ if (!empty($comm) && $comm['name'] == "stats") {
         group by name";
 
     $result = $db->rawQuery($q, [
-        'stat_date' => $date
+        'stat_date' => $date,
     ]);
     if (count($result) != 0) {
         $m .= __("List of completed requests:") . "\n";
@@ -124,10 +124,10 @@ if (!empty($comm) && $comm['name'] == "stats") {
         $m .= ($key + 1) . ". {$value['name']}: <b>{$value['count']}</b> by <b>{$value['user_count']}</b> users" . "\n";
     }
 
-    $tg->sendMessage(array(
+    $tg->sendMessage([
         'chat_id' => $tg->update_from,
         'text' => $m . cancel_text(),
-        'parse_mode' => 'html'
-    ));
+        'parse_mode' => 'html',
+    ]);
     exit;
 }

@@ -13,7 +13,7 @@ function get_channels_keyboard_and_text($callback_data = []): array
 
     $q = "select * from channels where user_id=?";
     $channels = $db->rawQuery($q, [
-        'user_id' => $tg->update_from
+        'user_id' => $tg->update_from,
     ]);
     $count_channels = count($channels);
 
@@ -33,17 +33,17 @@ function get_channels_keyboard_and_text($callback_data = []): array
         foreach ($channels as $channel) {
             $q = "select * from tg_Chat where tg_id=? limit 1";
             $db_tg_channel = $db->rawQueryOne($q, [
-                'tg_id' => $channel['channel_id']
+                'tg_id' => $channel['channel_id'],
             ]);
 
             $keyboard[] = [
                 [
                     "text" => tgChatToText(dbChatToTG($db_tg_channel)),
-                    "callback_data" => encode_callback_data(['action' => 'alert', 'text' => tgChatToText(dbChatToTG($db_tg_channel))])
+                    "callback_data" => encode_callback_data(['action' => 'alert', 'text' => tgChatToText(dbChatToTG($db_tg_channel))]),
                 ],
                 [
                     "text" => __("❌ Delete"),
-                    "callback_data" => encode_callback_data(['action' => 'editmessage', 'func' => 'get_channels_delete_keyboard_and_text', 'id' => $channel['id'], 'page' => $callback_data['page'], 'limit' => $callback_data['limit']])
+                    "callback_data" => encode_callback_data(['action' => 'editmessage', 'func' => 'get_channels_delete_keyboard_and_text', 'id' => $channel['id'], 'page' => $callback_data['page'], 'limit' => $callback_data['limit']]),
                 ],
             ];
         }
@@ -52,13 +52,13 @@ function get_channels_keyboard_and_text($callback_data = []): array
         if ($callback_data['page'] > 1) {
             $keyboard[$tmp][] = [
                 "text" => __("<"),
-                "callback_data" => encode_callback_data(['action' => 'editmessage', 'func' => 'get_channels_keyboard_and_text', 'page' => $callback_data['page'] - 1, 'limit' => $callback_data['limit']])
+                "callback_data" => encode_callback_data(['action' => 'editmessage', 'func' => 'get_channels_keyboard_and_text', 'page' => $callback_data['page'] - 1, 'limit' => $callback_data['limit']]),
             ];
         }
         if ($callback_data['page'] * $callback_data['limit'] < $count_channels) {
             $keyboard[$tmp][] = [
                 "text" => __(">"),
-                "callback_data" => encode_callback_data(['action' => 'editmessage', 'func' => 'get_channels_keyboard_and_text', 'page' => $callback_data['page'] + 1, 'limit' => $callback_data['limit']])
+                "callback_data" => encode_callback_data(['action' => 'editmessage', 'func' => 'get_channels_keyboard_and_text', 'page' => $callback_data['page'] + 1, 'limit' => $callback_data['limit']]),
             ];
         }
     }
@@ -66,11 +66,11 @@ function get_channels_keyboard_and_text($callback_data = []): array
     $keyboard[] = [
         [
             "text" => __("➕ Add"),
-            "callback_data" => encode_callback_data(['action' => 'channels', 'process' => 'add', 'page' => $callback_data['page'], 'limit' => $callback_data['limit']])
-        ]
+            "callback_data" => encode_callback_data(['action' => 'channels', 'process' => 'add', 'page' => $callback_data['page'], 'limit' => $callback_data['limit']]),
+        ],
     ];
 
-    $keyboard = json_encode(array("inline_keyboard" => apply_rtl_to_keyboard($keyboard)));
+    $keyboard = json_encode(["inline_keyboard" => apply_rtl_to_keyboard($keyboard)]);
     return ['text' => $text, 'keyboard' => $keyboard];
 }
 
@@ -89,7 +89,7 @@ function get_channels_delete_keyboard_and_text($callback_data = []): array
     $q = "select * from channels where user_id = ? and id = ? limit 1";
     $channel = $db->rawQueryOne($q, [
         'user_id' => $tg->update_from,
-        'id' => $callback_data['id']
+        'id' => $callback_data['id'],
     ]);
     if (empty($channel)) {
         return get_channels_keyboard_and_text($callback_data);
@@ -97,7 +97,7 @@ function get_channels_delete_keyboard_and_text($callback_data = []): array
 
     $q = "select * from tg_Chat where tg_id=? limit 1";
     $db_tg_channel = $db->rawQueryOne($q, [
-        'tg_id' => $channel['channel_id']
+        'tg_id' => $channel['channel_id'],
     ]);
 
     $keyboard = [];
@@ -106,7 +106,7 @@ function get_channels_delete_keyboard_and_text($callback_data = []): array
             __("You are in %s."),
             implode(__(" 👉 "), [
                 "<b>" . __("Manage Channels") . "</b>",
-                sprintf(__("\"%s\" <b>Deletion</b>"), tgChatToText(dbChatToTG($db_tg_channel), 'html'))
+                sprintf(__("\"%s\" <b>Deletion</b>"), tgChatToText(dbChatToTG($db_tg_channel), 'html')),
             ])
         ) . "\n\n"
         . __("This will delete target channel and it will not be reversible!") . "\n" .
@@ -115,14 +115,14 @@ function get_channels_delete_keyboard_and_text($callback_data = []): array
     $keyboard[] = [
         [
             "text" => __("❌ No"),
-            "callback_data" => encode_callback_data(['action' => 'editmessage', 'func' => 'get_channels_keyboard_and_text', 'page' => $callback_data['page'], 'limit' => $callback_data['limit']])
+            "callback_data" => encode_callback_data(['action' => 'editmessage', 'func' => 'get_channels_keyboard_and_text', 'page' => $callback_data['page'], 'limit' => $callback_data['limit']]),
         ],
         [
             "text" => __("✅ Yes"),
-            "callback_data" => encode_callback_data(['action' => 'channels', 'process' => 'delete', 'id' => $channel['id'], 'page' => $callback_data['page'], 'limit' => $callback_data['limit']])
-        ]
+            "callback_data" => encode_callback_data(['action' => 'channels', 'process' => 'delete', 'id' => $channel['id'], 'page' => $callback_data['page'], 'limit' => $callback_data['limit']]),
+        ],
     ];
 
-    $keyboard = json_encode(array("inline_keyboard" => apply_rtl_to_keyboard($keyboard)));
+    $keyboard = json_encode(["inline_keyboard" => apply_rtl_to_keyboard($keyboard)]);
     return ['text' => $text, 'keyboard' => $keyboard];
 }

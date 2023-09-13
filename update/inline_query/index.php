@@ -23,56 +23,60 @@ if (stripos($inline_query['query'], 'share') === 0) {
     if ($inline_query['query'] != null && is_numeric($inline_query['query'])) {
         $q = "select * from users where user_id=? limit";
         $result = $db->rawQueryOne($q, [
-            'user_id' => $inline_query['query']
+            'user_id' => $inline_query['query'],
         ]);
 
         if (!empty($result)) {
             $type = 1;
         }
     }
-    $tmp = array(
+    $tmp = [
         'type' => 'article',
         'id' => 'share',
         'title' => __(BOT_NAME),
-        'parse_mode' => 'html'
-    );
+        'parse_mode' => 'html',
+    ];
     $tmp['description'] = __("Support us by sharing our robot.");
     if ($type == 1) {
         $tmp['message_text'] = hide_link(BANNER_LINK[current_language()], 'html') .
             __("With <b>Tools</b> robot you can create messages containing a inline button, hyper text, add attachments to texts, post messages into your channel without quotes, and ...") . "\n\n" .
             "☠ <a href=\"https://t.me/" . BOT_USERNAME . "?start={$inline_query['query']}\">@" . BOT_USERNAME . "</a> ☠";
-        $tmp['reply_markup'] = array("inline_keyboard" => array(
-            array(
-                array(
-                    "text" => __(BOT_NAME),
-                    "url" => 'https://t.me/' . BOT_USERNAME . '?start=' . $inline_query['query']
-                )
-            ),
-            array(
-                array(
-                    "text" => __("Join our channel"),
-                    "url" => "https://t.me/FarsBots"
-                )
-            )
-        ));
+        $tmp['reply_markup'] = [
+            "inline_keyboard" => [
+                [
+                    [
+                        "text" => __(BOT_NAME),
+                        "url" => 'https://t.me/' . BOT_USERNAME . '?start=' . $inline_query['query'],
+                    ],
+                ],
+                [
+                    [
+                        "text" => __("Join our channel"),
+                        "url" => "https://t.me/FarsBots",
+                    ],
+                ],
+            ],
+        ];
     } else {
         $tmp['message_text'] = hide_link(BANNER_LINK[current_language()], 'html') .
             __("With <b>Tools</b> robot you can create messages containing a inline button, hyper text, add attachments to texts, post messages into your channel without quotes, and ...") . "\n\n" .
             "☠ <a href=\"https://t.me/" . BOT_USERNAME . "\">@" . BOT_USERNAME . "</a> ☠";
-        $tmp['reply_markup'] = array("inline_keyboard" => array(
-            array(
-                array(
-                    "text" => __(BOT_NAME),
-                    "url" => 'https://t.me/' . BOT_USERNAME
-                )
-            ),
-            array(
-                array(
-                    "text" => __("Join our channel"),
-                    "url" => "https://t.me/FarsBots"
-                )
-            )
-        ));
+        $tmp['reply_markup'] = [
+            "inline_keyboard" => [
+                [
+                    [
+                        "text" => __(BOT_NAME),
+                        "url" => 'https://t.me/' . BOT_USERNAME,
+                    ],
+                ],
+                [
+                    [
+                        "text" => __("Join our channel"),
+                        "url" => "https://t.me/FarsBots",
+                    ],
+                ],
+            ],
+        ];
     }
     $p['results'][0] = $tmp;
     $p['results'] = json_encode($p['results']);
@@ -88,7 +92,7 @@ if (stripos($inline_query['query'], 'share') === 0) {
 } else {
     $q = "select * from inlinekey where inline_id=? and status = 1 limit 1";
     $result = $db->rawQueryOne($q, [
-        'inline_id' => $inline_query['query']
+        'inline_id' => $inline_query['query'],
     ]);
 
     $p['inline_query_id'] = $inline_query['id'];
@@ -105,14 +109,16 @@ if (stripos($inline_query['query'], 'share') === 0) {
             'message_text' => "@" . BOT_USERNAME . " <code>{$result['inline_id']}</code>",
             'description' => $result['inline_id'],
             'parse_mode' => 'html',
-            'reply_markup' => array("inline_keyboard" => array(
-                array(
-                    array(
-                        "text" => __("Share it"),
-                        "switch_inline_query" => $result['inline_id']
-                    )
-                )
-            ))
+            'reply_markup' => [
+                "inline_keyboard" => [
+                    [
+                        [
+                            "text" => __("Share it"),
+                            "switch_inline_query" => $result['inline_id'],
+                        ],
+                    ],
+                ],
+            ],
         ];
 
         $p['results'] = array_filter($p['results']);

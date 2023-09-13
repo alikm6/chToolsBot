@@ -11,7 +11,7 @@ if (empty($_GET['id'])) {
 $db = get_db();
 
 $attachment = $db->rawQueryOne('select * from attachments where concat(attachment_id, id) = ? limit 1', [
-    'attachment_id' => $_GET['id']
+    'attachment_id' => $_GET['id'],
 ]);
 
 if (empty($attachment)) {

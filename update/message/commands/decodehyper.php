@@ -11,12 +11,12 @@ if ($message['text'][0] == '/') {
         if (!empty($message['reply_to_message'])) {
             $message = $message['reply_to_message'];
         } else {
-            $tg->sendMessage(array(
+            $tg->sendMessage([
                 'chat_id' => $tg->update_from,
                 'text' => __("Please send us the hyper message so that the robot can send you the original text of the message.") .
                     cancel_text(),
-                'reply_markup' => $tg->replyKeyboardRemove()
-            ));
+                'reply_markup' => $tg->replyKeyboardRemove(),
+            ]);
             exit;
         }
     }
@@ -25,11 +25,11 @@ $comm = get_com($tg->update_from);
 if (!empty($comm) && $comm['name'] == "decodehyper") {
     if (count($comm) == 1) {
         if (empty($message['text']) && empty($message['caption'])) {
-            $tg->sendMessage(array(
+            $tg->sendMessage([
                 'chat_id' => $tg->update_from,
                 'text' => __("Input is incorrect, please send us a hyper message correctly.") .
-                    cancel_text()
-            ));
+                    cancel_text(),
+            ]);
             exit;
         }
 
@@ -45,23 +45,23 @@ if (!empty($comm) && $comm['name'] == "decodehyper") {
         }
 
         if (htmlspecialchars($org_text) == $decode_text) {
-            $tg->sendMessage(array(
+            $tg->sendMessage([
                 'chat_id' => $tg->update_from,
                 'text' => __("The message you sent was not hyper.") . "\n\n" .
                     __("Please send us a hyper message correctly.") .
-                    cancel_text()
-            ));
+                    cancel_text(),
+            ]);
             exit;
         }
 
         empty_com($tg->update_from);
         add_stats_info($tg->update_from, 'Decode Hyper');
-        $tg->sendMessage(array(
+        $tg->sendMessage([
             'chat_id' => $tg->update_from,
             'text' => $decode_text,
             'disable_web_page_preview' => true,
-            'reply_markup' => mainMenu()
-        ));
+            'reply_markup' => mainMenu(),
+        ]);
     }
     exit;
 }

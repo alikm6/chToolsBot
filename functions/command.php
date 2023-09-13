@@ -40,47 +40,47 @@ function command_list(): array
     return [
         [
             'command' => 'help',
-            'description' => __('Help')
+            'description' => __('Help'),
         ],
         [
             'command' => 'sendto',
-            'description' => __('Send without quotes')
+            'description' => __('Send without quotes'),
         ],
         [
             'command' => 'channels',
-            'description' => __('Manage channels')
+            'description' => __('Manage channels'),
         ],
         [
             'command' => 'inlinekey',
-            'description' => __('Manage inline buttons')
+            'description' => __('Manage inline buttons'),
         ],
         [
             'command' => 'attach',
-            'description' => __('Attach file')
+            'description' => __('Attach file'),
         ],
         [
             'command' => 'hyper',
-            'description' => __('Create hyper link')
+            'description' => __('Create hyper link'),
         ],
         [
             'command' => 'decodehyper',
-            'description' => __('Convert hyper text to its original text')
+            'description' => __('Convert hyper text to its original text'),
         ],
         [
             'command' => 'rename',
-            'description' => __('Change Contact and Location information')
+            'description' => __('Change Contact and Location information'),
         ],
         [
             'command' => 'contact',
-            'description' => __('Contact us')
+            'description' => __('Contact us'),
         ],
         [
             'command' => 'source',
-            'description' => __('Bot source')
+            'description' => __('Bot source'),
         ],
         [
             'command' => 'cancel',
-            'description' => __('Cancel the current operation')
+            'description' => __('Cancel the current operation'),
         ],
     ];
 }

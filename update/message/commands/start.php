@@ -5,16 +5,16 @@
 
 $q = "select * from users where user_id = ? limit 1";
 $user = $db->rawQueryOne($q, [
-    'user_id' => $tg->update_from
+    'user_id' => $tg->update_from,
 ]);
 
 if (empty($user)) {
-    $p = array(
+    $p = [
         'user_id' => $tg->update_from,
         'start_m_id' => $message['message_id'],
         'start_date' => time(),
-        'last_m_date' => time()
-    );
+        'last_m_date' => time(),
+    ];
 
     $words = explode(' ', $message['text']);
     $command = $words[0];
@@ -35,7 +35,7 @@ if (empty($user)) {
     $q = "select * from admins where notify_new_member=1";
     $admins = $db->rawQuery($q);
     if (count($admins) != 0) {
-        $data = array();
+        $data = [];
         foreach ($admins as $admin) {
             set_language_by_user_id($admin['user_id']);
 
@@ -51,12 +51,12 @@ if (empty($user)) {
                     );
             }
 
-            $data[] = array(
+            $data[] = [
                 'chat_id' => $admin['user_id'],
                 'text' => $text,
                 'disable_web_page_preview' => true,
-                'parse_mode' => 'html'
-            );
+                'parse_mode' => 'html',
+            ];
         }
         $tg->sendMessage($data, ['send_error' => false]);
     }
@@ -66,7 +66,7 @@ if (empty($user)) {
 
 $q = "select * from settings where user_id = ? limit 1";
 $user_settings = $db->rawQueryOne($q, [
-    'user_id' => $tg->update_from
+    'user_id' => $tg->update_from,
 ]);
 
 if (empty($user_settings)) {
@@ -97,14 +97,14 @@ if ($message['text'][0] == '/') {
     $command = strtolower($words[0]);
     if ($command == '/start') {
         if ($words[1] == null || pos_in_array(all_command_list(), strtolower($words[1])) === false) {
-            $tg->sendMessage(array(
+            $tg->sendMessage([
                 'chat_id' => $tg->update_from,
                 'text' => __("With this robot you can create messages containing a inline button, hyper text, add attachments to texts, post messages into your channel without quotes, and ...") . "\n\n" .
                     __("Choose an option from the menu below to get started."),
                 'reply_markup' => mainMenu(),
                 'disable_web_page_preview' => true,
-                'parse_mode' => 'html'
-            ));
+                'parse_mode' => 'html',
+            ]);
             exit;
         }
 

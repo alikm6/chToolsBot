@@ -6,18 +6,18 @@
 $callback_query = $update['callback_query'];
 
 if ($callback_query['data'] == '_') {
-    $tg->answerCallbackQuery(array(
-        "callback_query_id" => $callback_query['id']
-    ), ['send_error' => false]);
+    $tg->answerCallbackQuery([
+        "callback_query_id" => $callback_query['id'],
+    ], ['send_error' => false]);
     exit;
 }
 
 $callback_data = decode_callback_data($callback_query['data']);
 if (!$callback_data) {
-    $tg->answerCallbackQuery(array(
+    $tg->answerCallbackQuery([
         "callback_query_id" => $callback_query['id'],
-        "text" => __("The request is invalid!")
-    ), ['send_error' => false]);
+        "text" => __("The request is invalid!"),
+    ], ['send_error' => false]);
 }
 
 require realpath(__DIR__) . '/editmessage.php';

@@ -31,16 +31,16 @@ if ($message['text'][0] == '/') {
 
         $keyboard[] = ["↩️ Cancel"];
 
-        $tg->sendMessage(array(
+        $tg->sendMessage([
             'chat_id' => $tg->update_from,
             'text' => $text,
-            'reply_markup' => $tg->replyKeyboardMarkup(array(
+            'reply_markup' => $tg->replyKeyboardMarkup([
                 'keyboard' => $keyboard,
                 'resize_keyboard' => true,
-                'one_time_keyboard' => true
-            )),
-            'parse_mode' => 'html'
-        ));
+                'one_time_keyboard' => true,
+            ]),
+            'parse_mode' => 'html',
+        ]);
 
         exit;
     }
@@ -68,17 +68,17 @@ if (!empty($comm) && $comm['name'] == "language") {
             $text .= __("Please select an option correctly.") . "\n\n";
         }
 
-        $tg->sendMessage(array(
+        $tg->sendMessage([
             'chat_id' => $tg->update_from,
-            'text' => $text
-        ));
+            'text' => $text,
+        ]);
 
         exit;
     }
 
     $db->where('user_id', $tg->update_from);
     $tmp = $db->update('settings', [
-        'language_code' => $language_code
+        'language_code' => $language_code,
     ]);
 
     if (!$tmp) {
@@ -87,11 +87,11 @@ if (!empty($comm) && $comm['name'] == "language") {
 
     set_language_by_code($language_code);
 
-    $tg->sendMessage(array(
+    $tg->sendMessage([
         'chat_id' => $tg->update_from,
         'text' => __("The target language was successfully selected."),
-        'reply_markup' => mainMenu()
-    ));
+        'reply_markup' => mainMenu(),
+    ]);
 
     empty_com($tg->update_from);
 

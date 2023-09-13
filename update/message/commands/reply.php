@@ -11,14 +11,14 @@ if ($message['text'][0] == '/') {
 
         $q = "select * from contact where id = ? limit 1";
         $contact = $db->rawQueryOne($q, [
-            'id' => $words[1]
+            'id' => $words[1],
         ]);
 
         if (!empty($contact)) {
             if ($tg->update_from != $contact['user_id']) {
                 $q = "select * from admins where user_id = ? limit 1";
                 $admin = $db->rawQueryOne($q, [
-                    'user_id' => $tg->update_from
+                    'user_id' => $tg->update_from,
                 ]);
             }
 
@@ -26,27 +26,27 @@ if ($message['text'][0] == '/') {
                 add_com($tg->update_from, 'contact');
 
                 edit_com($tg->update_from, [
-                    'col1' => $words[1]
+                    'col1' => $words[1],
                 ]);
 
-                $tg->sendMessage(array(
+                $tg->sendMessage([
                     'chat_id' => $tg->update_from,
                     'text' => __("Please send us your answer.") . "\n\n" .
                         __("Note that you can send us any type of message and multi message.") .
                         cancel_text(),
-                    'reply_markup' => $tg->replyKeyboardRemove()
-                ));
+                    'reply_markup' => $tg->replyKeyboardRemove(),
+                ]);
 
                 $tmp = false;
             }
         }
 
         if ($tmp) {
-            $tg->sendMessage(array(
+            $tg->sendMessage([
                 'chat_id' => $tg->update_from,
                 'text' => __("The request is invalid!"),
-                'reply_markup' => mainMenu()
-            ));
+                'reply_markup' => mainMenu(),
+            ]);
         }
         exit;
     }

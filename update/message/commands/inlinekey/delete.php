@@ -13,7 +13,7 @@ if ($message['text'][0] == '/') {
             $q = "select * from inlinekey where user_id=? and id=? and status = 1";
             $result = $db->rawQueryOne($q, [
                 'user_id' => $tg->update_from,
-                "id" => $words[2]
+                "id" => $words[2],
             ]);
             if (!empty($result)) {
                 $message['text'] = $result['inline_id'];
@@ -21,12 +21,12 @@ if ($message['text'][0] == '/') {
             }
         }
         if ($tmp) {
-            $tg->sendMessage(array(
+            $tg->sendMessage([
                 'chat_id' => $tg->update_from,
                 'text' => __("Please send us the inline code of the item you want to delete.") .
                     cancel_text(),
-                'reply_markup' => $tg->replyKeyboardRemove()
-            ));
+                'reply_markup' => $tg->replyKeyboardRemove(),
+            ]);
             exit;
         }
     }
@@ -35,18 +35,18 @@ $comm = get_com($tg->update_from);
 if (!empty($comm) && $comm['name'] == "inlinekey_delete") {
     if (count($comm) == 1) {
         if (empty($message['text'])) {
-            $tg->sendMessage(array(
+            $tg->sendMessage([
                 'chat_id' => $tg->update_from,
                 'text' => __("Input is incorrect, you must send the inline code.") .
                     cancel_text(),
-                'reply_markup' => $tg->replyKeyboardRemove()
-            ));
+                'reply_markup' => $tg->replyKeyboardRemove(),
+            ]);
             exit;
         }
         $q = "select * from inlinekey where user_id=? and inline_id=? and status = 1";
         $result = $db->rawQueryOne($q, [
             'user_id' => $tg->update_from,
-            "inline_id" => $message['text']
+            "inline_id" => $message['text'],
         ]);
         if (!empty($result)) {
             edit_com($tg->update_from, ["col1" => $result['id']]);
@@ -54,30 +54,30 @@ if (!empty($comm) && $comm['name'] == "inlinekey_delete") {
             if (!$m) {
                 $m['message_id'] = null;
             }
-            $tg->sendMessage(array(
+            $tg->sendMessage([
                 'chat_id' => $tg->update_from,
                 'text' => __("If you are sure you want to delete this message containing the inline button, send us \"Yes\".") .
                     cancel_text(),
                 'reply_markup' => $tg->replyKeyboardRemove(),
-                'reply_to_message_id' => $m['message_id']
-            ));
+                'reply_to_message_id' => $m['message_id'],
+            ]);
         } else {
-            $tg->sendMessage(array(
+            $tg->sendMessage([
                 'chat_id' => $tg->update_from,
                 'text' => __("No message found with this inline code.") . "\n\n" .
                     __("Please send us the inline code of the item you want to delete correctly.") .
                     cancel_text(),
-                'reply_markup' => $tg->replyKeyboardRemove()
-            ));
+                'reply_markup' => $tg->replyKeyboardRemove(),
+            ]);
         }
     } elseif (count($comm) == 2) {
         if (empty($message['text']) || $message['text'] != __("Yes")) {
-            $tg->sendMessage(array(
+            $tg->sendMessage([
                 'chat_id' => $tg->update_from,
                 'text' => __("Input is incorrect, If you are sure you want to delete this message containing the inline button, send us \"Yes\".") .
                     cancel_text(),
-                'reply_markup' => $tg->replyKeyboardRemove()
-            ));
+                'reply_markup' => $tg->replyKeyboardRemove(),
+            ]);
             exit;
         }
 
@@ -89,11 +89,11 @@ if (!empty($comm) && $comm['name'] == "inlinekey_delete") {
             send_error(__("Unspecified error occurred. Please try again."), 145);
         }
 
-        $tg->sendMessage(array(
+        $tg->sendMessage([
             'chat_id' => $tg->update_from,
             'text' => __("The message was successfully deleted."),
-            'reply_markup' => mainMenu()
-        ));
+            'reply_markup' => mainMenu(),
+        ]);
         empty_com($tg->update_from);
         add_stats_info($tg->update_from, 'Delete Inline Keyboard');
     }

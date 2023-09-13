@@ -9,7 +9,7 @@ if ($message['chat']['type'] == 'private') {
     $tmp = $db
         ->where('user_id', $tg->update_from)
         ->update('users', [
-            'last_m_date' => time()
+            'last_m_date' => time(),
         ]);
 
     if (!$tmp) {
@@ -33,11 +33,13 @@ if ($message['chat']['type'] == 'private') {
         }
     }
 
-    if (!empty($message['text']) && in_array($message['text'], [
+    if (
+        !empty($message['text']) && in_array($message['text'], [
             __("🔘 Inline Buttons"), __("🔗 Hyper"), __("📎 Attach"),
             __("📮 Send without Quotes"), "🌐 Lang / زبان",
             __("☎️ Contact Us"), __("❔ Help"), __("📂 Bot Source"),
-            "↩️ Cancel", __("↩️ Cancel")])
+            "↩️ Cancel", __("↩️ Cancel"),
+        ])
     ) {
         $db
             ->where('user_id', $tg->update_from)
@@ -71,7 +73,7 @@ if ($message['chat']['type'] == 'private') {
 
     $q = "select * from admins where user_id=? and cmd=1";
     $admin = $db->rawQueryOne($q, [
-        'user_id' => $tg->update_from
+        'user_id' => $tg->update_from,
     ]);
     if (!empty($admin)) {
         require realpath(__DIR__) . '/admin_commands/forward.php';
@@ -118,10 +120,10 @@ if ($message['chat']['type'] == 'private') {
         $text .= __("🚩 Send <code>/rename</code> in reply to your message to edit contact.") . "\n";
     }
 
-    $tg->sendMessage(array(
+    $tg->sendMessage([
         'chat_id' => $tg->update_from,
         'text' => $text,
         'parse_mode' => 'html',
-        'reply_to_message_id' => $message['message_id']
-    ));
+        'reply_to_message_id' => $message['message_id'],
+    ]);
 }

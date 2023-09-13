@@ -7,7 +7,7 @@
 if ($callback_data['action'] == 'set') {
     $q = "select * from settings where user_id=?";
     $setting = $db->rawQueryOne($q, [
-        'user_id' => $tg->update_from
+        'user_id' => $tg->update_from,
     ]);
 
     if ($setting[$callback_data['col']] == $callback_data['val']) {
@@ -16,15 +16,15 @@ if ($callback_data['action'] == 'set') {
         $tmp = $db
             ->where('user_id', $tg->update_from)
             ->update('settings', [
-                (string)($callback_data['col']) => $callback_data['val']
+                (string)($callback_data['col']) => $callback_data['val'],
             ]);
 
         if (!$tmp) {
-            $tg->answerCallbackQuery(array(
+            $tg->answerCallbackQuery([
                 "callback_query_id" => $callback_query['id'],
                 "text" => __("Unspecified error occurred. Please try again."),
-                "show_alert" => true
-            ), ['send_error' => false]);
+                "show_alert" => true,
+            ], ['send_error' => false]);
             exit;
         }
 
@@ -34,18 +34,18 @@ if ($callback_data['action'] == 'set') {
 
     if (isset($callback_data['func'])) {
         $tmp = $callback_data['func']($callback_data);
-        $tg->editMessageText(array(
+        $tg->editMessageText([
             'chat_id' => $callback_query['message']['chat']['id'],
             'message_id' => $callback_query['message']['message_id'],
             'text' => $tmp['text'],
             'reply_markup' => $tmp['keyboard'],
             'parse_mode' => 'html',
-            'disable_web_page_preview' => true
-        ), ['send_error' => false]);
+            'disable_web_page_preview' => true,
+        ], ['send_error' => false]);
     }
 
-    $tg->answerCallbackQuery(array(
+    $tg->answerCallbackQuery([
         "callback_query_id" => $callback_query['id'],
-        "text" => $text
-    ));
+        "text" => $text,
+    ]);
 }

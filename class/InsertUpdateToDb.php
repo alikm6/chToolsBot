@@ -17,7 +17,7 @@ class InsertUpdateToDb
     public function insertChat($chat)
     {
         $db_chat = $this->db->rawQueryOne("select * from tg_Chat where tg_id = ? limit 1", [
-            'tg_id' => $chat['id']
+            'tg_id' => $chat['id'],
         ]);
         if (empty($db_chat)) {
             $p = [];
@@ -72,31 +72,31 @@ class InsertUpdateToDb
             if (isset($chat['type']) && $chat['type'] != null) {
                 $p['type'] = $chat['type'];
             } else {
-                $p['type'] = NULL;
+                $p['type'] = null;
             }
 
             if (isset($chat['title']) && $chat['title'] != null) {
                 $p['title'] = $chat['title'];
             } else {
-                $p['title'] = NULL;
+                $p['title'] = null;
             }
 
             if (isset($chat['username']) && $chat['username'] != null) {
                 $p['username'] = $chat['username'];
             } else {
-                $p['username'] = NULL;
+                $p['username'] = null;
             }
 
             if (isset($chat['first_name']) && $chat['first_name'] != null) {
                 $p['first_name'] = $chat['first_name'];
             } else {
-                $p['first_name'] = NULL;
+                $p['first_name'] = null;
             }
 
             if (isset($chat['last_name']) && $chat['last_name'] != null) {
                 $p['last_name'] = $chat['last_name'];
             } else {
-                $p['last_name'] = NULL;
+                $p['last_name'] = null;
             }
 
             $p['update_date'] = time();
@@ -121,7 +121,7 @@ class InsertUpdateToDb
     public function insertUser($user)
     {
         $db_user = $this->db->rawQueryOne("select * from tg_User where user_id=? limit 1", [
-            'user_id' => $user['id']
+            'user_id' => $user['id'],
         ]);
         if (empty($db_user)) {
             $p = [];
@@ -158,62 +158,62 @@ class InsertUpdateToDb
 
             return $db_user_id;
         }
-            if (
-                (isset($user['is_bot']) && $db_user['is_bot'] == 0 && $user['is_bot'] == true) ||
-                (!isset($user['is_bot']) && $db_user['is_bot'] != 0) ||
-                (isset($user['first_name']) && $db_user['first_name'] != $user['first_name']) ||
-                (!isset($user['first_name']) && $db_user['first_name'] != null) ||
-                (isset($user['last_name']) && $db_user['last_name'] != $user['last_name']) ||
-                (!isset($user['last_name']) && $db_user['last_name'] != null) ||
-                (isset($user['username']) && $db_user['username'] != $user['username']) ||
-                (!isset($user['username']) && $db_user['username'] != null) ||
-                (isset($user['language_code']) && $db_user['language_code'] != $user['language_code']) ||
-                (!isset($user['language_code']) && $db_user['language_code'] != null)
-            ) {
-                $p = [];
+        if (
+            (isset($user['is_bot']) && $db_user['is_bot'] == 0 && $user['is_bot'] == true) ||
+            (!isset($user['is_bot']) && $db_user['is_bot'] != 0) ||
+            (isset($user['first_name']) && $db_user['first_name'] != $user['first_name']) ||
+            (!isset($user['first_name']) && $db_user['first_name'] != null) ||
+            (isset($user['last_name']) && $db_user['last_name'] != $user['last_name']) ||
+            (!isset($user['last_name']) && $db_user['last_name'] != null) ||
+            (isset($user['username']) && $db_user['username'] != $user['username']) ||
+            (!isset($user['username']) && $db_user['username'] != null) ||
+            (isset($user['language_code']) && $db_user['language_code'] != $user['language_code']) ||
+            (!isset($user['language_code']) && $db_user['language_code'] != null)
+        ) {
+            $p = [];
 
-                if (isset($user['is_bot']) && $user['is_bot']) {
-                    $p['is_bot'] = 1;
-                } else {
-                    $p['is_bot'] = 0;
-                }
-
-                if (isset($user['first_name']) && $user['first_name'] != null) {
-                    $p['first_name'] = $user['first_name'];
-                } else {
-                    $p['first_name'] = NULL;
-                }
-
-                if (isset($user['last_name']) && $user['last_name'] != null) {
-                    $p['last_name'] = $user['last_name'];
-                } else {
-                    $p['last_name'] = NULL;
-                }
-
-                if (isset($user['username']) && $user['username'] != null) {
-                    $p['username'] = $user['username'];
-                } else {
-                    $p['username'] = NULL;
-                }
-
-                if (isset($user['language_code']) && $user['language_code'] != null) {
-                    $p['language_code'] = $user['language_code'];
-                } else {
-                    $p['language_code'] = NULL;
-                }
-
-                $p['update_date'] = time();
-
-                $this->db->where('id', $db_user['id']);
-
-                $tmp = $this->db->update('tg_User', $p);
-
-                if (!$tmp) {
-                    return false;
-                }
+            if (isset($user['is_bot']) && $user['is_bot']) {
+                $p['is_bot'] = 1;
+            } else {
+                $p['is_bot'] = 0;
             }
 
-            return $db_user['id'];
+            if (isset($user['first_name']) && $user['first_name'] != null) {
+                $p['first_name'] = $user['first_name'];
+            } else {
+                $p['first_name'] = null;
+            }
+
+            if (isset($user['last_name']) && $user['last_name'] != null) {
+                $p['last_name'] = $user['last_name'];
+            } else {
+                $p['last_name'] = null;
+            }
+
+            if (isset($user['username']) && $user['username'] != null) {
+                $p['username'] = $user['username'];
+            } else {
+                $p['username'] = null;
+            }
+
+            if (isset($user['language_code']) && $user['language_code'] != null) {
+                $p['language_code'] = $user['language_code'];
+            } else {
+                $p['language_code'] = null;
+            }
+
+            $p['update_date'] = time();
+
+            $this->db->where('id', $db_user['id']);
+
+            $tmp = $this->db->update('tg_User', $p);
+
+            if (!$tmp) {
+                return false;
+            }
+        }
+
+        return $db_user['id'];
     }
 
     /**
@@ -224,7 +224,7 @@ class InsertUpdateToDb
     public function getUser($id)
     {
         $db_user = $this->db->rawQueryOne("select * from tg_User where id=? limit 1", [
-            'id' => $id
+            'id' => $id,
         ]);
         if (empty($db_user)) {
             return false;
@@ -250,7 +250,7 @@ class InsertUpdateToDb
     public function getChat($id)
     {
         $db_chat = $this->db->rawQueryOne("select * from tg_Chat where id=? limit 1", [
-            'id' => $id
+            'id' => $id,
         ]);
         if (empty($db_chat)) {
             return false;

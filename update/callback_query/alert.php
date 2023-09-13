@@ -4,9 +4,9 @@
 /** @var array $callback_query */
 
 if ($callback_data['action'] == 'alert') {
-    $tg->answerCallbackQuery(array(
+    $tg->answerCallbackQuery([
         "callback_query_id" => $callback_query['id'],
         "text" => $callback_data['text'],
-        "show_alert" => true
-    ), ['send_error' => false]);
+        "show_alert" => true,
+    ], ['send_error' => false]);
 }

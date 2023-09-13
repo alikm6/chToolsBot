@@ -58,7 +58,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_typetext") {
         if ($message['text'] == __("Unchanged")) {
             $new_text = convert_to_styled_text($text, $entities, 'html');
 
-            if($new_text != htmlspecialchars($text)) {
+            if ($new_text != htmlspecialchars($text)) {
                 $text = $new_text;
                 $parse_mode = 'html';
             }
@@ -97,10 +97,10 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_typetext") {
         }
 
         $p = [
-            'col3' => $parse_mode
+            'col3' => $parse_mode,
         ];
 
-        if($comm['col1'] != $text) {
+        if ($comm['col1'] != $text) {
             $p['col1'] = $text;
         }
 

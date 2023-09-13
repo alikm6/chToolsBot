@@ -36,11 +36,11 @@ if ($message['text'][0] == '/') {
                 __("Select an item from the menu to learn more.") .
                 cancel_text();
 
-            $tg->sendMessage(array(
+            $tg->sendMessage([
                 'chat_id' => $tg->update_from,
                 'text' => $text,
-                'reply_markup' => get_help_menu()
-            ));
+                'reply_markup' => get_help_menu(),
+            ]);
 
             exit;
         }
@@ -66,7 +66,7 @@ if (!empty($comm) && $comm['name'] == "help") {
     if ($help_item) {
         $data = [
             'chat_id' => $tg->update_from,
-            'reply_markup' => get_help_menu()
+            'reply_markup' => get_help_menu(),
         ];
 
         foreach ($help_item['messages'] as $help_message) {
@@ -80,11 +80,11 @@ if (!empty($comm) && $comm['name'] == "help") {
             }
         }
     } else {
-        $tg->sendMessage(array(
+        $tg->sendMessage([
             'chat_id' => $tg->update_from,
             'text' => __("Please select an option correctly.") . cancel_text(),
-            'reply_markup' => get_help_menu()
-        ));
+            'reply_markup' => get_help_menu(),
+        ]);
     }
 
     add_stats_info($tg->update_from, 'Help');

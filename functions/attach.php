@@ -18,49 +18,49 @@ function attach_file($user_id, $target_type, $target_id, $channel_id, $file_type
     $q = "select * from attachments where tg_file_unique_id = ? and channel_id = ? limit 1";
     $attachment = $db->rawQueryOne($q, [
         'tg_file_unique_id' => $file_unique_id,
-        'channel_id' => $channel_id
+        'channel_id' => $channel_id,
     ]);
 
     if (empty($attachment)) {
         $sendError = ['send_error' => false];
         if ($file_type == 'audio') {
             $ch_m = $tg->sendDocument([
-                'chat_id' => '@'.$channel_id,
+                'chat_id' => '@' . $channel_id,
                 'document' => $file_id,
             ], $sendError);
         } elseif ($file_type == 'document') {
             $ch_m = $tg->sendDocument([
-                'chat_id' => '@'.$channel_id,
+                'chat_id' => '@' . $channel_id,
                 'document' => $file_id,
             ], $sendError);
         } elseif ($file_type == 'animation') {
             $ch_m = $tg->sendAnimation([
-                'chat_id' => '@'.$channel_id,
+                'chat_id' => '@' . $channel_id,
                 'animation' => $file_id,
             ], $sendError);
         } elseif ($file_type == 'photo') {
             $ch_m = $tg->sendPhoto([
-                'chat_id' => '@'.$channel_id,
+                'chat_id' => '@' . $channel_id,
                 'photo' => $file_id,
             ], $sendError);
         } elseif ($file_type == 'sticker') {
             $ch_m = $tg->sendSticker([
-                'chat_id' => '@'.$channel_id,
+                'chat_id' => '@' . $channel_id,
                 'sticker' => $file_id,
             ], $sendError);
         } elseif ($file_type == 'video_note') {
             $ch_m = $tg->sendVideoNote([
-                'chat_id' => '@'.$channel_id,
+                'chat_id' => '@' . $channel_id,
                 'video_note' => $file_id,
             ], $sendError);
         } elseif ($file_type == 'video') {
             $ch_m = $tg->sendVideo([
-                'chat_id' => '@'.$channel_id,
+                'chat_id' => '@' . $channel_id,
                 'video' => $file_id,
             ], $sendError);
         } elseif ($file_type == 'voice') {
             $ch_m = $tg->sendVoice([
-                'chat_id' => '@'.$channel_id,
+                'chat_id' => '@' . $channel_id,
                 'voice' => $file_id,
             ], $sendError);
         } else {
@@ -77,7 +77,7 @@ function attach_file($user_id, $target_type, $target_id, $channel_id, $file_type
             'tg_file_unique_id' => $file_unique_id,
             'channel_id' => $channel_id,
             'message_id' => $ch_m['message_id'],
-            'date' => time()
+            'date' => time(),
         ]);
 
         if (!$tmp) {
@@ -87,7 +87,7 @@ function attach_file($user_id, $target_type, $target_id, $channel_id, $file_type
         $q = "select * from attachments where tg_file_unique_id = ? and channel_id = ? limit 1";
         $attachment = $db->rawQueryOne($q, [
             'tg_file_unique_id' => $file_unique_id,
-            'channel_id' => $channel_id
+            'channel_id' => $channel_id,
         ]);
     }
 
@@ -96,7 +96,7 @@ function attach_file($user_id, $target_type, $target_id, $channel_id, $file_type
         'user_id' => $user_id,
         'target_type' => $target_type,
         'target_id' => $target_id,
-        'date' => time()
+        'date' => time(),
     ]);
 
     if (!$tmp) {

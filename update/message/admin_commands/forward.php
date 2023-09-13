@@ -11,18 +11,18 @@ if ($message['text'][0] == '/') {
 
         edit_com($tg->update_from, ["col1" => $message['reply_to_message']['message_id']]);
 
-        $tg->sendMessage(array(
+        $tg->sendMessage([
             'chat_id' => $tg->update_from,
             'text' => __("Please select a method for sending messages to users.") .
                 cancel_text(),
-            'reply_markup' => $tg->replyKeyboardMarkup(array(
+            'reply_markup' => $tg->replyKeyboardMarkup([
                 'keyboard' => apply_rtl_to_keyboard([
-                    [__("Copy"), __("Forward")]
+                    [__("Copy"), __("Forward")],
                 ]),
                 'resize_keyboard' => true,
-                'one_time_keyboard' => true
-            ))
-        ));
+                'one_time_keyboard' => true,
+            ]),
+        ]);
         exit;
     }
 }
@@ -32,14 +32,14 @@ if (!empty($comm) && $comm['name'] == "forward") {
         if (
             empty($message['text']) ||
             !in_array($message['text'], [
-                __("Copy"), __("Forward")
+                __("Copy"), __("Forward"),
             ])
         ) {
-            $tg->sendMessage(array(
+            $tg->sendMessage([
                 'chat_id' => $tg->update_from,
                 'text' => __("Input is incorrect, please select an item correctly.") .
                     cancel_text(),
-            ));
+            ]);
             exit;
         }
 
@@ -53,23 +53,23 @@ if (!empty($comm) && $comm['name'] == "forward") {
 
         edit_com($tg->update_from, ["col2" => $method]);
 
-        $tg->sendMessage(array(
+        $tg->sendMessage([
             'chat_id' => $tg->update_from,
             'text' => __("Please send the language of the users receiving this message.") . "\n\n" .
                 __("Available languages:") . " " . implode(', ', array_keys(LANGUAGES)) . "\n\n" .
                 __("Separate them with - to select multiple languages.") . "\n\n" .
                 __("Send \"All\" to send to users in all languages.") .
                 cancel_text(),
-            'reply_markup' => $tg->replyKeyboardMarkup(array(
+            'reply_markup' => $tg->replyKeyboardMarkup([
                 'keyboard' => [
                     [
-                        __("All")
-                    ]
+                        __("All"),
+                    ],
                 ],
                 'resize_keyboard' => true,
-                'one_time_keyboard' => true
-            ))
-        ));
+                'one_time_keyboard' => true,
+            ]),
+        ]);
     } elseif (count($comm) == 3) {
         $languages = false;
 
@@ -92,11 +92,11 @@ if (!empty($comm) && $comm['name'] == "forward") {
             }
         }
         if (!$languages) {
-            $tg->sendMessage(array(
+            $tg->sendMessage([
                 'chat_id' => $tg->update_from,
                 'text' => __("The input is incorrect, the submitted languages do not match the said format.") .
                     cancel_text(),
-            ));
+            ]);
 
             exit;
         }
@@ -104,7 +104,7 @@ if (!empty($comm) && $comm['name'] == "forward") {
         $languages = array_unique($languages);
 
         edit_com($tg->update_from, [
-            "col3" => "'" . implode("','", $languages) . "'"
+            "col3" => "'" . implode("','", $languages) . "'",
         ]);
 
         $tmp_arr = [
@@ -112,7 +112,7 @@ if (!empty($comm) && $comm['name'] == "forward") {
             'forward' => __("Forward"),
         ];
 
-        $tg->sendMessage(array(
+        $tg->sendMessage([
             'chat_id' => $tg->update_from,
             'text' => __("This will send the above post to users according to the following settings.") . "\n\n" .
                 __("Send method:") . " " . $tmp_arr[$comm['col2']] . "\n" .
@@ -120,15 +120,15 @@ if (!empty($comm) && $comm['name'] == "forward") {
                 __("Send 'Yes' if you are sure.") .
                 cancel_text(),
             'reply_markup' => $tg->replyKeyboardRemove(),
-            'reply_to_message_id' => $comm['col1']
-        ));
+            'reply_to_message_id' => $comm['col1'],
+        ]);
     } elseif (count($comm) == 4) {
         if (empty($message['text']) || $message['text'] != __("Yes")) {
-            $tg->sendMessage(array(
+            $tg->sendMessage([
                 'chat_id' => $tg->update_from,
                 'text' => __("Input is incorrect.") .
                     cancel_text(),
-            ));
+            ]);
 
             exit;
         }
@@ -140,16 +140,16 @@ if (!empty($comm) && $comm['name'] == "forward") {
         $result = $db->rawQuery($q);
 
         if (empty($result)) {
-            $tg->sendMessage(array(
+            $tg->sendMessage([
                 'chat_id' => $tg->update_from,
                 'text' => __("No users were found with the selected profile."),
-                'reply_markup' => mainMenu()
-            ));
+                'reply_markup' => mainMenu(),
+            ]);
             empty_com($tg->update_from);
             exit;
         }
 
-        $status_m = $tg->sendMessage(array(
+        $status_m = $tg->sendMessage([
             'chat_id' => $tg->update_from,
             'text' => __("Status of forward above message to robot users:") . "\n\n" .
                 __("Number of requests left:") . " " . count($result) . "\n" .
@@ -157,8 +157,8 @@ if (!empty($comm) && $comm['name'] == "forward") {
                 __("Number of successful requests:") . " 0" . "\n" .
                 __("Number of unsuccessful requests:") . " 0" . "\n\n" .
                 __("Status:") . " " . __("Sending ..."),
-            'reply_to_message_id' => $comm['col1']
-        ));
+            'reply_to_message_id' => $comm['col1'],
+        ]);
         if (!$status_m) {
             empty_com($tg->update_from);
             send_error(__("Unspecified error occurred. Please try again."), 43);
@@ -169,23 +169,23 @@ if (!empty($comm) && $comm['name'] == "forward") {
             $chats_id[] = $r['user_id'];
         }
 
-        $tmp = $db->insert('forward', array(
+        $tmp = $db->insert('forward', [
             'pending_chats_id' => implode(',', $chats_id),
             'submitter_chat_id' => $tg->update_from,
             'message_id' => $comm['col1'],
             'log_message_id' => $status_m['message_id'],
-            'method' => $comm['col2']
-        ));
+            'method' => $comm['col2'],
+        ]);
         if (!$tmp) {
             empty_com($tg->update_from);
             send_error(__("Unspecified error occurred. Please try again."), 67);
         }
 
-        $tg->sendMessage(array(
+        $tg->sendMessage([
             'chat_id' => $tg->update_from,
             'text' => __("The forward request was successfully submitted and the message will be sent to users over time."),
-            'reply_markup' => mainMenu()
-        ));
+            'reply_markup' => mainMenu(),
+        ]);
 
         empty_com($tg->update_from);
     }

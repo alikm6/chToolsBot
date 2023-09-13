@@ -29,21 +29,21 @@ if (!empty($comm) && $comm['name'] == "channels_add") {
         } elseif (!empty($message['text']) && strpos($message['text'], ' ') === false && strpos($message['text'], "\n") === false) {
             $channel_id = $message['text'];
         } else {
-            $tg->sendMessage(array(
+            $tg->sendMessage([
                 'chat_id' => $tg->update_from,
                 'text' => __("Please forward a message from your channel to us correctly or send the channel Username along with @ to the robot.") . cancel_text(),
-                'reply_markup' => $tg->replyKeyboardRemove()
-            ));
+                'reply_markup' => $tg->replyKeyboardRemove(),
+            ]);
             exit;
         }
 
         $target_chat = $tg->getChat(['chat_id' => $channel_id], ['send_error' => false]);
         if (!$target_chat) {
-            $tg->sendMessage(array(
+            $tg->sendMessage([
                 'chat_id' => $tg->update_from,
                 'text' => __("Our bot does not have access to the target channel, please make the robot your channel admin first.") . cancel_text(),
-                'reply_markup' => $tg->replyKeyboardRemove()
-            ));
+                'reply_markup' => $tg->replyKeyboardRemove(),
+            ]);
             exit;
         }
 
@@ -53,7 +53,7 @@ if (!empty($comm) && $comm['name'] == "channels_add") {
             $tg->sendMessage([
                 "chat_id" => $tg->update_from,
                 "text" => __("The submitted Username does not belong to the Telegram channel.") . cancel_text(),
-                'reply_markup' => $tg->replyKeyboardRemove()
+                'reply_markup' => $tg->replyKeyboardRemove(),
             ]);
             exit;
         }
@@ -65,7 +65,7 @@ if (!empty($comm) && $comm['name'] == "channels_add") {
                 "text" => sprintf(__("Our bot is not registered as \"%s\" channel admin, please make our robot the channel admin first."), tgChatToText($target_chat, 'html')) . cancel_text(),
                 'reply_markup' => $tg->replyKeyboardRemove(),
                 'parse_mode' => 'html',
-                'disable_web_page_preview' => true
+                'disable_web_page_preview' => true,
             ]);
             exit;
         }
@@ -83,7 +83,7 @@ if (!empty($comm) && $comm['name'] == "channels_add") {
                 "text" => sprintf(__("It seems that the channel \"%s\" is not yours because you are not on the channel admin list."), tgChatToText($target_chat, 'html')) . cancel_text(),
                 'reply_markup' => $tg->replyKeyboardRemove(),
                 'parse_mode' => 'html',
-                'disable_web_page_preview' => true
+                'disable_web_page_preview' => true,
             ]);
             exit;
         }
@@ -91,7 +91,7 @@ if (!empty($comm) && $comm['name'] == "channels_add") {
         $q = "select id from channels where user_id = ? and channel_id = ? limit 1";
         $tmp = $db->rawQueryOne($q, [
             'user_id' => $tg->update_from,
-            'channel_id' => $target_chat['id']
+            'channel_id' => $target_chat['id'],
         ]);
 
         if (!empty($tmp)) {
@@ -100,14 +100,14 @@ if (!empty($comm) && $comm['name'] == "channels_add") {
                 "text" => sprintf(__("Channel \"%s\" has already been added to your channel list."), tgChatToText($target_chat, 'html')) . cancel_text(),
                 'reply_markup' => $tg->replyKeyboardRemove(),
                 'parse_mode' => 'html',
-                'disable_web_page_preview' => true
+                'disable_web_page_preview' => true,
             ]);
             exit;
         }
 
         $tmp = $db->insert('channels', [
             'user_id' => $tg->update_from,
-            'channel_id' => $target_chat['id']
+            'channel_id' => $target_chat['id'],
         ]);
         if (!$tmp) {
             send_error(__("Unspecified error occurred. Please try again."), 133);
@@ -116,21 +116,21 @@ if (!empty($comm) && $comm['name'] == "channels_add") {
         empty_com($tg->update_from);
 
         $tmp = get_channels_keyboard_and_text(['page' => $comm['col2'], 'limit' => $comm['col3']]);
-        $tg->editMessageText(array(
+        $tg->editMessageText([
             'chat_id' => $tg->update_from,
             'message_id' => $comm['col1'],
             'text' => $tmp['text'],
             'reply_markup' => $tmp['keyboard'],
             'parse_mode' => 'html',
-            'disable_web_page_preview' => true
-        ), ['send_error' => false]);
+            'disable_web_page_preview' => true,
+        ], ['send_error' => false]);
 
-        $tg->sendMessage(array(
+        $tg->sendMessage([
             'chat_id' => $tg->update_from,
             'text' => __("Your channel has been successfully registered.") . "\n\n" .
                 __("↩️ Back to Manage Channels: ") . "/channels",
-            'reply_markup' => mainMenu()
-        ));
+            'reply_markup' => mainMenu(),
+        ]);
         add_stats_info($tg->update_from, 'Add Channel');
     }
     exit;

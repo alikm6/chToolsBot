@@ -11,7 +11,7 @@ $db = get_db();
 
 $q = "select * from forward where pending_chats_id is not null and (try_status != 1 or last_try_date < ?) limit 1";
 $forward = $db->rawQueryOne($q, [
-    'last_try_date' => strtotime('-5 min')
+    'last_try_date' => strtotime('-5 min'),
 ]);
 
 if (empty($forward)) {
@@ -40,7 +40,7 @@ $db->where('id', $forward['id']);
 $tmp = $db->update('forward', [
     'try_count' => $db->inc(1),
     'try_status' => 1,
-    'last_try_date' => time()
+    'last_try_date' => time(),
 ]);
 
 if (!$tmp) {
@@ -55,7 +55,7 @@ foreach ($pending_chats_id_processing as $pending_chat_id_processing) {
     $requests[$pending_chat_id_processing] = $MultiCurl->addPost("https://api.telegram.org/bot" . TOKEN . "/{$forward['method']}Message", [
         'chat_id' => $pending_chat_id_processing,
         'from_chat_id' => $forward['submitter_chat_id'],
-        'message_id' => $forward['message_id']
+        'message_id' => $forward['message_id'],
     ]);
 }
 
@@ -82,7 +82,7 @@ $tmp = $db->update('forward', [
     'pending_chats_id' => !empty($pending_chats_id) ? implode(',', $pending_chats_id) : null,
     'successful_chats_id' => !empty($successful_chats_id) ? implode(',', $successful_chats_id) : null,
     'unsuccessful_chats_id' => !empty($unsuccessful_chats_id) ? implode(',', $unsuccessful_chats_id) : null,
-    'try_status' => 0
+    'try_status' => 0,
 ]);
 
 if (!$tmp) {
@@ -97,7 +97,7 @@ $MultiCurl->addPost("https://api.telegram.org/bot" . TOKEN . "/editMessageText",
         __("Number of submitted requests:") . " " . (count($successful_chats_id) + count($unsuccessful_chats_id)) . "\n" .
         __("Number of successful requests:") . " " . count($successful_chats_id) . "\n" .
         __("Number of unsuccessful requests:") . " " . count($unsuccessful_chats_id) . "\n\n" .
-        __("Status:") . " " . (empty($pending_chats_id) ? __("Finished") : __("Sending ..."))
+        __("Status:") . " " . (empty($pending_chats_id) ? __("Finished") : __("Sending ...")),
 ]);
 
 $MultiCurl->start();

@@ -15,13 +15,13 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_typeother") {
         $type = 'location';
         $data = json_encode($message['location']);
     } else {
-        $tg->sendMessage(array(
+        $tg->sendMessage([
             'chat_id' => $tg->update_from,
             'text' => __("The post you sent is invalid.") . "\n" .
                 __("Please send another post.") .
                 cancel_text(),
-            'reply_markup' => $tg->replyKeyboardRemove()
-        ));
+            'reply_markup' => $tg->replyKeyboardRemove(),
+        ]);
         empty_com($tg->update_from);
         add_com($tg->update_from, 'inlinekey_add');
         exit;

@@ -14,12 +14,12 @@ if ($message['text'][0] == '/') {
             add_com($tg->update_from, 'inlinekey');
 
             $keyboard = [
-                [__("➕ Add")]
+                [__("➕ Add")],
             ];
 
             $q = "select * from inlinekey where user_id=? and status = 1";
             $inlinekey = $db->rawQuery($q, [
-                'user_id' => $tg->update_from
+                'user_id' => $tg->update_from,
             ]);
 
             if (count($inlinekey) != 0) {
@@ -27,17 +27,17 @@ if ($message['text'][0] == '/') {
                 $keyboard[] = [__("📊 Statistics"), __("✏️ Edit"), __("❌ Delete")];
             }
 
-            $keyboard = $tg->replyKeyboardMarkup(array(
+            $keyboard = $tg->replyKeyboardMarkup([
                 'keyboard' => apply_rtl_to_keyboard($keyboard),
                 'resize_keyboard' => true,
-                'one_time_keyboard' => true
-            ));
-            $tg->sendMessage(array(
+                'one_time_keyboard' => true,
+            ]);
+            $tg->sendMessage([
                 'chat_id' => $tg->update_from,
                 'text' => __("You are in the manage message with the inline button section.") . "\n" .
                     __("Please select an option.") . cancel_text(),
-                'reply_markup' => $keyboard
-            ));
+                'reply_markup' => $keyboard,
+            ]);
             exit;
         }
     }
@@ -47,7 +47,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey") {
     if (count($comm) == 1) {
         $q = "select * from inlinekey where user_id=? and status = 1";
         $inlinekey = $db->rawQuery($q, [
-            'user_id' => $tg->update_from
+            'user_id' => $tg->update_from,
         ]);
         if (
             $message['text'] != __("➕ Add") &&
@@ -61,11 +61,11 @@ if (!empty($comm) && $comm['name'] == "inlinekey") {
                 )
             )
         ) {
-            $tg->sendMessage(array(
+            $tg->sendMessage([
                 'chat_id' => $tg->update_from,
                 'text' => __("Please select an option correctly.") .
                     cancel_text(),
-            ));
+            ]);
             exit;
         }
         if ($message['text'] == __("➕ Add")) {

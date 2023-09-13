@@ -8,13 +8,13 @@ if ($message['text'][0] == '/') {
     $command = $words[0];
     if ($command == '/contact') {
         add_com($tg->update_from, 'contact');
-        $tg->sendMessage(array(
+        $tg->sendMessage([
             'chat_id' => $tg->update_from,
             'text' => __("Please send us your criticism, suggestion or problem.") . "\n\n" .
                 __("Note that you can send us any type of message and multi message.") .
                 cancel_text(),
-            'reply_markup' => $tg->replyKeyboardRemove()
-        ));
+            'reply_markup' => $tg->replyKeyboardRemove(),
+        ]);
         exit;
     }
 }
@@ -39,7 +39,7 @@ if (!empty($comm) && $comm['name'] == "contact") {
         $main_contact = false;
         if (!empty($comm['col1'])) {
             $main_contact = $db->rawQueryOne("select * from contact where id = ? limit 1", [
-                'id' => $comm['col1']
+                'id' => $comm['col1'],
             ]);
 
         }
@@ -58,20 +58,20 @@ if (!empty($comm) && $comm['name'] == "contact") {
 
         $q = "select * from admins where notify_contact = 1 and user_id != ?";
         $admins = $db->rawQuery($q, [
-            'user_id' => $tg->update_from
+            'user_id' => $tg->update_from,
         ]);
 
         foreach ($admins as $admin) {
             $receiver_users[$admin['user_id']] = [
                 'user_id' => $admin['user_id'],
-                'is_admin' => true
+                'is_admin' => true,
             ];
         }
 
         if ($main_contact && $tg->update_from != $main_contact['user_id'] && !isset($receiver_users[$main_contact['user_id']])) {
             $receiver_users[$main_contact['user_id']] = [
                 'user_id' => $main_contact['user_id'],
-                'is_admin' => false
+                'is_admin' => false,
             ];
         }
 
@@ -104,7 +104,7 @@ if (!empty($comm) && $comm['name'] == "contact") {
                 $tg->copyMessage([
                     'chat_id' => $receiver_user['user_id'],
                     'from_chat_id' => $tg->update_from,
-                    'message_id' => $message_id
+                    'message_id' => $message_id,
                 ], ['send_error' => false]);
             }
 
@@ -122,12 +122,12 @@ if (!empty($comm) && $comm['name'] == "contact") {
         empty_com($tg->update_from);
         add_stats_info($tg->update_from, 'Contact');
 
-        $tg->sendMessage(array(
+        $tg->sendMessage([
             'chat_id' => $tg->update_from,
             'text' => "#contact" . $main_contact_id . "\n\n" .
                 __("Your messages was successfully sent."),
-            'reply_markup' => mainMenu()
-        ));
+            'reply_markup' => mainMenu(),
+        ]);
     } else {
         if (count($messages_id) == 10) {
             $tg->deleteMessage([
@@ -142,15 +142,15 @@ if (!empty($comm) && $comm['name'] == "contact") {
                     cancel_text(),
                 'reply_markup' => $tg->replyKeyboardMarkup([
                     'keyboard' => [
-                        [__("Ok, Send it.")]
+                        [__("Ok, Send it.")],
                     ],
                     'resize_keyboard' => true,
-                    'one_time_keyboard' => true
-                ])
+                    'one_time_keyboard' => true,
+                ]),
             ]);
 
             edit_com($tg->update_from, [
-                'col3' => $m['message_id']
+                'col3' => $m['message_id'],
             ]);
 
             exit;
@@ -159,7 +159,7 @@ if (!empty($comm) && $comm['name'] == "contact") {
         $messages_id[] = $message['message_id'];
 
         edit_com($tg->update_from, [
-            'col2' => implode(',', $messages_id)
+            'col2' => implode(',', $messages_id),
         ]);
 
         $m = $tg->sendMessage([
@@ -170,15 +170,15 @@ if (!empty($comm) && $comm['name'] == "contact") {
                 cancel_text(),
             'reply_markup' => $tg->replyKeyboardMarkup([
                 'keyboard' => [
-                    [__("Ok, Send it.")]
+                    [__("Ok, Send it.")],
                 ],
                 'resize_keyboard' => true,
-                'one_time_keyboard' => true
-            ])
+                'one_time_keyboard' => true,
+            ]),
         ]);
 
         edit_com($tg->update_from, [
-            'col3' => $m['message_id']
+            'col3' => $m['message_id'],
         ]);
     }
 

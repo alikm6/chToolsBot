@@ -90,11 +90,11 @@ if ($message['text'][0] == '/') {
             }
         }
 
-        $tg->sendMessage(array(
+        $tg->sendMessage([
             'chat_id' => $tg->update_from,
             'text' => $text,
-            'reply_markup' => mainMenu()
-        ));
+            'reply_markup' => mainMenu(),
+        ]);
 
         exit;
     }
