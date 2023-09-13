@@ -38,17 +38,17 @@ if (!empty($comm) && $comm['name'] == "decodehyper") {
 
         if (!empty($message['text'])) {
             $org_text = $message["text"];
-            $decode_text = convert_to_hyper($message["text"], (!empty($message['entities']) ? $message['entities'] : []));
+            $decode_text = convert_to_styled_text($message["text"], (!empty($message['entities']) ? $message['entities'] : []));
         } elseif (!empty($message['caption'])) {
             $org_text = $message["caption"];
-            $decode_text = convert_to_hyper($message["caption"], (!empty($message['caption_entities']) ? $message['caption_entities'] : []));
+            $decode_text = convert_to_styled_text($message["caption"], (!empty($message['caption_entities']) ? $message['caption_entities'] : []));
         }
 
         if (htmlspecialchars($org_text) == $decode_text) {
             $tg->sendMessage(array(
                 'chat_id' => $tg->update_from,
                 'text' => __("The message you sent was not hyper.") . "\n\n" .
-                    "Please send us a hyper message correctly." .
+                    __("Please send us a hyper message correctly.") .
                     cancel_text()
             ));
             exit;

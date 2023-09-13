@@ -4,13 +4,14 @@ use Morilog\Jalali\CalendarUtils;
 
 function get_db(): MysqliDb
 {
-    return new MysqliDb (array(
+    return new MysqliDb ([
         'host' => DB_HOST,
         'username' => DB_USER,
         'password' => DB_PASSWORD,
         'db' => DB_NAME,
         'prefix' => DB_TABLE_PREFIX,
-        'charset' => DB_CHARSET));
+        'charset' => DB_CHARSET,
+    ]);
 }
 
 function set_language_by_user_id($user_id)
@@ -21,7 +22,7 @@ function set_language_by_user_id($user_id)
 
     $q = "select language_code from settings where user_id = ? limit 1";
     $user = $db->rawQueryOne($q, [
-        'user_id' => $user_id
+        'user_id' => $user_id,
     ]);
 
     if (!empty($user)) {
@@ -147,11 +148,11 @@ function add_stats_info($user_id, $name): bool
 {
     global $db;
 
-    $p = array(
+    $p = [
         'user_id' => $user_id,
         'name' => $name,
-        'stat_date' => time()
-    );
+        'stat_date' => time(),
+    ];
 
     return $db->insert('stats', $p);
 }
@@ -161,7 +162,7 @@ function get_com($user_id): ?array
     global $db;
     $q = "select * from commands where user_id=?";
     $result = $db->rawQueryOne($q, [
-        'user_id' => $user_id
+        'user_id' => $user_id,
     ]);
     if ($result == null) {
         return null;
@@ -183,10 +184,10 @@ function add_com($user_id, $name)
 
     empty_com($user_id);
 
-    $p = array(
+    $p = [
         'user_id' => $user_id,
-        'name' => $name
-    );
+        'name' => $name,
+    ];
 
     $tmp = $db->insert('commands', $p);
     if (!$tmp) {
@@ -223,7 +224,7 @@ function tgUserToText($user, $parse_mode = ''): string
         return "'unknown'";
     }
 
-    $name = $user['first_name'] . ($user['last_name'] != null ? " {$user['last_name']}" : "");
+    $name = "{$user['first_name']}" . ($user['last_name'] != null ? " {$user['last_name']}" : "");
 
     $link = "";
     if (!empty($user['username'])) {
@@ -232,28 +233,29 @@ function tgUserToText($user, $parse_mode = ''): string
         $link = "tg://user?id={$user['id']}";
     }
 
-    $r = false;
     if ($parse_mode == 'markdown') {
         if (empty($link)) {
-            $r = $name;
+            return markdown_special_chars_encode($name);
         } else {
-            $r = "[{$name}]({$link})";
+            return "[" . markdown_special_chars_encode($name, 'text_link') . "](" . $link . ")";
+        }
+    } elseif ($parse_mode == 'markdownv2') {
+        if (empty($link)) {
+            return markdownv2_special_chars_encode($name);
+        } else {
+            return "[" . markdownv2_special_chars_encode($name) . "](" . markdownv2_special_chars_encode($link) . ")";
         }
     } elseif ($parse_mode == 'html') {
         if (empty($link)) {
-            $r = htmlspecialchars($name);
+            return htmlspecialchars($name);
         } else {
-            $r = "<a href='{$link}'>" . htmlspecialchars($name) . "</a>";
+            return "<a href='{$link}'>" . htmlspecialchars($name) . "</a>";
         }
+    } elseif ($user['username'] == null) {
+        return $name;
     } else {
-        if ($user['username'] == null) {
-            $r = $name;
-        } else {
-            $r = "{$name} (@{$user['username']})";
-        }
+        return "{$name} (@{$user['username']})";
     }
-
-    return $r;
 }
 
 function dbUserToTG($db_user): array
@@ -276,41 +278,52 @@ function tgChatToText($chat, $parse_mode = '')
     $title = "";
     if (!empty($chat['title'])) {
         $title = $chat['title'];
-    } elseif (!empty($chat['first_name'])) {
-        $title = trim($chat['first_name'] . " " . $chat['last_name']);
+    } else {
+        if (!empty($chat['first_name'])) {
+            $title = trim($chat['first_name'] . " " . $chat['last_name']);
+        }
     }
 
     $link = "";
     if (!empty($chat['username'])) {
         $link = "https://t.me/{$chat['username']}";
-    } elseif ($chat['type'] == 'supergroup' || $chat['type'] == 'channel') {
-        $link = "https://t.me/c/" . substr($chat['id'], 4) . "/100000000";
-    } elseif (!empty($chat['invite_link'])) {
-        $link = $chat['invite_link'];
+    } else {
+        if ($chat['type'] == 'supergroup' || $chat['type'] == 'channel') {
+            $link = "https://t.me/c/" . substr($chat['id'], 4) . "/100000000";
+        } else {
+            if (!empty($chat['invite_link'])) {
+                $link = $chat['invite_link'];
+            }
+        }
     }
 
-    $r = false;
     if ($parse_mode == 'markdown') {
         if (empty($link)) {
-            $r = markdownspecialchars($title);
+            return markdown_special_chars_encode($title);
         } else {
-            $r = "[" . markdownspecialchars($title) . "]({$link})";
+            return "[" . markdown_special_chars_encode($title, 'text_link') . "](" . $link . ")";
         }
-    } elseif ($parse_mode == 'html') {
+    } elseif ($parse_mode == 'markdownv2') {
         if (empty($link)) {
-            $r = htmlspecialchars($title);
+            return markdownv2_special_chars_encode($title);
         } else {
-            $r = "<a href='{$link}'>" . htmlspecialchars($title) . "</a>";
+            return "[" . markdownv2_special_chars_encode($title) . "](" . markdownv2_special_chars_encode($link) . ")";
         }
     } else {
-        if (empty($chat['username'])) {
-            $r = $title;
+        if ($parse_mode == 'html') {
+            if (empty($link)) {
+                return htmlspecialchars($title);
+            } else {
+                return "<a href='{$link}'>" . htmlspecialchars($title) . "</a>";
+            }
         } else {
-            $r = "{$title} (@{$chat['username']})";
+            if (empty($chat['username'])) {
+                return $title;
+            } else {
+                return "{$title} (@{$chat['username']})";
+            }
         }
     }
-
-    return $r;
 }
 
 function dbChatToTG($db_chat): array
@@ -327,7 +340,7 @@ function dbChatToTG($db_chat): array
 
 function markdownspecialchars($string)
 {
-    return str_replace(array('*', '_', '[', '`'), array('\*', '\_', '\[', '\`'), $string);
+    return str_replace(['*', '_', '[', '`'], ['\*', '\_', '\[', '\`'], $string);
 }
 
 function is_url($url)
@@ -345,7 +358,7 @@ function mainMenu()
 
     $q = "select * from settings where user_id=? limit 1";
     $setting = $db->rawQueryOne($q, [
-        'user_id' => $tg->update_from
+        'user_id' => $tg->update_from,
     ]);
 
     $keyboard = [];
@@ -354,11 +367,11 @@ function mainMenu()
     $keyboard[] = [__("📮 Send without Quotes"), "🌐 Lang / زبان"];
     $keyboard[] = [__("☎️ Contact Us"), __("❔ Help"), __("📂 Bot Source")];
 
-    return $tg->replyKeyboardMarkup(array(
+    return $tg->replyKeyboardMarkup([
         'keyboard' => apply_rtl_to_keyboard($keyboard),
         'resize_keyboard' => true,
         'one_time_keyboard' => true,
-    ));
+    ]);
 }
 
 function hide_link($link, $parse_mode = 'html')
@@ -373,6 +386,10 @@ function hide_link($link, $parse_mode = 'html')
 
     if ($parse_mode == 'markdown') {
         return "[" . json_decode('"\u200c"') . "]({$link})";
+    }
+
+    if ($parse_mode == 'markdownv2') {
+        return "[" . json_decode('"\u200c"') . "](" . markdownv2_special_chars_encode($link) . ")";
     }
 
     return false;
@@ -398,7 +415,7 @@ function mod($a, $n)
 function send_error($err_message, $err_code = null)
 {
     global $tg;
-    $update = $tg->getUpdate();
+    $update = $tg->parseUpdate();
     if (
         !empty($update['message']) ||
         !empty($update['edited_message']) ||
@@ -408,11 +425,11 @@ function send_error($err_message, $err_code = null)
     ) {
         $tg->send_error($err_message, $err_code);
     } elseif (!empty($update['callback_query'])) {
-        $tg->answerCallbackQuery(array(
+        $tg->answerCallbackQuery([
             "callback_query_id" => $update['callback_query']['id'],
             "text" => $err_message,
-            "show_alert" => true
-        ), ['send_error' => false]);
+            "show_alert" => true,
+        ], ['send_error' => false]);
     }
     exit;
 }
@@ -434,129 +451,6 @@ function get_attach_link($str)
     }
 
     return false;
-}
-
-function convert_to_hyper($text, $entities = [])
-{
-    if (empty($entities)) {
-        return htmlspecialchars($text);
-    }
-
-    foreach ($entities as $key => $entity) {
-        if (
-            $entity['type'] != 'bold' &&
-            $entity['type'] != 'italic' &&
-            $entity['type'] != 'underline' &&
-            $entity['type'] != 'strikethrough' &&
-            $entity['type'] != 'code' &&
-            $entity['type'] != 'pre' &&
-            $entity['type'] != 'text_link'
-        ) {
-            unset($entities[$key]);
-        }
-    }
-
-    $offsets = [];
-    $lengths = [];
-    $keys = [];
-
-    foreach ($entities as $key => $entity) {
-        $keys[$key] = $key;
-        $offsets[$key] = $entity['offset'];
-        $lengths[$key] = $entity['length'];
-    }
-
-    array_multisort($offsets, SORT_ASC, $lengths, SORT_DESC, $keys, SORT_ASC, $entities);
-
-    $sub_texts_offsets = [];
-
-    foreach ($entities as $entity) {
-        $sub_texts_offsets[] = $entity['offset'];
-        $sub_texts_offsets[] = $entity['offset'] + $entity['length'];
-    }
-
-    $sub_texts_offsets = array_unique($sub_texts_offsets);
-    sort($sub_texts_offsets);
-
-    $str = mb_convert_encoding($text, 'UTF-16', 'UTF-8');
-    $sub_texts = [];
-
-    for ($i = 0; $i < count($sub_texts_offsets) + 1; $i++) {
-        if (isset($sub_texts_offsets[$i]) && $sub_texts_offsets[$i] == 0) {
-            continue;
-        }
-
-        $start = $sub_texts_offsets[$i - 1] ?? 0;
-        $end = $sub_texts_offsets[$i] ?? null;
-        $length = $end != null ? ($end - $start) : null;
-
-        $segment = mb_substr($str, $start, $length, 'UCS-2');
-        $sub_texts[] = [
-            'offset' => $start,
-            'length' => $length,
-            'text' => mb_convert_encoding(
-                $segment,
-                'UTF-8',
-                'UTF-16'
-            )
-        ];
-    }
-
-    $reversed_entities = array_reverse($entities);
-
-    $final_text = "";
-    $offset_index = 0;
-
-    foreach($sub_texts as $sub_text) {
-        foreach ($reversed_entities as $entity) {
-            if ($offset_index != $entity['offset'] + $entity['length']) {
-                continue;
-            }
-
-            if ($entity['type'] == 'bold') {
-                $final_text .= "</b>";
-            } elseif ($entity['type'] == 'italic') {
-                $final_text .= "</i>";
-            } elseif ($entity['type'] == 'underline') {
-                $final_text .= "</u>";
-            } elseif ($entity['type'] == 'strikethrough') {
-                $final_text .= "</s>";
-            } elseif ($entity['type'] == 'code') {
-                $final_text .= "</code>";
-            } elseif ($entity['type'] == 'pre') {
-                $final_text .= "</pre>";
-            } elseif ($entity['type'] == 'text_link') {
-                $final_text .= "</a>";
-            }
-        }
-
-        foreach ($entities as $entity) {
-            if ($offset_index != $entity['offset']) {
-                continue;
-            }
-
-            if ($entity['type'] == 'bold') {
-                $final_text .= "<b>";
-            } elseif ($entity['type'] == 'italic') {
-                $final_text .= "<i>";
-            } elseif ($entity['type'] == 'underline') {
-                $final_text .= "<u>";
-            } elseif ($entity['type'] == 'strikethrough') {
-                $final_text .= "<s>";
-            } elseif ($entity['type'] == 'code') {
-                $final_text .= "<code>";
-            } elseif ($entity['type'] == 'pre') {
-                $final_text .= "<pre>";
-            } elseif ($entity['type'] == 'text_link') {
-                $final_text .= "<a href=\"{$entity['url']}\">";
-            }
-        }
-
-        $final_text .= htmlspecialchars($sub_text['text']);
-        $offset_index += $sub_text['length'];
-    }
-
-    return $final_text;
 }
 
 function convert_time_to_text($time): string

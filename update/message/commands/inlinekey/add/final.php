@@ -9,17 +9,17 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_final") {
         if (empty($message['text']) || ($message['text'] != __("✅ OK") && $message['text'] != __("❌ No"))) {
             $keyboard = $tg->replyKeyboardMarkup([
                 'keyboard' => apply_rtl_to_keyboard([
-                    [__("❌ No"), __("✅ OK")]
+                    [__("❌ No"), __("✅ OK")],
                 ]),
                 'resize_keyboard' => true,
-                'one_time_keyboard' => true
+                'one_time_keyboard' => true,
             ]);
-            $tg->sendMessage(array(
+            $tg->sendMessage([
                 'chat_id' => $tg->update_from,
                 'text' => __("Input is incorrect, please select an item correctly.") .
                     cancel_text(),
-                'reply_markup' => $keyboard
-            ));
+                'reply_markup' => $keyboard,
+            ]);
             exit;
         }
 
@@ -29,17 +29,17 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_final") {
             if (inlinekey_have_counter($comm['col2'])) {
                 $keyboard = $tg->replyKeyboardMarkup([
                     'keyboard' => apply_rtl_to_keyboard([
-                        [__("Count"), __("Percent")]
+                        [__("Count"), __("Percent")],
                     ]),
                     'resize_keyboard' => true,
-                    'one_time_keyboard' => true
+                    'one_time_keyboard' => true,
                 ]);
-                $tg->sendMessage(array(
+                $tg->sendMessage([
                     'chat_id' => $tg->update_from,
                     'text' => __("How to display the statistics related to the counter buttons!?") .
                         cancel_text(),
-                    'reply_markup' => $keyboard
-                ));
+                    'reply_markup' => $keyboard,
+                ]);
                 exit;
             } else {
                 $comm = get_com($tg->update_from);
@@ -57,22 +57,24 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_final") {
 
             empty_com($tg->update_from);
             add_com($tg->update_from, 'inlinekey_add');
-            $tg->sendMessage(array(
+            $tg->sendMessage([
                 'chat_id' => $tg->update_from,
                 'text' => __("Please send or forward the message to which you want to add the inline buttons.") . "\n\n" .
                     __("This can be text 📝, photo 🖼, video 🎥, gif 📹, voice 🔊, sticker, file 📎 and anything else.") . "\n\n" .
-                    __("Also note that you can submit your text in html format or the original telegram format (for hyper). (Read /help_html and /help_markdown to learn formatting)") .
+                    __("Also note that you can use formatting options in your text (<a href='https://telegra.ph/chToolsBot-Guide-Text-Formatting-EN-09-10'>Guide</a>).") .
                     cancel_text(),
-                'reply_markup' => $tg->replyKeyboardRemove()
-            ));
+                'reply_markup' => $tg->replyKeyboardRemove(),
+                'parse_mode' => 'html',
+                'disable_web_page_preview' => true,
+            ]);
         }
     }
     if (count($comm) == 4) {
         if (empty($message['text']) || ($message['text'] != __("Percent") && $message['text'] != __("Count"))) {
-            $tg->sendMessage(array(
+            $tg->sendMessage([
                 'chat_id' => $tg->update_from,
                 'text' => __("Input is incorrect, please select an item correctly.") . cancel_text(),
-            ));
+            ]);
             exit;
         }
 
@@ -85,20 +87,20 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_final") {
         edit_com($tg->update_from, ["col4" => $counter_type]);
 
         if (inlinekey_have_counter($comm['col2'])) {
-            $keyboard = $tg->replyKeyboardMarkup(array(
+            $keyboard = $tg->replyKeyboardMarkup([
                 'keyboard' => apply_rtl_to_keyboard([
-                    [__("No"), __("Yes")]
+                    [__("No"), __("Yes")],
                 ]),
                 'resize_keyboard' => true,
-                'one_time_keyboard' => true
-            ));
-            $tg->sendMessage(array(
+                'one_time_keyboard' => true,
+            ]);
+            $tg->sendMessage([
                 'chat_id' => $tg->update_from,
                 'text' => __("After the user votes, will the success window open for the user?") . "\n\n" .
                     __("If you select \"Yes\", a window will open for the user after the vote is registered and it will not be closed until the user clicks ok. If you select \"No\", the message of success will be displayed and after passing It will be hidden for a short time.") .
                     cancel_text(),
-                'reply_markup' => $keyboard
-            ));
+                'reply_markup' => $keyboard,
+            ]);
             exit;
         } else {
             $comm = get_com($tg->update_from);
@@ -109,17 +111,17 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_final") {
         if (empty($message['text']) || ($message['text'] != __("No") && $message['text'] != __("Yes"))) {
             $keyboard = $tg->replyKeyboardMarkup([
                 'keyboard' => apply_rtl_to_keyboard([
-                    [__("No"), __("Yes")]
+                    [__("No"), __("Yes")],
                 ]),
                 'resize_keyboard' => true,
-                'one_time_keyboard' => true
+                'one_time_keyboard' => true,
             ]);
-            $tg->sendMessage(array(
+            $tg->sendMessage([
                 'chat_id' => $tg->update_from,
                 'text' => __("Input is incorrect, please select an item correctly.") .
                     cancel_text(),
-                'reply_markup' => $keyboard
-            ));
+                'reply_markup' => $keyboard,
+            ]);
             exit;
         }
 
@@ -144,16 +146,16 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_final") {
                 }
             }
 
-            $tg->sendMessage(array(
+            $tg->sendMessage([
                 'chat_id' => $tg->update_from,
                 'text' => __("In what language should the message of successful voting be displayed!?") .
                     cancel_text(),
-                'reply_markup' => $tg->replyKeyboardMarkup(array(
+                'reply_markup' => $tg->replyKeyboardMarkup([
                     'keyboard' => $keyboard,
                     'resize_keyboard' => true,
-                    'one_time_keyboard' => true
-                )),
-            ));
+                    'one_time_keyboard' => true,
+                ]),
+            ]);
             exit;
         } else {
             $comm = get_com($tg->update_from);
@@ -181,10 +183,10 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_final") {
                 $text .= __("Please select an option correctly.") . "\n\n";
             }
 
-            $tg->sendMessage(array(
+            $tg->sendMessage([
                 'chat_id' => $tg->update_from,
-                'text' => $text
-            ));
+                'text' => $text,
+            ]);
 
             exit;
         }
@@ -207,31 +209,33 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_final") {
         $q = "select * from inlinekey where user_id = ? and id = ? limit 1";
         $result = $db->rawQueryOne($q, [
             'user_id' => $tg->update_from,
-            'id' => $comm['col1']
+            'id' => $comm['col1'],
         ]);
 
-        $tg->sendMessage(array(
+        $tg->sendMessage([
             'chat_id' => $tg->update_from,
             'text' => '@' . BOT_USERNAME . " <code>{$result['inline_id']}</code>",
             'parse_mode' => 'html',
-            'reply_markup' => json_encode(array("inline_keyboard" => array(
-                array(
-                    array(
-                        "text" => __("Share it"),
-                        "switch_inline_query" => $result['inline_id']
-                    )
-                )
-            )))
-        ));
-        $tg->sendMessage(array(
+            'reply_markup' => json_encode([
+                "inline_keyboard" => [
+                    [
+                        [
+                            "text" => __("Share it"),
+                            "switch_inline_query" => $result['inline_id'],
+                        ],
+                    ],
+                ],
+            ]),
+        ]);
+        $tg->sendMessage([
             'chat_id' => $tg->update_from,
             'text' => __("Congratulations, your post has been created.") . "\n\n" .
                 __("Usage Tutorial:") . "\n\n" .
                 __("☝️ Method 1: Copy the above content and paste it in the chat and wait (do not send it) then select your content from the list that is displayed.") . "\n\n" .
                 __("✌ Method 2: Touch the \"Share it\" button, then select the chat you want and wait (do not send it) then select your content from the list that appears.") . "\n\n" .
                 __("👌 Method 3: Use /sendto command to send without quoting to the channel."),
-            'reply_markup' => mainMenu()
-        ));
+            'reply_markup' => mainMenu(),
+        ]);
         empty_com($tg->update_from);
         add_stats_info($tg->update_from, 'Add Inline Keyboard');
     }

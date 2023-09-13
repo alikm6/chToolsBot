@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 04, 2023 at 01:11 AM
--- Server version: 8.0.31-0ubuntu0.20.04.2
+-- Generation Time: Sep 10, 2023 at 06:08 PM
+-- Server version: 8.0.34-0ubuntu0.20.04.1
 -- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -176,7 +176,7 @@ CREATE TABLE `tbl_inlinekey` (
   `file_unique_id` varchar(31) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `data` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `text` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
-  `parse_mode` enum('html','markdown') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `parse_mode` enum('html','markdown','markdownv2') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `attach_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `web_page_preview` tinyint DEFAULT NULL,
   `keyboard` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,

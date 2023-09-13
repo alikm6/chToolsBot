@@ -16,14 +16,14 @@ function get_help_config(): array
                         "1- " . __("Send step by step") . "\n" .
                         "2- " . __("Send with only one command") . "\n\n" .
                         __("⚠️ Use /sendto_setting command to change the settings for this feature.") . "\n\n" .
-                        __("⚠️ Use /channels command to add channels to the list of predefined channels.") . "\n\n"
+                        __("⚠️ Use /channels command to add channels to the list of predefined channels.") . "\n\n",
                 ],
                 [
                     'type' => 'text',
                     'text' =>
                         "<b>" . __("Send step by step") . "</b>" . "\n\n" .
                         __("For this purpose, send /sendto command alone and then proceed step by step according to the robot training."),
-                    'parse_mode' => 'html'
+                    'parse_mode' => 'html',
                 ],
                 [
                     'type' => 'text',
@@ -44,19 +44,19 @@ function get_help_config(): array
                         __("❕For example:") . "\n" .
                         "/sendto @FarsBots" . "\n" .
                         "/sendto -1001031102294" . "\n\n",
-                    'parse_mode' => 'html'
+                    'parse_mode' => 'html',
                 ],
                 [
                     'type' => 'animation',
                     "animation" => MAIN_LINK . __("/img/sendto_inlinekey_help_en.mp4") . "?v1",
-                    "caption" => __("📍 Tutorial for sending messages without quotes containing a inline button to the channel with just one command")
+                    "caption" => __("📍 Tutorial for sending messages without quotes containing a inline button to the channel with just one command"),
                 ],
                 [
                     'type' => 'animation',
                     "animation" => MAIN_LINK . __("/img/sendto_other_help_en.mp4") . "?v1",
-                    "caption" => __("📍 Tutorial for send other messages to the channel without quoting with just one command")
-                ]
-            ]
+                    "caption" => __("📍 Tutorial for send other messages to the channel without quoting with just one command"),
+                ],
+            ],
         ],
         [
             'key' => 'addadmin',
@@ -70,9 +70,9 @@ function get_help_config(): array
                             __("With the difference that when you want to admin your friend, when you type the first one or two letters of the ID or even their name, the search result will appear, but this is not the case with the robot and the robot must have a Latin ID (not a name). Type in <b>full</b> (I emphasize: complete and not just the first few letters) to appear in the search list of the add admin section, so in the search section of the add admin section type: %s"),
                             "<code>" . BOT_USERNAME . "</code>"
                         ),
-                    'parse_mode' => 'html'
-                ]
-            ]
+                    'parse_mode' => 'html',
+                ],
+            ],
         ],
         [
             'key' => 'getid',
@@ -81,9 +81,9 @@ function get_help_config(): array
                 [
                     'type' => 'text',
                     'text' => __("If you want to post content on a private channel without a quote, since private channels do not have an ID, you must first extract the channel ID and then send without a quote.") . "\n\n" .
-                        __("You can use /getid command to extract the ID of private channels.")
-                ]
-            ]
+                        __("You can use /getid command to extract the ID of private channels."),
+                ],
+            ],
         ],
         [
             'key' => 'inlinekey',
@@ -97,9 +97,9 @@ function get_help_config(): array
                         __("You have two ways to make a inline button:") . "\n" .
                         __("1 - Send /inlinekey first, then select Add.") . "\n" .
                         __("2 - First send us the message you want to add to the inline button and then send /inlinekey command in reply.") . "\n\n" .
-                        __("After creating the message, you can view the statistics related to the message and also edit it. (By sending /inlinekey)")
-                ]
-            ]
+                        __("After creating the message, you can view the statistics related to the message and also edit it. (By sending /inlinekey)"),
+                ],
+            ],
         ],
         [
             'key' => 'inlinecode',
@@ -108,9 +108,9 @@ function get_help_config(): array
                 [
                     'type' => 'text',
                     'text' =>
-                        __("When you create a inline button, the robot sends you a 30-character English text that you need to use to use the message containing the glass button, view its statistics, edit it and delete it.")
-                ]
-            ]
+                        __("When you create a inline button, the robot sends you a 30-character English text that you need to use to use the message containing the glass button, view its statistics, edit it and delete it."),
+                ],
+            ],
         ],
         [
             'key' => 'watermark',
@@ -119,9 +119,9 @@ function get_help_config(): array
                 [
                     'type' => 'text',
                     'text' =>
-                        __("Use the @editgram_bot bot to watermark.")
-                ]
-            ]
+                        __("Use the @editgram_bot bot to watermark."),
+                ],
+            ],
         ],
         [
             'key' => 'attach',
@@ -132,9 +132,9 @@ function get_help_config(): array
                     'text' =>
                         __("With this robot, you can attach any type of file (photo, video, voice, sticker, etc.) to your post.") . "\n" .
                         __("The file you want will be displayed at the bottom of your text.") . "\n" .
-                        __("All you have to do is use /attach command.")
-                ]
-            ]
+                        __("All you have to do is use /attach command."),
+                ],
+            ],
         ],
         [
             'key' => 'hyper',
@@ -143,65 +143,25 @@ function get_help_config(): array
                 [
                     'type' => 'text',
                     'text' =>
-                        __("With this bot you can create hyper messages in markdown (original Telegram format) and html formats.") . "\n" .
+                        __("With this bot you can create hyper messages in Markdown, MarkdownV2 and HTML formats.") . "\n" .
                         __("You can also attach a file to your hyper message.") . "\n" .
-                        __("All you have to do is use /hyper command.")
-                ]
-            ]
+                        __("All you have to do is use /hyper command."),
+                ],
+            ],
         ],
         [
-            'key' => 'markdown',
-            'name' => sprintf(__("%s Format"), 'markdown'),
+            'key' => 'formatting',
+            'name' => __("Text Formatting"),
             'messages' => [
                 [
                     'type' => 'text',
                     'text' =>
-                        __("The main format of Telegram is as follows:") . "\n\n" .
-                        __("Text linking:") . "\n" .
-                        "[Title of link](url)" . "\n\n" .
-                        __("Bold text:") . "\n" .
-                        " * your bold text * " . "\n\n" .
-                        __("Italic text:") . "\n" .
-                        "_your italic text_" . "\n\n" .
-                        __("For example:") . "\n\n" .
-                        "link => [Title of Link](https://t.me/)" . "\n" .
-                        "bold text => *your bold text*" . "\n" .
-                        "italic text => _your italic text_" . "\n\n" .
-                        __("The above text becomes:") . "\n\n" .
-                        "link => <a href=\"https://t.me/\">Title of Link</a>" . "\n" .
-                        "bold text => <b>your bold text</b>" . "\n" .
-                        "italic text => <i>your italic text</i>",
-                    'disable_web_page_preview' => true,
-                    'parse_mode' => 'html'
-                ]
-            ]
-        ],
-        [
-            'key' => 'html',
-            'name' => sprintf(__("%s Format"), 'html'),
-            'messages' => [
-                [
-                    'type' => 'text',
-                    'text' =>
-                        __("The html format for creating hyperlinks is as follows:") . "\n\n" .
-                        __("Text linking:") . "\n" .
-                        "<a href=\"URL\">Title of link</a>" . "\n\n" .
-                        __("Bold text:") . "\n" .
-                        "<b>your bold text</b>" . "\n\n" .
-                        __("Italic text:") . "\n" .
-                        "<i>your italic text</i>" . "\n\n" .
-                        __("For example:") . "\n\n" .
-                        "link => <a href=\"https://t.me/\">Title of Link</a>" . "\n" .
-                        "bold text => <b>your bold text</b>" . "\n" .
-                        "italic text => <i>your italic text</i>" . "\n\n" .
-                        __("The above text becomes:") . "\n\n" .
-                        "link => [Title of Link](https://t.me/)" . "\n" .
-                        "bold text => *your bold text*" . "\n" .
-                        "italic text => _your italic text_",
-                    'disable_web_page_preview' => true,
-                    'parse_mode' => 'markdown'
-                ]
-            ]
+                        __("Text Formatting Guide:") . "\n" .
+                        __("https://telegra.ph/chToolsBot-Guide-Text-Formatting-EN-09-10")
+                    ,
+                    'disable_web_page_preview' => false,
+                ],
+            ],
         ],
         [
             'key' => 'none',
@@ -211,9 +171,9 @@ function get_help_config(): array
                     'type' => 'text',
                     'text' =>
                         __("Sometimes you get a message from someone you want to share but you don't want that person's name to be at the top of your message.") . "\n" .
-                        __("For this purpose, when you send the word \"none\" in reply to the desired post, that post will be anonymous.")
-                ]
-            ]
+                        __("For this purpose, when you send the word \"none\" in reply to the desired post, that post will be anonymous."),
+                ],
+            ],
         ],
         [
             'key' => 'contact',
@@ -222,9 +182,9 @@ function get_help_config(): array
                 [
                     'type' => 'text',
                     'text' => __("To contact us, just send the command /contact and then send your suggestion, criticism or problem.") . "\n" .
-                        __("You can also attach a file to your message.")
-                ]
-            ]
+                        __("You can also attach a file to your message."),
+                ],
+            ],
         ],
     ];
 }
@@ -234,43 +194,44 @@ function get_help_menu()
     global $tg;
     $keyboard = [
         [
-            __("Send without quote to channel")
+            __("Send without quote to channel"),
         ],
         [
-            __("How to administer a robot in a channel")
+            __("How to administer a robot in a channel"),
         ],
         [
-            __("Get private channel ID")
+            __("Get private channel ID"),
         ],
         [
             __("inline buttons"),
             __("What is an inline code?"),
         ],
         [
-            __("Watermark")
+            __("Watermark"),
         ],
         [
-            __("Attach file")
+            __("Attach file"),
         ],
         [
             __("Create hyper"),
-            sprintf(__("%s Format"), 'html'),
-            sprintf(__("%s Format"), 'markdown'),
         ],
         [
-            __("Anonymous post")
+            __("Text Formatting"),
         ],
         [
-            __("Contact us")
+            __("Anonymous post"),
         ],
         [
-            __("↩️ Cancel")
-        ]
+            __("Contact us"),
+        ],
+        [
+            __("↩️ Cancel"),
+        ],
     ];
 
-    return $tg->replyKeyboardMarkup(array(
+    return $tg->replyKeyboardMarkup([
         'keyboard' => apply_rtl_to_keyboard($keyboard),
         'resize_keyboard' => true,
-        'one_time_keyboard' => true
-    ));
+        'one_time_keyboard' => true,
+    ]);
 }

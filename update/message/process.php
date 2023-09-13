@@ -33,7 +33,7 @@ if (!empty($message['reply_to_message'])) {
 
     if (strtolower($message['text']) == 'none') {
         if (!empty($content['text'])) {
-            $text = convert_to_hyper($content["text"], (!empty($content['entities']) ? $content['entities'] : []));
+            $text = convert_to_styled_text($content["text"], (!empty($content['entities']) ? $content['entities'] : []));
 
             $tg->sendMessage(array(
                 'chat_id' => $tg->update_from,
@@ -75,7 +75,7 @@ if (!empty($message['reply_to_message'])) {
         $message['text'] = null;
     }
 
-    $new_text = convert_to_hyper($message['text'], $message['entities']);
+    $new_text = convert_to_styled_text($message['text'], $message['entities']);
     $parse_mode = 'html';
 
     if (!empty($content['photo'])) {

@@ -126,6 +126,8 @@ if ($comm['name'] == "inlinekey_edit_final") {
                         $result['parse_mode'] = 'html';
                     } elseif ($result['parse_mode'] == 'markdown') {
                         $tmp_text = hide_link($result['attach_url'], 'markdown') . $tmp_text;
+                    } elseif ($result['parse_mode'] == 'markdownv2') {
+                        $tmp_text = hide_link($result['attach_url'], 'markdownv2') . $tmp_text;
                     } elseif ($result['parse_mode'] == 'html') {
                         $tmp_text = hide_link($result['attach_url'], 'html') . $tmp_text;
                     }

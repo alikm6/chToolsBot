@@ -137,6 +137,8 @@ function convert_to_inline_results($p): array
                 $p['parse_mode'] = 'html';
             } elseif ($p['parse_mode'] == 'markdown') {
                 $tmp_text = hide_link($p['attach_url'], 'markdown') . $tmp_text;
+            } elseif ($p['parse_mode'] == 'markdownv2') {
+                $tmp_text = hide_link($p['attach_url'], 'markdownv2') . $tmp_text;
             } elseif ($p['parse_mode'] == 'html') {
                 $tmp_text = hide_link($p['attach_url'], 'html') . $tmp_text;
             }
