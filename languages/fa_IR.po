@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Editgram\n"
-"POT-Creation-Date: 2023-03-03 23:10+0330\n"
-"PO-Revision-Date: 2023-03-03 23:10+0330\n"
+"Project-Id-Version: chToolsBot\n"
+"POT-Creation-Date: 2023-09-10 19:31+0330\n"
+"PO-Revision-Date: 2023-09-10 19:31+0330\n"
 "Last-Translator: \n"
 "Language-Team: Ali Karimi\n"
 "Language: fa_IR\n"
@@ -48,20 +48,20 @@ msgstr "پایان یافته"
 msgid "Sending ..."
 msgstr "در حال ارسال ..."
 
-#: functions/attach.php:85 functions/attach.php:104 functions/inlinekey.php:321
-#: functions/main.php:117 functions/main.php:193 functions/main.php:205
-#: functions/main.php:216 update/callback_query/channels/delete.php:26
+#: functions/attach.php:84 functions/attach.php:103 functions/inlinekey.php:323
+#: functions/main.php:118 functions/main.php:194 functions/main.php:206
+#: functions/main.php:217 update/callback_query/channels/delete.php:26
 #: update/callback_query/inlinekey.php:79 update/callback_query/inlinekey.php:95
 #: update/callback_query/set.php:25 update/message/admin_commands/forward.php:164
 #: update/message/admin_commands/forward.php:181
 #: update/message/commands/channels/add.php:113
 #: update/message/commands/contact.php:54
 #: update/message/commands/inlinekey/add/final.php:55
-#: update/message/commands/inlinekey/add/final.php:204
+#: update/message/commands/inlinekey/add/final.php:206
 #: update/message/commands/inlinekey/add/keysmacker/keysmacker.php:56
 #: update/message/commands/inlinekey/delete.php:89
 #: update/message/commands/inlinekey/edit/attach.php:43
-#: update/message/commands/inlinekey/edit/caption.php:134
+#: update/message/commands/inlinekey/edit/caption.php:157
 #: update/message/commands/inlinekey/edit/final.php:40
 #: update/message/commands/inlinekey/edit/language_code.php:49
 #: update/message/commands/language.php:85 update/message/commands/sendto.php:407
@@ -136,7 +136,7 @@ msgstr "آیا مطمئن هستید که می خواهید این کار را �
 
 #: functions/channels.php:117 update/message/commands/inlinekey/add/final.php:9
 #: update/message/commands/inlinekey/add/final.php:12
-#: update/message/commands/inlinekey/add/keysmacker/bylist.php:87
+#: update/message/commands/inlinekey/add/keysmacker/bylist.php:139
 msgid "❌ No"
 msgstr "❌ خیر"
 
@@ -144,51 +144,51 @@ msgstr "❌ خیر"
 msgid "✅ Yes"
 msgstr "✅ بله"
 
-#: functions/command.php:43
+#: functions/command.php:42
 msgid "Help"
 msgstr "راهنما"
 
-#: functions/command.php:47
+#: functions/command.php:46
 msgid "Send without quotes"
 msgstr "ارسال بدون نقل قول"
 
-#: functions/command.php:51
+#: functions/command.php:50
 msgid "Manage channels"
 msgstr "مدیریت کانال ها"
 
-#: functions/command.php:55
+#: functions/command.php:54
 msgid "Manage inline buttons"
 msgstr "مدیریت دکمه های شیشه ای"
 
-#: functions/command.php:59 functions/help.php:128 functions/help.php:253
+#: functions/command.php:58 functions/help.php:128 functions/help.php:213
 msgid "Attach file"
 msgstr "ضمیمه کردن فایل"
 
-#: functions/command.php:63
+#: functions/command.php:62
 msgid "Create hyper link"
 msgstr "ساخت هایپر لینک"
 
-#: functions/command.php:67
+#: functions/command.php:66
 msgid "Convert hyper text to its original text"
 msgstr "تبدیل متن هایپر شده به متن اصلی آن"
 
-#: functions/command.php:71
+#: functions/command.php:70
 msgid "Change Contact and Location information"
 msgstr "تغییر اطلاعات پیام از نوع مخاطب و یا موقعیت مکانی"
 
-#: functions/command.php:75 functions/help.php:220 functions/help.php:264
+#: functions/command.php:74 functions/help.php:180 functions/help.php:225
 msgid "Contact us"
 msgstr "تماس با ما"
 
-#: functions/command.php:79
+#: functions/command.php:78
 msgid "Bot source"
 msgstr "سورس ربات"
 
-#: functions/command.php:83
+#: functions/command.php:82
 msgid "Cancel the current operation"
 msgstr "لغو عملیات فعلی"
 
-#: functions/help.php:8 functions/help.php:237
+#: functions/help.php:8 functions/help.php:197
 msgid "Send without quote to channel"
 msgstr "ارسال بدون نقل قول به کانال"
 
@@ -268,8 +268,6 @@ msgid "2️⃣ Send this command to the following format for the robot:"
 msgstr "2️⃣ این دستور را به فرمت زیر برای ربات ارسال کنید:"
 
 #: functions/help.php:38 functions/help.php:44
-#: update/message/commands/inlinekey/add/keysmacker/keysmacker.php:68
-#: update/message/commands/inlinekey/edit/keyboard/keyboard.php:33
 msgid "❕For example:"
 msgstr "❕برای مثال:"
 
@@ -305,7 +303,7 @@ msgid ""
 "command"
 msgstr "📍 آموزش ارسال بدون نقل قول سایر پیام‌ها به کانال فقط با یک دستور"
 
-#: functions/help.php:63 functions/help.php:240
+#: functions/help.php:63 functions/help.php:200
 msgid "How to administer a robot in a channel"
 msgstr "ادمین کردن ربات در کانال"
 
@@ -329,7 +327,7 @@ msgstr ""
 "نه فقط چند حرف اول) تایپ کنید تا در لیست جستجوی قسمت افزودن ادمین ظاهر شود لذا در "
 "قسمت جستجوی بخش افزودن ادمین کامل تایپ کنید: %s"
 
-#: functions/help.php:79 functions/help.php:243
+#: functions/help.php:79 functions/help.php:203
 msgid "Get private channel ID"
 msgstr "استخراج آی دی کانال خصوصی"
 
@@ -348,7 +346,7 @@ msgid "You can use /getid command to extract the ID of private channels."
 msgstr ""
 "برای استخراج آی دی کانال های خصوصی شما می توانید از دستور / getid استفاده کنید."
 
-#: functions/help.php:90 functions/help.php:246
+#: functions/help.php:90 functions/help.php:206
 msgid "inline buttons"
 msgstr "دکمه شیشه ای"
 
@@ -390,7 +388,7 @@ msgstr ""
 "بعد از ساخت پیام شما می توانید آمار مربوط به پیام را مشاهده کنید و همچنین به "
 "ویرایش آن به پردازید . (با ارسال /inlinekey)"
 
-#: functions/help.php:106 functions/help.php:247
+#: functions/help.php:106 functions/help.php:207
 msgid "What is an inline code?"
 msgstr "کد inline چیست؟"
 
@@ -404,7 +402,7 @@ msgstr ""
 "کارکتری ارسال می کند که شما برای استفاده از پیام حاوی دکمه شیشه ای، مشاهده آمار "
 "آن، ویرایش آن و حذف آن به این کد نیاز دارید."
 
-#: functions/help.php:117 functions/help.php:250
+#: functions/help.php:117 functions/help.php:210
 msgid "Watermark"
 msgstr "واترمارک"
 
@@ -428,17 +426,17 @@ msgstr "به این صورت که فایل مورد نظر شما در پایی�
 msgid "All you have to do is use /attach command."
 msgstr "برای این منظور کافی است از دستور /attach استفاده کنید."
 
-#: functions/help.php:141 functions/help.php:256
+#: functions/help.php:141 functions/help.php:216
 msgid "Create hyper"
 msgstr "ساخت هایپر"
 
 #: functions/help.php:146
 msgid ""
-"With this bot you can create hyper messages in markdown (original Telegram format) "
-"and html formats."
+"With this bot you can create hyper messages in Markdown, MarkdownV2 and HTML "
+"formats."
 msgstr ""
-"با این ربات شما می توانید پیام هایپر با فرمت های markdown (فرمت اصلی تلگرام) و "
-"html ایجاد کنید."
+"با این ربات شما می توانید پیام هایپر با فرمت های Markdown، MarkdownV2 و HTML ایجاد "
+"کنید."
 
 #: functions/help.php:147
 msgid "You can also attach a file to your hyper message."
@@ -448,80 +446,23 @@ msgstr "همچنین می توانید یک فایل را ضمیمه پیام ه
 msgid "All you have to do is use /hyper command."
 msgstr "برای این منظور کافی است از دستور /hyper استفاده کنید."
 
-#: functions/help.php:154 functions/help.php:181 functions/help.php:257
-#: functions/help.php:258 update/message/commands/hyper/hyper.php:16
-#: update/message/commands/hyper/hyper.php:18
-#: update/message/commands/hyper/hyper.php:29
-#: update/message/commands/hyper/hyper.php:30
-#: update/message/commands/hyper/hyper.php:47
-#: update/message/commands/hyper/hyper.php:55
-#: update/message/commands/hyper/hyper.php:64
-#: update/message/commands/inlinekey/add/typemedia.php:129
-#: update/message/commands/inlinekey/add/typemedia.php:130
-#: update/message/commands/inlinekey/add/typemedia.php:145
-#: update/message/commands/inlinekey/add/typemedia.php:146
-#: update/message/commands/inlinekey/add/typemedia.php:159
-#: update/message/commands/inlinekey/add/typemedia.php:161
-#: update/message/commands/inlinekey/add/typetext.php:23
-#: update/message/commands/inlinekey/add/typetext.php:36
-#: update/message/commands/inlinekey/add/typetext.php:37
-#: update/message/commands/inlinekey/add/typetext.php:52
-#: update/message/commands/inlinekey/add/typetext.php:53
-#: update/message/commands/inlinekey/add/typetext.php:66
-#: update/message/commands/inlinekey/add/typetext.php:68
-#: update/message/commands/inlinekey/edit/caption.php:38
-#: update/message/commands/inlinekey/edit/caption.php:51
-#: update/message/commands/inlinekey/edit/caption.php:52
-#: update/message/commands/inlinekey/edit/caption.php:63
-#: update/message/commands/inlinekey/edit/caption.php:74
-#: update/message/commands/inlinekey/edit/caption.php:76
-#: update/message/commands/inlinekey/edit/text.php:38
-#: update/message/commands/inlinekey/edit/text.php:50
-#: update/message/commands/inlinekey/edit/text.php:51
-#: update/message/commands/inlinekey/edit/text.php:62
-#: update/message/commands/inlinekey/edit/text.php:71
-#: update/message/commands/inlinekey/edit/text.php:72
-#: update/message/commands/inlinekey/edit/text.php:84
-#: update/message/commands/inlinekey/edit/text.php:86
-#: update/message/commands/inlinekey/edit/text.php:114
-#: update/message/commands/inlinekey/edit/text.php:115
-#, php-format
-msgid "%s Format"
-msgstr "فرمت %s"
+#: functions/help.php:154 functions/help.php:219
+msgid "Text Formatting"
+msgstr "قالب‌بندی نوشته"
 
 #: functions/help.php:159
-msgid "The main format of Telegram is as follows:"
-msgstr "فرمت اصلی تلگرام بدین گونه می باشد که:"
+msgid "Text Formatting Guide:"
+msgstr "راهنمای قالب‌بندی نوشته:"
 
-#: functions/help.php:160 functions/help.php:187
-msgid "Text linking:"
-msgstr "لینک دار کردن متن:"
+#: functions/help.php:160
+msgid "https://telegra.ph/chToolsBot-Guide-Text-Formatting-EN-09-10"
+msgstr "https://telegra.ph/chToolsBot-Guide-Text-Formatting-FA-09-10"
 
-#: functions/help.php:162 functions/help.php:189
-msgid "Bold text:"
-msgstr "درشت کردن متن:"
-
-#: functions/help.php:164 functions/help.php:191
-msgid "Italic text:"
-msgstr "کج نوشتن متن:"
-
-#: functions/help.php:166 functions/help.php:193
-msgid "For example:"
-msgstr "برای مثال:"
-
-#: functions/help.php:170 functions/help.php:197
-msgid "The above text becomes:"
-msgstr "نوشته بالا تبدیل میشود به:"
-
-#: functions/help.php:186
-msgid "The html format for creating hyperlinks is as follows:"
-msgstr "فرمت html برای ساخت هایپر لینک بدین گونه می باشد که:"
-
-#: functions/help.php:208 functions/help.php:261
+#: functions/help.php:168 functions/help.php:222
 msgid "Anonymous post"
 msgstr "بینام کردن مطلب"
 
-#: functions/help.php:213
+#: functions/help.php:173
 msgid ""
 "Sometimes you get a message from someone you want to share but you don't want that "
 "person's name to be at the top of your message."
@@ -529,7 +470,7 @@ msgstr ""
 "بعضی وقت ها یک پیام از شخصی به دست شما می رسد که می خواهید آن را به اشتراک بگذارید "
 "ولی دوست ندارید نام آن شخص در بالای پیام شما باشد."
 
-#: functions/help.php:214
+#: functions/help.php:174
 msgid ""
 "For this purpose, when you send the word \"none\" in reply to the desired post, "
 "that post will be anonymous."
@@ -537,7 +478,7 @@ msgstr ""
 "بدین منظور زمانی که کلمه none را در جواب به مطلب مورد نظر ارسال کنید آن مطلب بینام "
 "می شود."
 
-#: functions/help.php:224
+#: functions/help.php:184
 msgid ""
 "To contact us, just send the command /contact and then send your suggestion, "
 "criticism or problem."
@@ -545,13 +486,13 @@ msgstr ""
 "برای ارتباط با ما کافیست دستور /contact را ارسال کنید و سپس پیشنهاد، انتقاد و یا "
 "مشکل خود را ارسال کنید."
 
-#: functions/help.php:225
+#: functions/help.php:185
 msgid "You can also attach a file to your message."
 msgstr "همچنین شما می توانید یک فایل را ضمیمه پیام خود کنید."
 
-#: functions/help.php:267 update/message/admin_commands/stats.php:17
+#: functions/help.php:228 update/message/admin_commands/stats.php:17
 #: update/message/commands/inlinekey/edit/attach.php:55
-#: update/message/commands/inlinekey/edit/caption.php:147
+#: update/message/commands/inlinekey/edit/caption.php:172
 #: update/message/commands/inlinekey/edit/edit.php:131
 #: update/message/commands/inlinekey/edit/edit.php:158
 #: update/message/commands/inlinekey/edit/edit.php:186
@@ -561,9 +502,9 @@ msgstr "همچنین شما می توانید یک فایل را ضمیمه پی
 #: update/message/commands/inlinekey/edit/edit.php:297
 #: update/message/commands/inlinekey/edit/edit.php:325
 #: update/message/commands/inlinekey/edit/final.php:22
-#: update/message/commands/inlinekey/edit/keyboard/bylist.php:90
+#: update/message/commands/inlinekey/edit/keyboard/bylist.php:141
 #: update/message/commands/inlinekey/edit/language_code.php:62
-#: update/message/commands/inlinekey/edit/text.php:132 update/message/index.php:40
+#: update/message/commands/inlinekey/edit/text.php:122 update/message/index.php:40
 #: update/message/index.php:65
 msgid "↩️ Cancel"
 msgstr "↪️ لغو"
@@ -598,7 +539,7 @@ msgstr "ویرایش دکمه های شیشه ای"
 msgid "Edit text"
 msgstr "ویرایش متن"
 
-#: functions/inlinekey.php:112 update/message/commands/inlinekey/edit/edit.php:362
+#: functions/inlinekey.php:112 update/message/commands/inlinekey/edit/edit.php:364
 msgid "Edit attachment"
 msgstr "ویرایش فایل ضمیمه شده"
 
@@ -606,7 +547,7 @@ msgstr "ویرایش فایل ضمیمه شده"
 msgid "Delete attachment"
 msgstr "حذف فایل ضمیمه شده"
 
-#: functions/inlinekey.php:114 update/message/commands/inlinekey/edit/edit.php:362
+#: functions/inlinekey.php:114 update/message/commands/inlinekey/edit/edit.php:364
 msgid "Add attachment"
 msgstr "افزودن فایل ضمیمه"
 
@@ -618,7 +559,7 @@ msgstr "فعال کردن پیش نمایش لینک"
 msgid "Disable link preview"
 msgstr "غیرفعال کردن پیش نمایش لینک"
 
-#: functions/inlinekey.php:126 update/message/commands/inlinekey/edit/edit.php:370
+#: functions/inlinekey.php:126 update/message/commands/inlinekey/edit/edit.php:372
 msgid "Edit caption"
 msgstr "ویرایش کپشن"
 
@@ -626,7 +567,7 @@ msgstr "ویرایش کپشن"
 msgid "Delete caption"
 msgstr "حذف کپشن"
 
-#: functions/inlinekey.php:128 update/message/commands/inlinekey/edit/edit.php:370
+#: functions/inlinekey.php:128 update/message/commands/inlinekey/edit/edit.php:372
 msgid "Add caption"
 msgstr "افزودن کپشن"
 
@@ -646,12 +587,12 @@ msgstr "نمایش دادن پنجره بعد از رای دادن"
 msgid "Do not show window after voting"
 msgstr "نمایش ندادن پنجره بعد از رای دادن"
 
-#: functions/inlinekey.php:145 update/message/commands/inlinekey/edit/edit.php:380
+#: functions/inlinekey.php:145 update/message/commands/inlinekey/edit/edit.php:384
 msgid "Edit language of successful vote registration message"
 msgstr "ویرایش زبان پیام موفقیت آمیز بودن ثبت رای"
 
-#: functions/inlinekey.php:344 functions/inlinekey.php:367
-#: update/message/commands/inlinekey/add/keysmacker/keysmacker.php:86
+#: functions/inlinekey.php:346 functions/inlinekey.php:369
+#: update/message/commands/inlinekey/add/keysmacker/keysmacker.php:123
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:33
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:55
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:74
@@ -662,7 +603,7 @@ msgstr "ویرایش زبان پیام موفقیت آمیز بودن ثبت ر�
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:127
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:140
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:150
-#: update/message/commands/inlinekey/edit/keyboard/keyboard.php:51
+#: update/message/commands/inlinekey/edit/keyboard/keyboard.php:88
 #: update/message/commands/inlinekey/edit/keyboard/onebyone.php:35
 #: update/message/commands/inlinekey/edit/keyboard/onebyone.php:57
 #: update/message/commands/inlinekey/edit/keyboard/onebyone.php:76
@@ -677,7 +618,7 @@ msgstr "ویرایش زبان پیام موفقیت آمیز بودن ثبت ر�
 msgid "#Button_%d"
 msgstr "#دکمه_%d"
 
-#: functions/inlinekey.php:345
+#: functions/inlinekey.php:347
 msgid ""
 "The robot could not add this button, the text of the button, link or ... may be "
 "affected."
@@ -685,34 +626,34 @@ msgstr ""
 "ربات نمی تواند این دکمه را اضافه کند، ممکن است متن دکمه، لینک و یا ... دچار مشکل "
 "باشند."
 
-#: functions/inlinekey.php:346
+#: functions/inlinekey.php:348
 msgid "Try adding the button again after checking and fixing the problem."
 msgstr "پس از بررسی و رفع مشکل دوباره برای افزودن دکمه تلاش کنید."
 
-#: functions/inlinekey.php:347
+#: functions/inlinekey.php:349
 msgid "Now select the next button type."
 msgstr "حالا نوع دکمه بعدی را انتخاب کنید."
 
-#: functions/inlinekey.php:364
+#: functions/inlinekey.php:366
 msgid ""
 "Your desired button has been successfully added and a preview of it is shown above."
 msgstr ""
 "دکمه مورد نظر شما با موفقیت افزوده شد و پیش نمایشی از آن در بالا به نمایش در آمده "
 "است."
 
-#: functions/inlinekey.php:365
+#: functions/inlinekey.php:367
 msgid "If you no longer want to add a button, send /submit."
 msgstr "اگه دیگر نمی خواهید دکمه ای را بیافزایید /submit را ارسال کنید."
 
-#: functions/inlinekey.php:368
-#: update/message/commands/inlinekey/add/keysmacker/keysmacker.php:87
+#: functions/inlinekey.php:370
+#: update/message/commands/inlinekey/add/keysmacker/keysmacker.php:124
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:75
-#: update/message/commands/inlinekey/edit/keyboard/keyboard.php:52
+#: update/message/commands/inlinekey/edit/keyboard/keyboard.php:89
 #: update/message/commands/inlinekey/edit/keyboard/onebyone.php:77
 msgid "Please select a button type."
 msgstr "لطفا نوع دکمه را انتخاب کنید."
 
-#: functions/inlinekey.php:382 functions/inlinekey.php:386
+#: functions/inlinekey.php:384 functions/inlinekey.php:388
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:30
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:41
 #: update/message/commands/inlinekey/edit/keyboard/onebyone.php:32
@@ -720,7 +661,7 @@ msgstr "لطفا نوع دکمه را انتخاب کنید."
 msgid "Counter ➕"
 msgstr "شمارنده ➕"
 
-#: functions/inlinekey.php:382 functions/inlinekey.php:386
+#: functions/inlinekey.php:384 functions/inlinekey.php:388
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:30
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:39
 #: update/message/commands/inlinekey/edit/keyboard/onebyone.php:32
@@ -728,7 +669,7 @@ msgstr "شمارنده ➕"
 msgid "Url 🔗"
 msgstr "لینک دار 🔗"
 
-#: functions/inlinekey.php:383 functions/inlinekey.php:387
+#: functions/inlinekey.php:385 functions/inlinekey.php:389
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:30
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:45
 #: update/message/commands/inlinekey/edit/keyboard/onebyone.php:32
@@ -736,7 +677,7 @@ msgstr "لینک دار 🔗"
 msgid "Publisher 🎁"
 msgstr "انتشار دهنده 🎁"
 
-#: functions/inlinekey.php:383 functions/inlinekey.php:387
+#: functions/inlinekey.php:385 functions/inlinekey.php:389
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:30
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:43
 #: update/message/commands/inlinekey/edit/keyboard/onebyone.php:32
@@ -744,13 +685,13 @@ msgstr "انتشار دهنده 🎁"
 msgid "Alert 📭"
 msgstr "هشدار دهنده 📭"
 
-#: functions/inlinekey.php:404 functions/inlinekey.php:419
+#: functions/inlinekey.php:406 functions/inlinekey.php:421
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:64
 #: update/message/commands/inlinekey/edit/keyboard/onebyone.php:66
 msgid "↩️ Back"
 msgstr "↪️ بازگشت"
 
-#: functions/inlinekey.php:417
+#: functions/inlinekey.php:419
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:84
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:93
 #: update/message/commands/inlinekey/edit/keyboard/onebyone.php:86
@@ -758,7 +699,7 @@ msgstr "↪️ بازگشت"
 msgid "➡️ Next to the Last Button"
 msgstr "➡️ در کنار آخرین دکمه"
 
-#: functions/inlinekey.php:418
+#: functions/inlinekey.php:420
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:50
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:84
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:95
@@ -768,65 +709,65 @@ msgstr "➡️ در کنار آخرین دکمه"
 msgid "⬇️ Below the Last Button"
 msgstr "⬇️ در زیر آخرین دکمه"
 
-#: functions/main.php:353 update/message/index.php:37 update/message/index.php:49
+#: functions/main.php:366 update/message/index.php:37 update/message/index.php:49
 msgid "🔘 Inline Buttons"
 msgstr "🔘 دکمه شیشه ای"
 
-#: functions/main.php:353 update/message/index.php:37 update/message/index.php:51
+#: functions/main.php:366 update/message/index.php:37 update/message/index.php:51
 msgid "🔗 Hyper"
 msgstr "🔗 هایپر لینک"
 
-#: functions/main.php:353 update/message/index.php:37 update/message/index.php:53
+#: functions/main.php:366 update/message/index.php:37 update/message/index.php:53
 msgid "📎 Attach"
 msgstr "📎 ضمیمه کردن"
 
-#: functions/main.php:354 update/message/index.php:38 update/message/index.php:55
+#: functions/main.php:367 update/message/index.php:38 update/message/index.php:55
 msgid "📮 Send without Quotes"
 msgstr "📮 ارسال بدون نقل قول"
 
-#: functions/main.php:355 update/message/index.php:39 update/message/index.php:59
+#: functions/main.php:368 update/message/index.php:39 update/message/index.php:59
 msgid "☎️ Contact Us"
 msgstr "☎️ تماس با ما"
 
-#: functions/main.php:355 update/message/index.php:39 update/message/index.php:61
+#: functions/main.php:368 update/message/index.php:39 update/message/index.php:61
 msgid "❔ Help"
 msgstr "❔ راهنما"
 
-#: functions/main.php:355 update/message/index.php:39 update/message/index.php:63
+#: functions/main.php:368 update/message/index.php:39 update/message/index.php:63
 msgid "📂 Bot Source"
 msgstr "📂 سورس ربات"
 
-#: functions/main.php:763
+#: functions/main.php:465
 msgid "seconds"
 msgstr "ثانیه"
 
-#: functions/main.php:765 functions/main.php:778 functions/main.php:791
-#: functions/main.php:804 functions/main.php:817
+#: functions/main.php:467 functions/main.php:480 functions/main.php:493
+#: functions/main.php:506 functions/main.php:519
 msgid "ago"
 msgstr "قبل"
 
-#: functions/main.php:767 functions/main.php:780 functions/main.php:793
-#: functions/main.php:806 functions/main.php:819
+#: functions/main.php:469 functions/main.php:482 functions/main.php:495
+#: functions/main.php:508 functions/main.php:521
 msgid "later"
 msgstr "بعد"
 
-#: functions/main.php:776
+#: functions/main.php:478
 msgid "minutes"
 msgstr "دقیقه"
 
-#: functions/main.php:789
+#: functions/main.php:491
 msgid "hours"
 msgstr "ساعت"
 
-#: functions/main.php:802
+#: functions/main.php:504
 msgid "days"
 msgstr "روز"
 
-#: functions/main.php:815
+#: functions/main.php:517
 msgid "months"
 msgstr "ماه"
 
-#: functions/main.php:839
+#: functions/main.php:541
 msgid "‼️ Send /cancel to cancel operation."
 msgstr "‼️ برای لغو /cancel را ارسال کنید."
 
@@ -871,8 +812,7 @@ msgstr ""
 "ارسال می‌شود، کاربر یک نوتیفیکیشن دریافت می‌کند که متوجه می‌شود مطلب جدیدی در کانال "
 "شما درج شده است."
 
-#: languages/nothing.php:5 update/inline_query/index.php:47
-#: update/inline_query/index.php:65
+#: languages/nothing.php:5
 msgid "Tools 🔧"
 msgstr "ابزارک 🔧"
 
@@ -967,48 +907,48 @@ msgid "Send the code of this inline button"
 msgstr "ارسال کد این پیام شیشه ای"
 
 #: update/inline_query/index.php:111
-#: update/message/commands/inlinekey/add/final.php:220
+#: update/message/commands/inlinekey/add/final.php:223
 #: update/message/commands/inlinekey/list.php:43
 msgid "Share it"
 msgstr "به اشتراک بگذارید"
 
-#: update/inline_query/index.php:150 update/inline_query/index.php:161
-#: update/inline_query/index.php:174 update/inline_query/index.php:187
-#: update/inline_query/index.php:200 update/inline_query/index.php:213
-#: update/inline_query/index.php:236 update/inline_query/index.php:272
+#: update/inline_query/index.php:152 update/inline_query/index.php:163
+#: update/inline_query/index.php:176 update/inline_query/index.php:189
+#: update/inline_query/index.php:202 update/inline_query/index.php:215
+#: update/inline_query/index.php:238 update/inline_query/index.php:274
 #, php-format
 msgid "The message contains a inline button of type %s"
 msgstr "پیام دارای دکمه شیشه ای از نوع %s"
 
-#: update/inline_query/index.php:151
+#: update/inline_query/index.php:153
 msgid "text"
 msgstr "متن"
 
-#: update/inline_query/index.php:162
+#: update/inline_query/index.php:164
 msgid "photo"
 msgstr "عکس"
 
-#: update/inline_query/index.php:175
+#: update/inline_query/index.php:177
 msgid "video"
 msgstr "ویدئو"
 
-#: update/inline_query/index.php:188
+#: update/inline_query/index.php:190
 msgid "gif"
 msgstr "گیف"
 
-#: update/inline_query/index.php:201
+#: update/inline_query/index.php:203
 msgid "document"
 msgstr "فایل"
 
-#: update/inline_query/index.php:214
+#: update/inline_query/index.php:216
 msgid "audio"
 msgstr "موزیک"
 
-#: update/inline_query/index.php:237
+#: update/inline_query/index.php:239
 msgid "voice"
 msgstr "ویس"
 
-#: update/inline_query/index.php:273
+#: update/inline_query/index.php:275
 msgid "location"
 msgstr "موقعیت مکانی"
 
@@ -1033,11 +973,11 @@ msgstr "فوروارد"
 #: update/message/admin_commands/forward.php:40
 #: update/message/commands/hyper/typetext.php:125
 #: update/message/commands/inlinekey/add/final.php:19
-#: update/message/commands/inlinekey/add/final.php:74
-#: update/message/commands/inlinekey/add/final.php:119
+#: update/message/commands/inlinekey/add/final.php:76
+#: update/message/commands/inlinekey/add/final.php:121
 #: update/message/commands/inlinekey/add/keysmacker/keysmacker.php:34
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:88
-#: update/message/commands/inlinekey/add/typetext.php:177
+#: update/message/commands/inlinekey/add/typetext.php:186
 #: update/message/commands/inlinekey/edit/final.php:18
 #: update/message/commands/inlinekey/edit/final.php:104
 #: update/message/commands/inlinekey/edit/keyboard/keyboard.php:12
@@ -1091,14 +1031,14 @@ msgstr "اگر مطمئن هستید 'بله' را ارسال کنید."
 #: update/message/commands/hyper/typetext.php:105
 #: update/message/commands/hyper/typetext.php:122
 #: update/message/commands/hyper/typetext.php:130
-#: update/message/commands/inlinekey/add/final.php:90
-#: update/message/commands/inlinekey/add/final.php:109
-#: update/message/commands/inlinekey/add/final.php:112
-#: update/message/commands/inlinekey/add/final.php:126
-#: update/message/commands/inlinekey/add/typetext.php:153
-#: update/message/commands/inlinekey/add/typetext.php:164
-#: update/message/commands/inlinekey/add/typetext.php:174
-#: update/message/commands/inlinekey/add/typetext.php:182
+#: update/message/commands/inlinekey/add/final.php:92
+#: update/message/commands/inlinekey/add/final.php:111
+#: update/message/commands/inlinekey/add/final.php:114
+#: update/message/commands/inlinekey/add/final.php:128
+#: update/message/commands/inlinekey/add/typetext.php:162
+#: update/message/commands/inlinekey/add/typetext.php:173
+#: update/message/commands/inlinekey/add/typetext.php:183
+#: update/message/commands/inlinekey/add/typetext.php:191
 #: update/message/commands/inlinekey/delete.php:74
 #: update/message/commands/inlinekey/edit/final.php:75
 #: update/message/commands/inlinekey/edit/final.php:94
@@ -1225,23 +1165,37 @@ msgstr "👇 لینک کانال ها 👇"
 msgid "Please upload or forward the file you want to attach."
 msgstr "لطفا فایلی را که می خواهید ضمیمه کنید ارسال یا فوروارد کنید."
 
-#: update/message/commands/attach.php:29
+#: update/message/commands/attach.php:30
 #: update/message/commands/inlinekey/edit/attach.php:17
 msgid "Input is incorrect, you must send us the attachment file."
 msgstr "ورودی اشتباه می باشد، شما باید فایل ضمیمه را برای ما ارسال کنید."
 
-#: update/message/commands/attach.php:39
+#: update/message/commands/attach.php:40
 msgid "An error occurred, please resend the file."
 msgstr "خطایی رخ داده است، لطفا فایل مورد نظر را دوباره ارسال کنید."
 
-#: update/message/commands/attach.php:48
+#: update/message/commands/attach.php:49
 msgid "Please send the text to which you want the attachment to be attached."
 msgstr "لطفا متنی را که می خواهید فایل ارسالی ضمیمه آن شود ارسال کنید."
 
-#: update/message/commands/attach.php:54
+#: update/message/commands/attach.php:50
+#: update/message/commands/inlinekey/add/add.php:15
+#: update/message/commands/inlinekey/add/final.php:64
+#: update/message/commands/inlinekey/add/typemedia.php:73
+#: update/message/commands/inlinekey/edit/edit.php:358
+#: update/message/commands/inlinekey/edit/edit.php:378
+msgid ""
+"Also note that you can use formatting options in your text (<a href='https://"
+"telegra.ph/chToolsBot-Guide-Text-Formatting-EN-09-10'>Guide</a>)."
+msgstr ""
+"همچنین توجه داشته باشید شما می توانید از گزینه‌های قالب‌بندی در متن خود استفاده کنید "
+"(<a href='https://telegra.ph/chToolsBot-Guide-Text-Formatting-FA-09-10'>راهنما</"
+"a>)."
+
+#: update/message/commands/attach.php:59
 #: update/message/commands/hyper/typemedia.php:54
-#: update/message/commands/inlinekey/add/typemedia.php:85
-#: update/message/commands/inlinekey/edit/caption.php:17
+#: update/message/commands/inlinekey/add/typemedia.php:89
+#: update/message/commands/inlinekey/edit/caption.php:18
 #: update/message/commands/inlinekey/edit/text.php:17
 #: update/message/commands/rename.php:79 update/message/commands/rename.php:105
 #: update/message/commands/rename.php:126 update/message/commands/rename.php:141
@@ -1249,18 +1203,161 @@ msgstr "لطفا متنی را که می خواهید فایل ارسالی ضم
 msgid "Input is incorrect, you must send a text."
 msgstr "ورودی اشتباه می باشد، شما باید یک نوشته ارسال کنید."
 
-#: update/message/commands/attach.php:70
+#: update/message/commands/attach.php:73
+#: update/message/commands/inlinekey/add/typemedia.php:116
+#: update/message/commands/inlinekey/add/typetext.php:18
+#: update/message/commands/inlinekey/edit/caption.php:34
+#: update/message/commands/inlinekey/edit/text.php:33
+msgid "Your text was received by our robot."
+msgstr "نوشته شما توسط ربات ما دریافت شد."
+
+#: update/message/commands/attach.php:74
+#: update/message/commands/inlinekey/add/typemedia.php:117
+#: update/message/commands/inlinekey/add/typetext.php:19
+#: update/message/commands/inlinekey/edit/caption.php:35
+#: update/message/commands/inlinekey/edit/text.php:34
+msgid "Now select your text format."
+msgstr "حالا فرمت نوشته خود را انتخاب کنید."
+
+#: update/message/commands/attach.php:78 update/message/commands/attach.php:93
+#: update/message/commands/attach.php:113
+#: update/message/commands/inlinekey/add/typemedia.php:121
+#: update/message/commands/inlinekey/add/typemedia.php:138
+#: update/message/commands/inlinekey/add/typemedia.php:158
+#: update/message/commands/inlinekey/add/typetext.php:23
+#: update/message/commands/inlinekey/add/typetext.php:38
+#: update/message/commands/inlinekey/add/typetext.php:58
+#: update/message/commands/inlinekey/edit/caption.php:39
+#: update/message/commands/inlinekey/edit/caption.php:55
+#: update/message/commands/inlinekey/edit/caption.php:76
+#: update/message/commands/inlinekey/edit/text.php:37
+#: update/message/commands/inlinekey/edit/text.php:53
+#: update/message/commands/inlinekey/edit/text.php:74
+msgid "Unchanged"
+msgstr "بدون تغییر"
+
+#: update/message/commands/attach.php:79 update/message/commands/attach.php:94
+#: update/message/commands/inlinekey/add/typemedia.php:122
+#: update/message/commands/inlinekey/add/typemedia.php:139
+#: update/message/commands/inlinekey/add/typetext.php:24
+#: update/message/commands/inlinekey/add/typetext.php:39
+#: update/message/commands/inlinekey/edit/caption.php:40
+#: update/message/commands/inlinekey/edit/caption.php:56
+#: update/message/commands/inlinekey/edit/text.php:38
+#: update/message/commands/inlinekey/edit/text.php:54
+msgid "Simple Text"
+msgstr "نوشته ساده"
+
+#: update/message/commands/attach.php:80 update/message/commands/attach.php:95
+#: update/message/commands/attach.php:120 update/message/commands/hyper/hyper.php:16
+#: update/message/commands/hyper/hyper.php:29
+#: update/message/commands/hyper/hyper.php:51
+#: update/message/commands/hyper/hyper.php:65
+#: update/message/commands/inlinekey/add/typemedia.php:123
+#: update/message/commands/inlinekey/add/typemedia.php:140
+#: update/message/commands/inlinekey/add/typemedia.php:165
+#: update/message/commands/inlinekey/add/typetext.php:25
+#: update/message/commands/inlinekey/add/typetext.php:40
+#: update/message/commands/inlinekey/add/typetext.php:65
+#: update/message/commands/inlinekey/edit/caption.php:41
+#: update/message/commands/inlinekey/edit/caption.php:57
+#: update/message/commands/inlinekey/edit/caption.php:83
+#: update/message/commands/inlinekey/edit/text.php:39
+#: update/message/commands/inlinekey/edit/text.php:55
+#: update/message/commands/inlinekey/edit/text.php:81
+msgid "HTML Format"
+msgstr "فرمت HTML"
+
+#: update/message/commands/attach.php:81 update/message/commands/attach.php:96
+#: update/message/commands/attach.php:122 update/message/commands/hyper/hyper.php:18
+#: update/message/commands/hyper/hyper.php:30
+#: update/message/commands/hyper/hyper.php:52
+#: update/message/commands/hyper/hyper.php:75
+#: update/message/commands/inlinekey/add/typemedia.php:124
+#: update/message/commands/inlinekey/add/typemedia.php:141
+#: update/message/commands/inlinekey/add/typemedia.php:167
+#: update/message/commands/inlinekey/add/typetext.php:26
+#: update/message/commands/inlinekey/add/typetext.php:41
+#: update/message/commands/inlinekey/add/typetext.php:67
+#: update/message/commands/inlinekey/edit/caption.php:42
+#: update/message/commands/inlinekey/edit/caption.php:58
+#: update/message/commands/inlinekey/edit/caption.php:85
+#: update/message/commands/inlinekey/edit/text.php:40
+#: update/message/commands/inlinekey/edit/text.php:56
+#: update/message/commands/inlinekey/edit/text.php:83
+msgid "Markdown Format"
+msgstr "فرمت Markdown"
+
+#: update/message/commands/attach.php:81 update/message/commands/attach.php:97
+#: update/message/commands/attach.php:124 update/message/commands/hyper/hyper.php:20
+#: update/message/commands/hyper/hyper.php:30
+#: update/message/commands/hyper/hyper.php:53
+#: update/message/commands/hyper/hyper.php:85
+#: update/message/commands/inlinekey/add/typemedia.php:124
+#: update/message/commands/inlinekey/add/typemedia.php:142
+#: update/message/commands/inlinekey/add/typemedia.php:169
+#: update/message/commands/inlinekey/add/typetext.php:26
+#: update/message/commands/inlinekey/add/typetext.php:42
+#: update/message/commands/inlinekey/add/typetext.php:69
+#: update/message/commands/inlinekey/edit/caption.php:42
+#: update/message/commands/inlinekey/edit/caption.php:59
+#: update/message/commands/inlinekey/edit/caption.php:87
+#: update/message/commands/inlinekey/edit/text.php:40
+#: update/message/commands/inlinekey/edit/text.php:57
+#: update/message/commands/inlinekey/edit/text.php:85
+msgid "Markdown V2 Format"
+msgstr "فرمت Markdown V2"
+
+#: update/message/commands/attach.php:102 update/message/commands/help.php:85
+#: update/message/commands/hyper/hyper.php:58
+#: update/message/commands/inlinekey/add/final.php:183
+#: update/message/commands/inlinekey/add/typemedia.php:147
+#: update/message/commands/inlinekey/add/typetext.php:47
+#: update/message/commands/inlinekey/edit/caption.php:64
+#: update/message/commands/inlinekey/edit/edit.php:103
+#: update/message/commands/inlinekey/edit/language_code.php:31
+#: update/message/commands/inlinekey/edit/text.php:62
+#: update/message/commands/inlinekey/inlinekey.php:66
+#: update/message/commands/language.php:68
+msgid "Please select an option correctly."
+msgstr "لطفا به درستی یک گزینه را انتخاب کنید."
+
+#: update/message/commands/attach.php:139
+#: update/message/commands/inlinekey/add/typemedia.php:184
+#: update/message/commands/inlinekey/add/typetext.php:84
+#: update/message/commands/inlinekey/edit/caption.php:101
+#: update/message/commands/inlinekey/edit/text.php:102
+msgid "The format you selected does not match the text you submitted."
+msgstr "فرمت انتخابی شما با متن ارسالی شما همخوانی ندارد."
+
+#: update/message/commands/attach.php:140
+#: update/message/commands/inlinekey/add/typemedia.php:185
+#: update/message/commands/inlinekey/add/typetext.php:85
+#: update/message/commands/inlinekey/edit/caption.php:102
+#: update/message/commands/inlinekey/edit/text.php:103
+msgid "If you submitted the format incorrectly, send us the correct format again."
+msgstr "اگر فرمت را اشتباه ارسال کرده اید فرمت درست را دوباره برای ما ارسال کنید."
+
+#: update/message/commands/attach.php:141
+msgid ""
+"Otherwise, first edit your text and then start the process of attaching the file "
+"by sending /attach."
+msgstr ""
+"در غیر این صورت ابتدا نوشته خود را اصلاح کنید و سپس با ارسال /attach، فرآیند پیوست "
+"فایل را آغاز کنید."
+
+#: update/message/commands/attach.php:168
 msgid ""
 "An unspecified error has occurred. Please try again to attach by sending /attach."
 msgstr ""
 "خطای نامشخصی رخ داده است، لطفا با ارسال /attach دوباره برای ضمیمه کردن فایل تلاش "
 "نمایید."
 
-#: update/message/commands/attach.php:79
+#: update/message/commands/attach.php:177
 msgid "The file you requested was successfully attached."
 msgstr "فایل مد نظر شما با موفقیت ضمیمه شد."
 
-#: update/message/commands/attach.php:80
+#: update/message/commands/attach.php:178
 #: update/message/commands/hyper/typemedia.php:157
 #: update/message/commands/hyper/typetext.php:156
 msgid "Use /sendto command to send without quoting to the channel."
@@ -1427,6 +1524,10 @@ msgstr "ورودی اشتباه است، لطفا به درستی یک پیام 
 msgid "The message you sent was not hyper."
 msgstr "پیام ارسالی شما هایپر نشده است."
 
+#: update/message/commands/decodehyper.php:51
+msgid "Please send us a hyper message correctly."
+msgstr "لطفا به درستی یک پیام هایپر شده را برای ما ارسال کنید."
+
 #: update/message/commands/getid.php:17
 #, php-format
 msgid "Your account ID is %s."
@@ -1463,38 +1564,21 @@ msgstr "عملیات هایی که شما می توانید انجام دهید 
 msgid "Select an item from the menu to learn more."
 msgstr "برای آموزش بیشتر یک مورد را از منو انتخاب کنید."
 
-#: update/message/commands/help.php:85 update/message/commands/hyper/hyper.php:51
-#: update/message/commands/inlinekey/add/final.php:181
-#: update/message/commands/inlinekey/add/typemedia.php:151
-#: update/message/commands/inlinekey/add/typetext.php:58
-#: update/message/commands/inlinekey/edit/caption.php:66
-#: update/message/commands/inlinekey/edit/edit.php:103
-#: update/message/commands/inlinekey/edit/language_code.php:31
-#: update/message/commands/inlinekey/edit/text.php:65
-#: update/message/commands/inlinekey/inlinekey.php:66
-#: update/message/commands/language.php:68
-msgid "Please select an option correctly."
-msgstr "لطفا به درستی یک گزینه را انتخاب کنید."
-
-#: update/message/commands/hyper/hyper.php:23
-msgid "Please select your post format."
-msgstr "لطفا فرمت نوشته خود را انتخاب کنید."
-
-#: update/message/commands/hyper/hyper.php:24
+#: update/message/commands/hyper/hyper.php:25
 msgid ""
-"To get acquainted with html and markdown, you can read the tutorial for each by "
-"sending /help_html and /help_markdown."
+"Please select your post format. (<a href='https://telegra.ph/chToolsBot-Guide-Text-"
+"Formatting-EN-09-10'>Guide</a>)"
 msgstr ""
-"برای آشنایی با html و markdown می توانید با ارسال /help_html و /help_markdown "
-"آموزش مربوط به هر کدام را مطالعه کنید."
+"لطفا فرمت نوشته خود را انتخاب کنید. (<a href='https://telegra.ph/chToolsBot-Guide-"
+"Text-Formatting-FA-09-10'>راهنما</a>)"
 
-#: update/message/commands/hyper/hyper.php:59
-#: update/message/commands/hyper/hyper.php:68
-msgid "Now send us your post in markdown format."
-msgstr "حال نوشته خود را که با فرمت markdown تنظیم شده است را برای ما ارسال کنید."
+#: update/message/commands/hyper/hyper.php:70
+msgid "Now send us your post in HTML format."
+msgstr "حال نوشته خود را که با فرمت HTML تنظیم شده است را برای ما ارسال کنید."
 
-#: update/message/commands/hyper/hyper.php:60
-#: update/message/commands/hyper/hyper.php:69
+#: update/message/commands/hyper/hyper.php:71
+#: update/message/commands/hyper/hyper.php:81
+#: update/message/commands/hyper/hyper.php:91
 msgid ""
 "If you want to hyper caption of a photo🖼, video🎥, gif📹, voice or music🔊 or file📎, "
 "submit that file first."
@@ -1502,13 +1586,21 @@ msgstr ""
 "اگر می خواهید کپشن یک عکس🖼، ویدئو🎥، گیف📹، ویس یا موزیک🔊 یا فایل 📎 را هایپر کنید "
 "ابتدا آن فایل را ارسال کنید."
 
-#: update/message/commands/hyper/hyper.php:85
+#: update/message/commands/hyper/hyper.php:80
+msgid "Now send us your post in Markdown format."
+msgstr "حال نوشته خود را که با فرمت Markdown تنظیم شده است را برای ما ارسال کنید."
+
+#: update/message/commands/hyper/hyper.php:90
+msgid "Now send us your post in Markdown V2 format."
+msgstr "حال نوشته خود را که با فرمت Markdown V2 تنظیم شده است را برای ما ارسال کنید."
+
+#: update/message/commands/hyper/hyper.php:108
 #: update/message/commands/hyper/typemedia.php:30
 #: update/message/commands/hyper/typetext.php:11
 msgid "The content you submitted is invalid."
 msgstr "مطلبی که شما ارسال کردید نا معتبر می باشد."
 
-#: update/message/commands/hyper/hyper.php:86
+#: update/message/commands/hyper/hyper.php:109
 #: update/message/commands/hyper/typemedia.php:31
 #: update/message/commands/hyper/typetext.php:12
 msgid "Please submit a text, photo, video, gif, Weiss, music, or file."
@@ -1533,8 +1625,8 @@ msgid "Please edit your text and send it to us."
 msgstr "لطفا نوشته خود را اصلاح کنید و برای ما بفرستید."
 
 #: update/message/commands/hyper/typemedia.php:86
-#: update/message/commands/inlinekey/add/typemedia.php:200
-#: update/message/commands/inlinekey/edit/caption.php:113
+#: update/message/commands/inlinekey/add/typemedia.php:212
+#: update/message/commands/inlinekey/edit/caption.php:131
 msgid "The text sent is long, please send us a shorter text."
 msgstr "متن ارسال شده طولانی می باشد، لطفا یک متن کوتاه تر برای ما ارسال کنید."
 
@@ -1552,7 +1644,7 @@ msgid "The hyper message you requested was successfully created."
 msgstr "پیام هایپر مد نظر شما با موفقیت ایجاد شد."
 
 #: update/message/commands/hyper/typetext.php:54
-#: update/message/commands/inlinekey/add/typetext.php:102
+#: update/message/commands/inlinekey/add/typetext.php:111
 msgid ""
 "Please send the file you want to be displayed at the bottom of the text. (You are "
 "allowed to send any file.)"
@@ -1567,12 +1659,12 @@ msgstr ""
 "در صورتی که نمی خواهید فایلی در انتهای مطلب به نمایش در آید skip را ارسال کنید."
 
 #: update/message/commands/hyper/typetext.php:67
-#: update/message/commands/inlinekey/add/typetext.php:126
+#: update/message/commands/inlinekey/add/typetext.php:135
 msgid "Input is incorrect, please send a file or select an option."
 msgstr "ورودی اشتباه می باشد، لطفا یک فایل ارسال کنید یا یک گزینه را انتخاب کنید."
 
 #: update/message/commands/hyper/typetext.php:83
-#: update/message/commands/inlinekey/add/typetext.php:141
+#: update/message/commands/inlinekey/add/typetext.php:150
 #: update/message/commands/inlinekey/edit/attach.php:29
 msgid "An error occurred while attaching the file. Please resend this file."
 msgstr ""
@@ -1580,12 +1672,12 @@ msgstr ""
 
 #: update/message/commands/hyper/typetext.php:105
 #: update/message/commands/hyper/typetext.php:122
-#: update/message/commands/inlinekey/add/final.php:90
-#: update/message/commands/inlinekey/add/final.php:105
-#: update/message/commands/inlinekey/add/final.php:109
-#: update/message/commands/inlinekey/add/final.php:112
-#: update/message/commands/inlinekey/add/typetext.php:164
-#: update/message/commands/inlinekey/add/typetext.php:174
+#: update/message/commands/inlinekey/add/final.php:92
+#: update/message/commands/inlinekey/add/final.php:107
+#: update/message/commands/inlinekey/add/final.php:111
+#: update/message/commands/inlinekey/add/final.php:114
+#: update/message/commands/inlinekey/add/typetext.php:173
+#: update/message/commands/inlinekey/add/typetext.php:183
 #: update/message/commands/inlinekey/edit/final.php:75
 #: update/message/commands/inlinekey/edit/final.php:94
 #: update/message/commands/inlinekey/edit/final.php:97
@@ -1594,15 +1686,15 @@ msgid "No"
 msgstr "خیر"
 
 #: update/message/commands/hyper/typetext.php:113
-#: update/message/commands/inlinekey/add/typetext.php:159
+#: update/message/commands/inlinekey/add/typetext.php:168
 msgid "Do you want your link preview to be displayed at the bottom of the text?"
 msgstr "آیا می خواهید پیش نمایش لینک شما در پایین مطلب نمایش داده شود؟"
 
 #: update/message/commands/hyper/typetext.php:114
-#: update/message/commands/inlinekey/add/typetext.php:160
+#: update/message/commands/inlinekey/add/typetext.php:169
 #: update/message/commands/inlinekey/edit/edit.php:62
 #: update/message/commands/inlinekey/edit/final.php:67
-#: update/message/commands/inlinekey/edit/final.php:174
+#: update/message/commands/inlinekey/edit/final.php:176
 #: update/message/commands/inlinekey/inlinekey.php:38
 msgid "Please select an option."
 msgstr "لطفا یک گزینه را انتخاب کنید."
@@ -1623,27 +1715,14 @@ msgstr ""
 "این مطلب می تواند نوشته 📝، عکس 🖼، ویدئو 🎥، گیف 📹، ویس 🔊، استیکر، فایل 📎 و هر چیز "
 "دیگری باشد."
 
-#: update/message/commands/inlinekey/add/add.php:15
-#: update/message/commands/inlinekey/add/final.php:64
-#: update/message/commands/inlinekey/add/typemedia.php:71
-#: update/message/commands/inlinekey/edit/edit.php:358
-#: update/message/commands/inlinekey/edit/edit.php:376
-msgid ""
-"Also note that you can submit your text in html format or the original telegram "
-"format (for hyper). (Read /help_html and /help_markdown to learn formatting)"
-msgstr ""
-"همچنین توجه داشته باشید شما می توانید نوشته خود را به فرمت html یا فرمت اصلی "
-"تلگرام (برای هایپر کردن) ارسال کنید. (برای آموزش فرمت بندی /help_html و /"
-"help_markdown را مطالعه کنید)"
-
-#: update/message/commands/inlinekey/add/add.php:49
-#: update/message/commands/inlinekey/add/typemedia.php:52
+#: update/message/commands/inlinekey/add/add.php:51
+#: update/message/commands/inlinekey/add/typemedia.php:54
 #: update/message/commands/inlinekey/add/typeother.php:20
 msgid "The post you sent is invalid."
 msgstr "مطلبی که شما ارسال کردید نامعتبر می باشد."
 
-#: update/message/commands/inlinekey/add/add.php:50
-#: update/message/commands/inlinekey/add/typemedia.php:53
+#: update/message/commands/inlinekey/add/add.php:52
+#: update/message/commands/inlinekey/add/typemedia.php:55
 #: update/message/commands/inlinekey/add/typeother.php:21
 msgid "Please send another post."
 msgstr "لطفا یک مطلب دیگر ارسال کنید."
@@ -1651,10 +1730,10 @@ msgstr "لطفا یک مطلب دیگر ارسال کنید."
 #: update/message/commands/inlinekey/add/final.php:9
 #: update/message/commands/inlinekey/add/final.php:12
 #: update/message/commands/inlinekey/add/final.php:26
-#: update/message/commands/inlinekey/add/keysmacker/bylist.php:87
+#: update/message/commands/inlinekey/add/keysmacker/bylist.php:139
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:23
 #: update/message/commands/inlinekey/edit/attach.php:56
-#: update/message/commands/inlinekey/edit/caption.php:148
+#: update/message/commands/inlinekey/edit/caption.php:173
 #: update/message/commands/inlinekey/edit/edit.php:132
 #: update/message/commands/inlinekey/edit/edit.php:159
 #: update/message/commands/inlinekey/edit/edit.php:187
@@ -1665,22 +1744,22 @@ msgstr "لطفا یک مطلب دیگر ارسال کنید."
 #: update/message/commands/inlinekey/edit/edit.php:326
 #: update/message/commands/inlinekey/edit/final.php:15
 #: update/message/commands/inlinekey/edit/final.php:23
-#: update/message/commands/inlinekey/edit/keyboard/bylist.php:91
+#: update/message/commands/inlinekey/edit/keyboard/bylist.php:142
 #: update/message/commands/inlinekey/edit/keyboard/onebyone.php:25
 #: update/message/commands/inlinekey/edit/language_code.php:63
-#: update/message/commands/inlinekey/edit/text.php:133
+#: update/message/commands/inlinekey/edit/text.php:123
 msgid "✅ OK"
 msgstr "✅ خوبه"
 
 #: update/message/commands/inlinekey/add/final.php:32
 #: update/message/commands/inlinekey/add/final.php:46
-#: update/message/commands/inlinekey/add/final.php:71
+#: update/message/commands/inlinekey/add/final.php:73
 msgid "Count"
 msgstr "تعداد"
 
 #: update/message/commands/inlinekey/add/final.php:32
-#: update/message/commands/inlinekey/add/final.php:71
-#: update/message/commands/inlinekey/add/final.php:79
+#: update/message/commands/inlinekey/add/final.php:73
+#: update/message/commands/inlinekey/add/final.php:81
 msgid "Percent"
 msgstr "درصد"
 
@@ -1688,11 +1767,11 @@ msgstr "درصد"
 msgid "How to display the statistics related to the counter buttons!?"
 msgstr "آمار مربوط به دکمه های شمارنده به چه صورت نمایش داده شود!؟"
 
-#: update/message/commands/inlinekey/add/final.php:97
+#: update/message/commands/inlinekey/add/final.php:99
 msgid "After the user votes, will the success window open for the user?"
 msgstr "بعد از رای دادن کاربر پنجره موفقیت آمیز بودن فرایند برای کاربر باز شود؟"
 
-#: update/message/commands/inlinekey/add/final.php:98
+#: update/message/commands/inlinekey/add/final.php:100
 msgid ""
 "If you select \"Yes\", a window will open for the user after the vote is "
 "registered and it will not be closed until the user clicks ok. If you select \"No"
@@ -1703,20 +1782,20 @@ msgstr ""
 "تا کاربر بر روی ok کلیک نکند بسته نخواهد شد و اگر \"خیر\" را انتخاب کنید پیام "
 "موفقیت آمیز بودن به نمایش در می‌آید و بعد از گذشت زمان کوتاهی پنهان می‌شود."
 
-#: update/message/commands/inlinekey/add/final.php:149
-#: update/message/commands/inlinekey/edit/edit.php:397
+#: update/message/commands/inlinekey/add/final.php:151
+#: update/message/commands/inlinekey/edit/edit.php:401
 msgid "In what language should the message of successful voting be displayed!?"
 msgstr "پیام موفقیت آمیز بودن ثبت رای با چه زبانی نمایش داده شود!؟"
 
-#: update/message/commands/inlinekey/add/final.php:228
+#: update/message/commands/inlinekey/add/final.php:232
 msgid "Congratulations, your post has been created."
 msgstr "تبریک، مطلب مورد نظر شما ساخته شد."
 
-#: update/message/commands/inlinekey/add/final.php:229
+#: update/message/commands/inlinekey/add/final.php:233
 msgid "Usage Tutorial:"
 msgstr "آموزش استفاده:"
 
-#: update/message/commands/inlinekey/add/final.php:230
+#: update/message/commands/inlinekey/add/final.php:234
 msgid ""
 "☝️ Method 1: Copy the above content and paste it in the chat and wait (do not send "
 "it) then select your content from the list that is displayed."
@@ -1724,7 +1803,7 @@ msgstr ""
 "☝️ روش اول: مطلب بالا را کپی کنید و در چت مورد نظر پیست کرده و صبر کنید (آن را "
 "ارسال نکنید) سپس از لستی که نمایش داده می شود مطلب خود را انتخاب کنید."
 
-#: update/message/commands/inlinekey/add/final.php:231
+#: update/message/commands/inlinekey/add/final.php:235
 msgid ""
 "✌ Method 2: Touch the \"Share it\" button, then select the chat you want and wait "
 "(do not send it) then select your content from the list that appears."
@@ -1733,46 +1812,64 @@ msgstr ""
 "کنید و صبر کنید (آن را ارسال نکنید) سپس از لستی که نمایش داده می شود مطلب خود را "
 "انتخاب کنید."
 
-#: update/message/commands/inlinekey/add/final.php:232
+#: update/message/commands/inlinekey/add/final.php:236
 msgid "👌 Method 3: Use /sendto command to send without quoting to the channel."
 msgstr "👌 روش سوم: برای ارسال بدون نقل قول به کانال از دستور /sendto استفاده کنید."
 
-#: update/message/commands/inlinekey/add/keysmacker/bylist.php:17
-#: update/message/commands/inlinekey/add/keysmacker/bylist.php:28
-#: update/message/commands/inlinekey/add/keysmacker/bylist.php:42
-#: update/message/commands/inlinekey/add/keysmacker/bylist.php:54
-#: update/message/commands/inlinekey/add/keysmacker/bylist.php:78
-#: update/message/commands/inlinekey/edit/keyboard/bylist.php:17
-#: update/message/commands/inlinekey/edit/keyboard/bylist.php:28
-#: update/message/commands/inlinekey/edit/keyboard/bylist.php:41
-#: update/message/commands/inlinekey/edit/keyboard/bylist.php:53
-#: update/message/commands/inlinekey/edit/keyboard/bylist.php:77
+#: update/message/commands/inlinekey/add/keysmacker/bylist.php:18
+#: update/message/commands/inlinekey/add/keysmacker/bylist.php:46
+#: update/message/commands/inlinekey/add/keysmacker/bylist.php:63
+#: update/message/commands/inlinekey/add/keysmacker/bylist.php:80
+#: update/message/commands/inlinekey/add/keysmacker/bylist.php:100
+#: update/message/commands/inlinekey/add/keysmacker/bylist.php:111
+#: update/message/commands/inlinekey/add/keysmacker/bylist.php:128
+#: update/message/commands/inlinekey/edit/keyboard/bylist.php:18
+#: update/message/commands/inlinekey/edit/keyboard/bylist.php:46
+#: update/message/commands/inlinekey/edit/keyboard/bylist.php:63
+#: update/message/commands/inlinekey/edit/keyboard/bylist.php:80
+#: update/message/commands/inlinekey/edit/keyboard/bylist.php:100
+#: update/message/commands/inlinekey/edit/keyboard/bylist.php:111
+#: update/message/commands/inlinekey/edit/keyboard/bylist.php:128
 msgid "Please send the inline buttons in the said format."
 msgstr "لطفا دکمه های شیشه ای را با فرمت گفته شده ارسال کنید."
 
-#: update/message/commands/inlinekey/add/keysmacker/bylist.php:18
-#: update/message/commands/inlinekey/edit/keyboard/bylist.php:18
+#: update/message/commands/inlinekey/add/keysmacker/bylist.php:19
+#: update/message/commands/inlinekey/edit/keyboard/bylist.php:19
 msgid "⚠ Error: You must send a text in the said format."
 msgstr "⚠ خطا: شما باید یک نوشته با فرمت گفته شده ارسال کنید."
 
-#: update/message/commands/inlinekey/add/keysmacker/bylist.php:29
-#: update/message/commands/inlinekey/edit/keyboard/bylist.php:29
-msgid "⚠ Error: The number of titles is not equal to the number of links."
-msgstr "⚠ خطا: تعداد عنوان ها با تعداد لینک ها برابر نیست."
+#: update/message/commands/inlinekey/add/keysmacker/bylist.php:47
+#: update/message/commands/inlinekey/edit/keyboard/bylist.php:47
+msgid "⚠ Error: Up to 6 inline buttons can be in a row."
+msgstr "⚠ خطا: حداکثر 6 دکمه شیشه ای می توانند در یک ردیف قرار بگیرند."
 
-#: update/message/commands/inlinekey/add/keysmacker/bylist.php:43
-#: update/message/commands/inlinekey/edit/keyboard/bylist.php:42
+#: update/message/commands/inlinekey/add/keysmacker/bylist.php:64
+#: update/message/commands/inlinekey/edit/keyboard/bylist.php:64
+msgid "⚠ Error: The title of each button can be a maximum of 200 characters."
+msgstr "⚠ خطا: عنوان هر دکمه می تواند حداکثر 200 کارکتر باشد."
+
+#: update/message/commands/inlinekey/add/keysmacker/bylist.php:81
+#: update/message/commands/inlinekey/edit/keyboard/bylist.php:81
 msgid "⚠ Error: The following link has a problem:"
 msgstr "⚠ خطا: لینک زیر دارای مشکل می باشد:"
 
-#: update/message/commands/inlinekey/add/keysmacker/bylist.php:55
-#: update/message/commands/inlinekey/edit/keyboard/bylist.php:54
-msgid "⚠ Error: The title for the following link is empty:"
-msgstr "⚠ خطا: عنوان مربوط به لینک زیر خالی می باشد:"
+#: update/message/commands/inlinekey/add/keysmacker/bylist.php:101
+#: update/message/commands/inlinekey/edit/keyboard/bylist.php:101
+msgid "⚠ Error: No link entered for last button."
+msgstr "⚠ خطا: برای آخرین دکمه هیچ لینکی وارد نشده است."
 
-#: update/message/commands/inlinekey/add/keysmacker/bylist.php:94
+#: update/message/commands/inlinekey/add/keysmacker/bylist.php:112
+#: update/message/commands/inlinekey/edit/keyboard/bylist.php:112
+msgid "⚠ Error: The number of entered buttons is zero."
+msgstr "⚠ خطا: تعداد دکمه های وارد شده صفر می باشد."
+
+#: update/message/commands/inlinekey/add/keysmacker/bylist.php:129
+msgid "⚠ Error: The link of one of the buttons has a problem."
+msgstr "⚠ خطا: لینک یکی از دکمه ها دچار مشکل می باشد."
+
+#: update/message/commands/inlinekey/add/keysmacker/bylist.php:146
 #: update/message/commands/inlinekey/edit/attach.php:50
-#: update/message/commands/inlinekey/edit/caption.php:141
+#: update/message/commands/inlinekey/edit/caption.php:166
 #: update/message/commands/inlinekey/edit/edit.php:126
 #: update/message/commands/inlinekey/edit/edit.php:153
 #: update/message/commands/inlinekey/edit/edit.php:180
@@ -1781,13 +1878,13 @@ msgstr "⚠ خطا: عنوان مربوط به لینک زیر خالی می ب�
 #: update/message/commands/inlinekey/edit/edit.php:263
 #: update/message/commands/inlinekey/edit/edit.php:291
 #: update/message/commands/inlinekey/edit/edit.php:319
-#: update/message/commands/inlinekey/edit/keyboard/bylist.php:85
+#: update/message/commands/inlinekey/edit/keyboard/bylist.php:136
 #: update/message/commands/inlinekey/edit/language_code.php:57
-#: update/message/commands/inlinekey/edit/text.php:126
+#: update/message/commands/inlinekey/edit/text.php:116
 msgid "👆 A preview of your post is shown above."
 msgstr "👆 پیش نمایشی از مطلب شما در بالا به نمایش در آمده است."
 
-#: update/message/commands/inlinekey/add/keysmacker/bylist.php:95
+#: update/message/commands/inlinekey/add/keysmacker/bylist.php:147
 msgid "If you are satisfied with it, select \"✅ OK\"."
 msgstr "📍 اگر از آن راضی می باشید \"✅ خوبه\" را انتخاب کنید."
 
@@ -1803,12 +1900,8 @@ msgstr "به صورت لیستی"
 
 #: update/message/commands/inlinekey/add/keysmacker/keysmacker.php:18
 #: update/message/commands/inlinekey/edit/edit.php:341
-msgid ""
-"In this case, you can only create linked inline buttons and it is not possible to "
-"display the buttons side by side (the buttons are displayed below)"
-msgstr ""
-"در این صورت شما فقط می توانید دکمه های شیشه ای لینک دار ایجاد کنید و امکان نمایش "
-"دکمه ها در کنار هم وجود ندارد (دکمه ها در زیر هم به نمایش در می آیند)"
+msgid "In this case, you can only create linked inline buttons."
+msgstr "در این صورت شما فقط می توانید دکمه های شیشه ای لینک دار ایجاد کنید."
 
 #: update/message/commands/inlinekey/add/keysmacker/keysmacker.php:19
 #: update/message/commands/inlinekey/edit/edit.php:342
@@ -1819,11 +1912,10 @@ msgstr "به صورت دونه به دونه"
 #: update/message/commands/inlinekey/edit/edit.php:343
 msgid ""
 "In this case, you can use a variety of buttons (link, counter, alarm, publisher, "
-"etc.) and you can also arrange the buttons yourself (side by side)."
+"etc.)."
 msgstr ""
 "در این حالت شما می توانید از انواع دکمه شیشه ای (لینک دار، شمارنده، هشدار دهنده، "
-"انتشاردهنده و ...) استفاده کنید و همچنین می توانید چینش دکمه ها را خودتان انجام "
-"دهید (زیر هم و کنار هم)."
+"انتشاردهنده و ...) استفاده کنید."
 
 #: update/message/commands/inlinekey/add/keysmacker/keysmacker.php:24
 #: update/message/commands/inlinekey/add/keysmacker/keysmacker.php:31
@@ -1837,38 +1929,96 @@ msgstr "لیستی"
 
 #: update/message/commands/inlinekey/add/keysmacker/keysmacker.php:24
 #: update/message/commands/inlinekey/add/keysmacker/keysmacker.php:31
-#: update/message/commands/inlinekey/add/keysmacker/keysmacker.php:82
+#: update/message/commands/inlinekey/add/keysmacker/keysmacker.php:119
 #: update/message/commands/inlinekey/edit/edit.php:347
 #: update/message/commands/inlinekey/edit/keyboard/keyboard.php:9
 #: update/message/commands/inlinekey/edit/keyboard/keyboard.php:15
-#: update/message/commands/inlinekey/edit/keyboard/keyboard.php:47
+#: update/message/commands/inlinekey/edit/keyboard/keyboard.php:84
 msgid "One by One"
 msgstr "دونه به دونه"
 
-#: update/message/commands/inlinekey/add/keysmacker/keysmacker.php:66
-#: update/message/commands/inlinekey/edit/keyboard/keyboard.php:31
+#: update/message/commands/inlinekey/add/keysmacker/keysmacker.php:67
+#: update/message/commands/inlinekey/edit/keyboard/keyboard.php:32
 msgid "Now send the inline buttons in the format below."
 msgstr "حالا دکمه های شیشه ای را با فرمتی که در زیر بیان شده است ارسال کنید."
 
-#: update/message/commands/inlinekey/add/keysmacker/keysmacker.php:67
-#: update/message/commands/inlinekey/edit/keyboard/keyboard.php:32
-msgid "You have to write the text button in one line and the link in the next line."
-msgstr "شما باید در یک خط متن دکمه را بنویسید و در خط بعد باید لینک آن را بنویسید."
+#: update/message/commands/inlinekey/add/keysmacker/keysmacker.php:68
+#: update/message/commands/inlinekey/edit/keyboard/keyboard.php:33
+msgid ""
+" - Write the text of the button in the first line and put the corresponding link "
+"in the next line."
+msgstr " - در خط اول متن دکمه را بنویسید و در خط بعدی لینک مربوط به آن را قرار دهید."
+
+#: update/message/commands/inlinekey/add/keysmacker/keysmacker.php:69
+#: update/message/commands/inlinekey/edit/keyboard/keyboard.php:34
+msgid ""
+" - If you want to add several buttons, place the next buttons in the same way in "
+"the next lines of text."
+msgstr ""
+" - اگر می خواهید چند دکمه اضافه کنید، دکمه های بعدی را به همین شکل در خطوط بعدی "
+"متن قرار دهید."
+
+#: update/message/commands/inlinekey/add/keysmacker/keysmacker.php:70
+#: update/message/commands/inlinekey/edit/keyboard/keyboard.php:35
+#, php-format
+msgid ""
+" - If you want two buttons to be placed next to each other, put %s in the line "
+"after the link of the first button and put the next button in a new line after "
+"this expression."
+msgstr ""
+" - اگر می خواهید دو دکمه کنار هم قرار گیرند، در خط بعد از لینک دکمه اول عبارت %s "
+"را قرار دهید و دکمه بعدی را در خط جدید بعد از این عبارت قرار دهید."
+
+#: update/message/commands/inlinekey/add/keysmacker/keysmacker.php:71
+#: update/message/commands/inlinekey/edit/keyboard/keyboard.php:36
+msgid " - You can put up to 6 buttons together according to the third instruction."
+msgstr " - می توانید تا 6 دکمه را مطابق دستورالعمل سوم کنار هم قرار دهید."
 
 #: update/message/commands/inlinekey/add/keysmacker/keysmacker.php:72
 #: update/message/commands/inlinekey/edit/keyboard/keyboard.php:37
-msgid "Our Channel"
-msgstr "کانال ما"
+msgid ""
+" - Your links must start with http:// or https://, so if you want to link to a "
+"Telegram ID, you can use the https://t.me/username link."
+msgstr ""
+" - لینک های شما حتما باید با http:// یا https:// شروع شوند، در نتیجه اگر می خواهید "
+"به یک آی دی تلگرامی لینک دهید می توانید از لینک https://t.me/username استفاده کنید."
 
-#: update/message/commands/inlinekey/add/keysmacker/keysmacker.php:75
-#: update/message/commands/inlinekey/edit/keyboard/keyboard.php:40
-msgid "⚠ Important Note:"
-msgstr "⚠ نکته مهم:"
+#: update/message/commands/inlinekey/add/keysmacker/keysmacker.php:73
+#: update/message/commands/inlinekey/edit/keyboard/keyboard.php:38
+msgid ""
+"👇👇 An example of the stated format along with the corresponding inline buttons has "
+"been sent to you below."
+msgstr ""
+"👇👇 نمونه ای از فرمت بیان شده به همراه دکمه های شیشه ای متناظر با آن در ادامه برای "
+"شما ارسال شده است."
 
-#: update/message/commands/inlinekey/add/keysmacker/keysmacker.php:76
-#: update/message/commands/inlinekey/edit/keyboard/keyboard.php:41
-msgid "Your links must start with http:// or https://."
-msgstr "لینک های شما باید با http:// یا https:// شروع شوند."
+#: update/message/commands/inlinekey/add/keysmacker/keysmacker.php:82
+#: update/message/commands/inlinekey/add/keysmacker/keysmacker.php:95
+#: update/message/commands/inlinekey/edit/keyboard/keyboard.php:47
+#: update/message/commands/inlinekey/edit/keyboard/keyboard.php:60
+msgid "Link 1"
+msgstr "لینک 1"
+
+#: update/message/commands/inlinekey/add/keysmacker/keysmacker.php:84
+#: update/message/commands/inlinekey/add/keysmacker/keysmacker.php:101
+#: update/message/commands/inlinekey/edit/keyboard/keyboard.php:49
+#: update/message/commands/inlinekey/edit/keyboard/keyboard.php:66
+msgid "Link 2"
+msgstr "لینک 2"
+
+#: update/message/commands/inlinekey/add/keysmacker/keysmacker.php:87
+#: update/message/commands/inlinekey/add/keysmacker/keysmacker.php:105
+#: update/message/commands/inlinekey/edit/keyboard/keyboard.php:52
+#: update/message/commands/inlinekey/edit/keyboard/keyboard.php:70
+msgid "Link 3"
+msgstr "لینک 3"
+
+#: update/message/commands/inlinekey/add/keysmacker/keysmacker.php:89
+#: update/message/commands/inlinekey/add/keysmacker/keysmacker.php:111
+#: update/message/commands/inlinekey/edit/keyboard/keyboard.php:54
+#: update/message/commands/inlinekey/edit/keyboard/keyboard.php:76
+msgid "Link 4"
+msgstr "لینک 4"
 
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:56
 #: update/message/commands/inlinekey/edit/keyboard/onebyone.php:58
@@ -1906,62 +2056,23 @@ msgid "Input is incorrect, please send us a text of up to 200 characters."
 msgstr ""
 "ورودی اشتباه است، لطفا یک متن که حداکثر 200 کارکتر می باشد برای ما ارسال کنید."
 
-#: update/message/commands/inlinekey/add/typemedia.php:69
+#: update/message/commands/inlinekey/add/typemedia.php:71
 #: update/message/index.php:104
 msgid "Your message was received by our bot 😉"
 msgstr "پیام شما توسط ربات ما دریافت شد 😉"
 
-#: update/message/commands/inlinekey/add/typemedia.php:70
+#: update/message/commands/inlinekey/add/typemedia.php:72
 msgid ""
-"If you want to submit a caption for it, send your text, otherwise send \"null\", "
-"and if you want to keep the current caption, send \"skip\"."
+"If you want to submit a caption for it, send your text, otherwise send "
+"\"<code>null</code>\", and if you want to keep the current caption, send "
+"\"<code>skip</code>\"."
 msgstr ""
 "اگر مایل هستید که کپشنی برای آن ثبت کنید متن خود را ارسال کنید در غیر این صورت "
-"null را ارسال کنید و اگر می خواهید همان کپشن فعلی باقی بمانده skip را ارسال کنید."
+"<code>null</code> را ارسال کنید و اگر می خواهید همان کپشن فعلی باقی بمانده "
+"<code>skip</code> را ارسال کنید."
 
-#: update/message/commands/inlinekey/add/typemedia.php:122
-#: update/message/commands/inlinekey/add/typetext.php:29
-#: update/message/commands/inlinekey/edit/caption.php:44
-#: update/message/commands/inlinekey/edit/text.php:44
-msgid "Your text was received by our robot."
-msgstr "نوشته شما توسط ربات ما دریافت شد."
-
-#: update/message/commands/inlinekey/add/typemedia.php:123
-#: update/message/commands/inlinekey/add/typetext.php:30
-#: update/message/commands/inlinekey/edit/caption.php:45
-#: update/message/commands/inlinekey/edit/text.php:45
-msgid "Now select your text format."
-msgstr "حالا فرمت نوشته خود را انتخاب کنید."
-
-#: update/message/commands/inlinekey/add/typemedia.php:128
-#: update/message/commands/inlinekey/add/typemedia.php:144
-#: update/message/commands/inlinekey/add/typetext.php:35
-#: update/message/commands/inlinekey/add/typetext.php:51
-#: update/message/commands/inlinekey/edit/caption.php:50
-#: update/message/commands/inlinekey/edit/caption.php:63
-#: update/message/commands/inlinekey/edit/text.php:49
-#: update/message/commands/inlinekey/edit/text.php:62
-#: update/message/commands/inlinekey/edit/text.php:70
-#: update/message/commands/inlinekey/edit/text.php:113
-msgid "Simple Text"
-msgstr "نوشته ساده"
-
-#: update/message/commands/inlinekey/add/typemedia.php:176
-#: update/message/commands/inlinekey/add/typetext.php:83
-#: update/message/commands/inlinekey/edit/caption.php:89
-#: update/message/commands/inlinekey/edit/text.php:103
-msgid "The format you selected does not match the text you submitted."
-msgstr "فرمت انتخابی شما با متن ارسالی شما همخوانی ندارد."
-
-#: update/message/commands/inlinekey/add/typemedia.php:177
-#: update/message/commands/inlinekey/add/typetext.php:84
-#: update/message/commands/inlinekey/edit/caption.php:90
-#: update/message/commands/inlinekey/edit/text.php:104
-msgid "If you submitted the format incorrectly, send us the correct format again."
-msgstr "اگر فرمت را اشتباه ارسال کرده اید فرمت درست را دوباره برای ما ارسال کنید."
-
-#: update/message/commands/inlinekey/add/typemedia.php:178
-#: update/message/commands/inlinekey/add/typetext.php:85
+#: update/message/commands/inlinekey/add/typemedia.php:186
+#: update/message/commands/inlinekey/add/typetext.php:86
 msgid ""
 "Otherwise, first edit your text and then start the registration of the inline "
 "button by sending /inlinekey_add."
@@ -1969,7 +2080,7 @@ msgstr ""
 "در غیر این صورت ابتدا نوشته خود را اصلاح کنید و سپس با ارسال /inlinekey_add مراحل "
 "ثبت دکمه شیشه ای را از ابتدا شروع کنید."
 
-#: update/message/commands/inlinekey/add/typetext.php:103
+#: update/message/commands/inlinekey/add/typetext.php:112
 msgid ""
 "If you do not want a file to be displayed at the bottom of the text, send \"none\"."
 msgstr ""
@@ -2017,7 +2128,7 @@ msgid "The message was successfully deleted."
 msgstr "پیام مورد نظر با موفقیت حذف گردید."
 
 #: update/message/commands/inlinekey/edit/attach.php:51
-#: update/message/commands/inlinekey/edit/caption.php:142
+#: update/message/commands/inlinekey/edit/caption.php:167
 #: update/message/commands/inlinekey/edit/edit.php:127
 #: update/message/commands/inlinekey/edit/edit.php:154
 #: update/message/commands/inlinekey/edit/edit.php:181
@@ -2026,14 +2137,14 @@ msgstr "پیام مورد نظر با موفقیت حذف گردید."
 #: update/message/commands/inlinekey/edit/edit.php:264
 #: update/message/commands/inlinekey/edit/edit.php:292
 #: update/message/commands/inlinekey/edit/edit.php:320
-#: update/message/commands/inlinekey/edit/keyboard/bylist.php:86
+#: update/message/commands/inlinekey/edit/keyboard/bylist.php:137
 #: update/message/commands/inlinekey/edit/language_code.php:58
-#: update/message/commands/inlinekey/edit/text.php:127
+#: update/message/commands/inlinekey/edit/text.php:117
 msgid "If you are satisfied with it, select \"✅ OK\" to complete edit."
 msgstr "اگر از آن راضی می باشید \"✅ خوبه\" را انتخاب کنید تا ویرایش انجام شود."
 
-#: update/message/commands/inlinekey/edit/caption.php:92
-#: update/message/commands/inlinekey/edit/text.php:106
+#: update/message/commands/inlinekey/edit/caption.php:104
+#: update/message/commands/inlinekey/edit/text.php:105
 #, php-format
 msgid ""
 "Otherwise, first edit your text and then back to the editing section of the inline "
@@ -2061,15 +2172,15 @@ msgstr ""
 msgid "Please send us your new text."
 msgstr "لطفا متن جدید مورد نظر خود را برای ما ارسال کنید."
 
-#: update/message/commands/inlinekey/edit/edit.php:366
+#: update/message/commands/inlinekey/edit/edit.php:368
 msgid "Please send us the file you want to attach to this message."
 msgstr "لطفا فایلی که می خواهید ضمیمه این پیام کنید را برای ما ارسال کنید."
 
-#: update/message/commands/inlinekey/edit/edit.php:374
+#: update/message/commands/inlinekey/edit/edit.php:376
 msgid "Please send us the new caption of the message."
 msgstr "لطفا کپشن جدید پیام را برای ما ارسال کنید."
 
-#: update/message/commands/inlinekey/edit/edit.php:375
+#: update/message/commands/inlinekey/edit/edit.php:377
 msgid "Your caption must be up to 1024 characters long."
 msgstr "کپشن مورد نظر شما باید حداکثر 1024 کاراکتر باشد."
 
