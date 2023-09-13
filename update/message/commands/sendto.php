@@ -14,7 +14,7 @@ if ($message['text'][0] == '/') {
             "text" => $tmp['text'],
             'reply_markup' => $tmp['keyboard'],
             'parse_mode' => 'html',
-            'disable_web_page_preview' => true
+            'disable_web_page_preview' => true,
         ]);
         add_stats_info($tg->update_from, 'Sendto Setting');
         exit;
@@ -37,7 +37,7 @@ if ($message['text'][0] == '/') {
             $tg->sendMessage([
                 "chat_id" => $tg->update_from,
                 "text" => __("Your order is not valid, please read /help_sendto for instruction without quotes."),
-                'reply_markup' => mainMenu()
+                'reply_markup' => mainMenu(),
             ]);
 
             exit;
@@ -50,6 +50,7 @@ if ($message['text'][0] == '/') {
                 'chat_id' => $message['reply_to_message']['chat']['id'],
                 'text' => !empty($message['reply_to_message']['text']) ? $message['reply_to_message']['text'] : null,
                 'entities' => !empty($message['reply_to_message']['entities']) ? $message['reply_to_message']['entities'] : null,
+                'reply_markup' => !empty($message['reply_to_message']['reply_markup']) ? $message['reply_to_message']['reply_markup'] : null,
             ];
         }
 
@@ -71,7 +72,7 @@ if ($message['text'][0] == '/') {
             if (!$target_message) {
                 $q = "select id from inlinekey where inline_id = ? and status = 1 limit 1";
                 $inlinekey = $db->rawQueryOne($q, [
-                    'inline_id' => $word
+                    'inline_id' => $word,
                 ]);
 
                 if (!empty($inlinekey)) {
@@ -92,7 +93,7 @@ if ($message['text'][0] == '/') {
                 "chat_id" => $tg->update_from,
                 "text" => __("Your order is not valid, please read /help_sendto for instruction without quotes.") . "\n\n" .
                     (!$target_chat ? __("Note that the channel ID must start with @ (for private channels with -100).") : ""),
-                'reply_markup' => mainMenu()
+                'reply_markup' => mainMenu(),
             ]);
 
             exit;
@@ -101,7 +102,7 @@ if ($message['text'][0] == '/') {
         add_com($tg->update_from, 'sendto');
 
         $p = [
-            'col1' => 'pending'
+            'col1' => 'pending',
         ];
 
         if ($target_message) {
@@ -127,7 +128,7 @@ if (!empty($comm) && $comm['name'] == "sendto") {
                 'text' => __("Please forward the message you want to post in your channel without quotes to the robot.") . "\n\n" .
                     __("If you want to post the message containing the inline button that you made with this robot in your channel, send the inline code of this message to the robot.") .
                     cancel_text(),
-                'reply_markup' => $tg->replyKeyboardRemove()
+                'reply_markup' => $tg->replyKeyboardRemove(),
             ]);
 
             exit();
@@ -142,7 +143,7 @@ if (!empty($comm) && $comm['name'] == "sendto") {
         ) {
             $q = "select id from inlinekey where inline_id = ? and status = 1 limit 1";
             $inlinekey = $db->rawQueryOne($q, [
-                'inline_id' => $message['text']
+                'inline_id' => $message['text'],
             ]);
 
             if (!empty($inlinekey)) {
@@ -160,12 +161,13 @@ if (!empty($comm) && $comm['name'] == "sendto") {
                 'chat_id' => $message['chat']['id'],
                 'text' => !empty($message['text']) ? $message['text'] : null,
                 'entities' => !empty($message['entities']) ? $message['entities'] : null,
+                'reply_markup' => !empty($message['reply_markup']) ? $message['reply_markup'] : null,
             ];
         }
 
         edit_com($tg->update_from, [
             'col1' => 'pending',
-            'col2' => json_encode($target_message)
+            'col2' => json_encode($target_message),
         ]);
 
         $comm = get_com($tg->update_from);
@@ -179,26 +181,26 @@ if (!empty($comm) && $comm['name'] == "sendto") {
 
             $q = "select * from channels where user_id=?";
             $channels = $db->rawQuery($q, [
-                'user_id' => $tg->update_from
+                'user_id' => $tg->update_from,
             ]);
 
             foreach ($channels as $channel) {
                 $q = "select * from tg_Chat where tg_id=? limit 1";
                 $db_tg_channel = $db->rawQueryOne($q, [
-                    'tg_id' => $channel['channel_id']
+                    'tg_id' => $channel['channel_id'],
                 ]);
 
                 $keyboard[] = [
-                    $channel['channel_id'] . ': ' . tgChatToText(dbChatToTG($db_tg_channel))
+                    $channel['channel_id'] . ': ' . tgChatToText(dbChatToTG($db_tg_channel)),
                 ];
             }
 
             if (!empty($keyboard)) {
-                $keyboard = $tg->replyKeyboardMarkup(array(
+                $keyboard = $tg->replyKeyboardMarkup([
                     'keyboard' => $keyboard,
                     'resize_keyboard' => true,
-                    'one_time_keyboard' => true
-                ));
+                    'one_time_keyboard' => true,
+                ]);
             } else {
                 $keyboard = $tg->replyKeyboardRemove();
             }
@@ -209,7 +211,7 @@ if (!empty($comm) && $comm['name'] == "sendto") {
                     __("If the desired channel is private, just forward a message from the desired channel to the robot.") . "\n\n" .
                     __("Also in /channels section you can add the desired channel to the list of predefined channels.") .
                     cancel_text(),
-                'reply_markup' => $keyboard
+                'reply_markup' => $keyboard,
             ]);
 
             exit();
@@ -236,7 +238,7 @@ if (!empty($comm) && $comm['name'] == "sendto") {
             $tg->sendMessage([
                 'chat_id' => $tg->update_from,
                 'text' => __("Input is incorrect, please send the correct channel ID to the robot or forward a message from the desired channel to the robot.") .
-                    cancel_text()
+                    cancel_text(),
             ]);
 
             exit();
@@ -244,7 +246,7 @@ if (!empty($comm) && $comm['name'] == "sendto") {
 
         edit_com($tg->update_from, [
             'col1' => 'pending',
-            'col3' => $target_chat
+            'col3' => $target_chat,
         ]);
 
         $comm = get_com($tg->update_from);
@@ -252,7 +254,7 @@ if (!empty($comm) && $comm['name'] == "sendto") {
 
     if (!empty($comm['col2']) && !empty($comm['col3'])) {
         $target_chat = $tg->getChat([
-            'chat_id' => $comm['col3']
+            'chat_id' => $comm['col3'],
         ], ['send_error' => false]);
 
         if (!$target_chat) {
@@ -266,7 +268,7 @@ if (!empty($comm) && $comm['name'] == "sendto") {
                         $comm['col3']
                     ) . "\n\n" .
                     __("Please re-send /sendto command after making sure the bot is in the channel."),
-                'reply_markup' => mainMenu()
+                'reply_markup' => mainMenu(),
             ]);
 
             exit;
@@ -280,14 +282,14 @@ if (!empty($comm) && $comm['name'] == "sendto") {
             $tg->sendMessage([
                 "chat_id" => $tg->update_from,
                 "text" => __("The ID you are looking for does not belong to the channel."),
-                'reply_markup' => mainMenu()
+                'reply_markup' => mainMenu(),
             ]);
 
             exit;
         }
 
         $target_chat_administrators = $tg->getChatAdministrators([
-            'chat_id' => $comm['col3']
+            'chat_id' => $comm['col3'],
         ], ['send_error' => false]);
         if (!$target_chat_administrators) {
             empty_com($tg->update_from);
@@ -298,7 +300,7 @@ if (!empty($comm) && $comm['name'] == "sendto") {
                     __("Our bot is not registered as administrator of channel %s."),
                     $comm['col3']
                 ),
-                'reply_markup' => mainMenu()
+                'reply_markup' => mainMenu(),
             ]);
 
             exit;
@@ -321,7 +323,7 @@ if (!empty($comm) && $comm['name'] == "sendto") {
                         __("Channel %s does not seem to belong to you because you are not on the channel admin list."),
                         $comm['col3']
                     ),
-                'reply_markup' => mainMenu()
+                'reply_markup' => mainMenu(),
             ]);
 
             exit;
@@ -334,39 +336,41 @@ if (!empty($comm) && $comm['name'] == "sendto") {
         if ($message_details['type'] == 'message') {
             $q = "select * from settings where user_id=? limit 1";
             $setting = $db->rawQueryOne($q, [
-                'user_id' => $tg->update_from
+                'user_id' => $tg->update_from,
             ]);
             if (!empty($message_details['text'])) {
-                $text = convert_to_hyper($message_details["text"], (!empty($message_details['entities']) ? $message_details['entities'] : []));
+                $text = convert_to_styled_text($message_details["text"], (!empty($message_details['entities']) ? $message_details['entities'] : []));
 
-                $m = $tg->sendMessage(array(
+                $m = $tg->sendMessage([
                     'chat_id' => $comm['col3'],
                     'text' => $text,
                     "parse_mode" => 'html',
                     "disable_web_page_preview" => !(get_attach_link($text) || $setting['sendto_web_page_preview'] == 1),
                     'disable_notification' => !$setting['sendto_notification'],
-                ), ['send_error' => false]);
+                    'reply_markup' => !empty($message_details['reply_markup']) ? json_encode($message_details['reply_markup']) : null,
+                ], ['send_error' => false]);
             } else {
                 $m = $tg->copyMessage([
                     'chat_id' => $comm['col3'],
                     'from_chat_id' => $message_details['chat_id'],
                     'message_id' => $message_details['message_id'],
-                    'disable_notification' => !$setting['sendto_notification']
+                    'disable_notification' => !$setting['sendto_notification'],
+                    'reply_markup' => !empty($message_details['reply_markup']) ? json_encode($message_details['reply_markup']) : null,
                 ], ['send_error' => false]);
             }
         } elseif ($message_details['type'] == 'inlinekey') {
             $q = "select * from inlinekey where inline_id=? and status = 1 limit 1";
             $result = $db->rawQueryOne($q, [
-                "inline_id" => $message_details['inline_id']
+                "inline_id" => $message_details['inline_id'],
             ]);
             if (empty($result)) {
                 empty_com($tg->update_from);
 
-                $tg->sendMessage(array(
+                $tg->sendMessage([
                     'chat_id' => $tg->update_from,
                     'text' => __("The message containing the inline button you selected appears to have been deleted."),
-                    'reply_markup' => mainMenu()
-                ));
+                    'reply_markup' => mainMenu(),
+                ]);
 
                 exit;
             }
@@ -381,11 +385,11 @@ if (!empty($comm) && $comm['name'] == "sendto") {
                             if (isset($item['switch_inline_query'])) {
                                 empty_com($tg->update_from);
 
-                                $tg->sendMessage(array(
+                                $tg->sendMessage([
                                     'chat_id' => $tg->update_from,
                                     'text' => __("This message containing the inline button cannot be sent to the target channel without a quote, because to send without a quote, the message must have no publisher button."),
-                                    'reply_markup' => mainMenu()
-                                ));
+                                    'reply_markup' => mainMenu(),
+                                ]);
 
                                 exit;
                             }
@@ -396,13 +400,13 @@ if (!empty($comm) && $comm['name'] == "sendto") {
 
             $m = send_inlinekey_message($comm['col3'], $result, false);
             if ($m) {
-                $tmp = $db->insert('inlinekey_chosen', array(
+                $tmp = $db->insert('inlinekey_chosen', [
                     'from_id' => $tg->update_from,
                     'keyboard_id' => $result['id'],
                     'chat_id' => $m['chat']['id'],
                     'message_id' => $m['message_id'],
-                    'chosen_date' => time()
-                ));
+                    'chosen_date' => time(),
+                ]);
                 if (!$tmp) {
                     send_error(__("Unspecified error occurred. Please try again."), 376);
                 }
@@ -415,7 +419,7 @@ if (!empty($comm) && $comm['name'] == "sendto") {
             $tg->sendMessage([
                 "chat_id" => $tg->update_from,
                 "text" => __("An error occurred while posting to the channel, please try again by sending the /sendto command!"),
-                'reply_markup' => mainMenu()
+                'reply_markup' => mainMenu(),
             ]);
 
             exit;
@@ -432,7 +436,7 @@ if (!empty($comm) && $comm['name'] == "sendto") {
             $q = "select id from channels where user_id = ? and channel_id = ? limit 1";
             $channel = $db->rawQueryOne($q, [
                 'user_id' => $tg->update_from,
-                'channel_id' => $target_chat['id']
+                'channel_id' => $target_chat['id'],
             ]);
 
             if (empty($channel)) {
@@ -444,7 +448,7 @@ if (!empty($comm) && $comm['name'] == "sendto") {
             "chat_id" => $tg->update_from,
             "text" => $text,
             "disable_web_page_preview" => true,
-            'reply_markup' => mainMenu()
+            'reply_markup' => mainMenu(),
         ]);
 
         add_stats_info($tg->update_from, 'Sendto');
