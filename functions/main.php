@@ -171,7 +171,7 @@ function get_com($user_id): ?array
     unset($result['id'], $result['user_id']);
 
     $key = array_keys($result);
-    while ($result[$key[count($result) - 1]] == null) {
+    while ($result[$key[count($result) - 1]] === null) {
         unset($result[$key[count($result) - 1]]);
     }
 
