@@ -63,6 +63,14 @@ function convert_to_styled_text($text, $entities = [], $format = 'html')
                     $entity['type'] != 'strikethrough' &&
                     $entity['type'] != 'spoiler'
                 )
+            ) &&
+            (
+                $format == 'markdown' ||
+                $format == 'markdownv2' ||
+                (
+                    $entity['type'] != 'blockquote' &&
+                    $entity['type'] != 'expandable_blockquote'
+                )
             )
         ) {
             unset($entities[$key]);
@@ -165,6 +173,10 @@ function convert_to_styled_text($text, $entities = [], $format = 'html')
                     $final_text .= "</s>";
                 } elseif ($entity['type'] == 'spoiler') {
                     $final_text .= "</tg-spoiler>";
+                } elseif ($entity['type'] == 'blockquote') {
+                    $final_text .= "</blockquote>";
+                } elseif ($entity['type'] == 'expandable_blockquote') {
+                    $final_text .= "</blockquote>";
                 } elseif ($entity['type'] == 'code') {
                     $final_text .= "</code>";
                 } elseif ($entity['type'] == 'pre') {
@@ -215,6 +227,10 @@ function convert_to_styled_text($text, $entities = [], $format = 'html')
                     $final_text .= "<s>";
                 } elseif ($entity['type'] == 'spoiler') {
                     $final_text .= "<tg-spoiler>";
+                } elseif ($entity['type'] == 'blockquote') {
+                    $final_text .= "<blockquote>";
+                } elseif ($entity['type'] == 'expandable_blockquote') {
+                    $final_text .= "<blockquote expandable>";
                 } elseif ($entity['type'] == 'code') {
                     $final_text .= "<code>";
                 } elseif ($entity['type'] == 'pre') {
