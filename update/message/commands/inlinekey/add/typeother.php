@@ -30,12 +30,9 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_typeother") {
     empty_com($tg->update_from);
     add_com($tg->update_from, 'inlinekey_add_keysmacker');
     edit_com($tg->update_from, [
-        'col1' => $type,    //type
-        'col2' => 'null',   //file_unique_id
-        'col3' => $data,    //data
-        'col4' => 'null',   //text
-        'col5' => 'null',   //parse_mode
-        'col6' => 'null',   //attach_url
-        'col7' => 'null',   //web_page_preview
+        'col1' => json_encode([
+            'type' => $type,
+            'data' => $data,
+        ]),
     ]);
 }

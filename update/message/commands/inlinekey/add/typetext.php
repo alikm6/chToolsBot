@@ -109,7 +109,8 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_typetext") {
         $tg->sendMessage([
             'chat_id' => $tg->update_from,
             'text' => __("Please send the file you want to be displayed at the bottom of the text. (You are allowed to send any file.)") . "\n\n" .
-                __("If you do not want a file to be displayed at the bottom of the text, send \"none\".") .
+                __("If you do not want a file to be displayed at the bottom of the text, send \"none\".") . "\n\n" .
+                __("You can also send a link so that its preview is displayed at the bottom of the text.") .
                 cancel_text(),
             'reply_markup' => $tg->replyKeyboardMarkup([
                 'keyboard' => [["none"]],
@@ -128,19 +129,26 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_typetext") {
             empty($message['audio']) &&
             empty($message['sticker']) &&
             empty($message['video_note']) &&
-            (empty($message['text']) || strtolower($message['text']) != 'none')
+            (
+                empty($message['text']) || (
+                    strtolower($message['text']) != 'none' &&
+                    !is_url($message['text'])
+                )
+            )
         ) {
             $tg->sendMessage([
                 'chat_id' => $tg->update_from,
-                'text' => __("Input is incorrect, please send a file or select an option.") .
+                'text' => __("Input is incorrect, please send a file or a link, or select an option.") .
                     cancel_text(),
             ]);
             exit;
         }
 
         $attach_url = null;
-        if (strtolower($message['text']) == 'none') {
+        if (!empty($message['text']) && strtolower($message['text']) == 'none') {
             $attach_url = 'null';
+        } elseif (!empty($message['text']) && is_url($message['text'])) {
+            $attach_url = $message['text'];
         } else {
             $attachment_id = attach_message($tg->update_from, 'inlinekey', null, ATTACH_CHANNEL, $message);
 
@@ -158,29 +166,83 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_typetext") {
 
         edit_com($tg->update_from, ['col4' => $attach_url]);
 
-        if ($attach_url != 'null') {
-            $message['text'] = __("Yes");
-            $comm = get_com($tg->update_from);
-        } else {
+        if ($attach_url != 'null' && strpos($attach_url, MAIN_LINK) === 0) {
             $tg->sendMessage([
                 'chat_id' => $tg->update_from,
                 'text' =>
-                    __("Do you want your link preview to be displayed at the bottom of the text?") . "\n\n" .
+                    __("Where would you like the attachment to be displayed in this message?") . "\n\n" .
                     __("Please select an option.") .
                     cancel_text(),
                 'reply_markup' => $tg->replyKeyboardMarkup([
                     'keyboard' => apply_rtl_to_keyboard([
-                        [__("No"), __("Yes")],
+                        [__("Below"), __("Above")],
                     ]),
                     'resize_keyboard' => true,
                     'one_time_keyboard' => true,
                 ]),
             ]);
-            exit;
+        } elseif ($attach_url != 'null') {
+            $tg->sendMessage([
+                'chat_id' => $tg->update_from,
+                'text' =>
+                    __("Where would you like the link preview to be displayed in this message?") . "\n\n" .
+                    __("Please select an option.") .
+                    cancel_text(),
+                'reply_markup' => $tg->replyKeyboardMarkup([
+                    'keyboard' => apply_rtl_to_keyboard([
+                        [__("Above, Small"), __("Above, Large")],
+                        [__("Below, Small"), __("Below, Large")],
+                    ]),
+                    'resize_keyboard' => true,
+                    'one_time_keyboard' => true,
+                ]),
+            ]);
+        } else {
+            $tg->sendMessage([
+                'chat_id' => $tg->update_from,
+                'text' =>
+                    __("If the text you send contains a link, how to display the preview of the link?") . "\n\n" .
+                    __("Please select an option.") .
+                    cancel_text(),
+                'reply_markup' => $tg->replyKeyboardMarkup([
+                    'keyboard' => apply_rtl_to_keyboard([
+                        [__("Disable")],
+                        [__("Above, Small"), __("Above, Large")],
+                        [__("Below, Small"), __("Below, Large")],
+                    ]),
+                    'resize_keyboard' => true,
+                    'one_time_keyboard' => true,
+                ]),
+            ]);
         }
-    }
-    if (count($comm) == 5) {
-        if ($message['text'] != __("Yes") && $message['text'] != __("No")) {
+
+        exit;
+    } elseif (count($comm) == 5) {
+        if (
+            empty($message['text']) ||
+            (
+                $comm['col4'] == 'null' &&
+                $message['text'] != __("Disable") &&
+                $message['text'] != __("Above, Small") &&
+                $message['text'] != __("Above, Large") &&
+                $message['text'] != __("Below, Small") &&
+                $message['text'] != __("Below, Large")
+            ) ||
+            (
+                $comm['col4'] != 'null' &&
+                strpos($comm['col4'], MAIN_LINK) === 0 &&
+                $message['text'] != __("Above") &&
+                $message['text'] != __("Below")
+            ) ||
+            (
+                $comm['col4'] != 'null' &&
+                strpos($comm['col4'], MAIN_LINK) !== 0 &&
+                $message['text'] != __("Above, Small") &&
+                $message['text'] != __("Above, Large") &&
+                $message['text'] != __("Below, Small") &&
+                $message['text'] != __("Below, Large")
+            )
+        ) {
             $tg->sendMessage([
                 'chat_id' => $tg->update_from,
                 'text' => __("Input is incorrect, please select an item correctly.") . cancel_text(),
@@ -188,22 +250,52 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_typetext") {
             exit;
         }
 
-        if ($message['text'] == __("Yes")) {
-            $web_page_preview = 1;
-        } else {
-            $web_page_preview = 0;
+        switch ($message['text']) {
+            case __("Above, Small"):
+                $link_preview = 1;
+                $link_preview_prefer_small_media = 1;
+                $link_preview_show_above_text = 1;
+                break;
+
+            case __("Above, Large"):
+            case __("Above"):
+                $link_preview = 1;
+                $link_preview_prefer_small_media = 0;
+                $link_preview_show_above_text = 1;
+                break;
+
+            case __("Below, Small"):
+                $link_preview = 1;
+                $link_preview_prefer_small_media = 1;
+                $link_preview_show_above_text = 0;
+                break;
+
+            case __("Below, Large"):
+            case __("Below"):
+                $link_preview = 1;
+                $link_preview_prefer_small_media = 0;
+                $link_preview_show_above_text = 0;
+                break;
+
+            default:
+                $link_preview = 0;
+                $link_preview_prefer_small_media = 1;
+                $link_preview_show_above_text = 0;
+                break;
         }
 
         empty_com($tg->update_from);
         add_com($tg->update_from, 'inlinekey_add_keysmacker');
         edit_com($tg->update_from, [
-            'col1' => 'text',               //type
-            'col2' => 'null',               //file_unique_id
-            'col3' => 'null',               //data
-            'col4' => $comm['col1'],        //text
-            'col5' => $comm['col3'],        //parse_mode
-            'col6' => $comm['col4'],        //attach_url
-            'col7' => $web_page_preview,    //web_page_preview
+            'col1' => json_encode([
+                'type' => 'text',
+                'text' => $comm['col1'],
+                'parse_mode' => $comm['col3'] != 'null' ? $comm['col3'] : null,
+                'attach_url' => $comm['col4'] != 'null' ? $comm['col4'] : null,
+                'link_preview' => $link_preview,
+                'link_preview_prefer_small_media' => $link_preview_prefer_small_media,
+                'link_preview_show_above_text' => $link_preview_show_above_text,
+            ]),
         ]);
     }
 }

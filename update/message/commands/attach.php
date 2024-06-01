@@ -13,7 +13,7 @@ if ($message['text'][0] == '/') {
         } else {
             $tg->sendMessage([
                 'chat_id' => $tg->update_from,
-                'text' => __("Please upload or forward the file you want to attach.") . cancel_text(),
+                'text' => __("Please send the file or the link you want to attach.") . cancel_text(),
                 'reply_markup' => $tg->replyKeyboardRemove(),
             ]);
             exit;
@@ -24,26 +24,143 @@ if ($message['text'][0] == '/') {
 $comm = get_com($tg->update_from);
 if (!empty($comm) && $comm['name'] == "attach") {
     if (count($comm) == 1) {
-        if (empty($message['photo']) && empty($message['video']) && empty($message['animation']) && empty($message['document']) && empty($message['voice']) && empty($message['audio']) && empty($message['sticker']) && empty($message['video_note'])) {
+        if (
+            empty($message['audio']) &&
+            empty($message['animation']) &&
+            empty($message['document']) &&
+            empty($message['photo']) &&
+            empty($message['sticker']) &&
+            empty($message['video']) &&
+            empty($message['voice']) &&
+            empty($message['text']) &&
+            empty($message['video_note']) &&
+            (
+                empty($message['text']) || !is_url($message['text'])
+            )
+        ) {
             $tg->sendMessage([
                 'chat_id' => $tg->update_from,
-                'text' => __("Input is incorrect, you must send us the attachment file.") . cancel_text(),
+                'text' => __("Input is incorrect, please send a file or a link, or select an option.") . cancel_text(),
             ]);
             exit;
         }
 
-        $attachment_id = attach_message($tg->update_from, 'attach', null, ATTACH_CHANNEL, $message);
+        $attach_url = null;
+        if (!empty($message['text']) && is_url($message['text'])) {
+            $attach_url = $message['text'];
+        } else {
+            $attachment_id = attach_message($tg->update_from, 'inlinekey', null, ATTACH_CHANNEL, $message);
 
-        if (!$attachment_id) {
+            if (!$attachment_id) {
+                $tg->sendMessage([
+                    'chat_id' => $tg->update_from,
+                    'text' => __("An error occurred while attaching the file. Please resend this file.") .
+                        cancel_text(),
+                ]);
+                exit;
+            }
+
+            $attach_url = generate_attachment_url($attachment_id);
+        }
+
+        edit_com($tg->update_from, ["col1" => $attach_url]);
+
+        if (strpos($attach_url, MAIN_LINK) === 0) {
             $tg->sendMessage([
                 'chat_id' => $tg->update_from,
-                'text' => __("An error occurred, please resend the file.") . cancel_text(),
+                'text' =>
+                    __("Where would you like the attachment to be displayed in this message?") . "\n\n" .
+                    __("Please select an option.") .
+                    cancel_text(),
+                'reply_markup' => $tg->replyKeyboardMarkup([
+                    'keyboard' => apply_rtl_to_keyboard([
+                        [__("Below"), __("Above")],
+                    ]),
+                    'resize_keyboard' => true,
+                    'one_time_keyboard' => true,
+                ]),
+            ]);
+        } else {
+            $tg->sendMessage([
+                'chat_id' => $tg->update_from,
+                'text' =>
+                    __("Where would you like the link preview to be displayed in this message?") . "\n\n" .
+                    __("Please select an option.") .
+                    cancel_text(),
+                'reply_markup' => $tg->replyKeyboardMarkup([
+                    'keyboard' => apply_rtl_to_keyboard([
+                        [__("Above, Small"), __("Above, Large")],
+                        [__("Below, Small"), __("Below, Large")],
+                    ]),
+                    'resize_keyboard' => true,
+                    'one_time_keyboard' => true,
+                ]),
+            ]);
+        }
+
+        exit;
+    } elseif (count($comm) == 2) {
+        if (
+            empty($message['text']) ||
+            (
+                strpos($comm['col1'], MAIN_LINK) === 0 &&
+                $message['text'] != __("Above") &&
+                $message['text'] != __("Below")
+            ) ||
+            (
+                strpos($comm['col1'], MAIN_LINK) !== 0 &&
+                $message['text'] != __("Above, Small") &&
+                $message['text'] != __("Above, Large") &&
+                $message['text'] != __("Below, Small") &&
+                $message['text'] != __("Below, Large")
+            )
+        ) {
+            $tg->sendMessage([
+                'chat_id' => $tg->update_from,
+                'text' => __("Input is incorrect, please select an item correctly.") . cancel_text(),
             ]);
             exit;
         }
 
-        $p = ["col1" => $attachment_id];
-        edit_com($tg->update_from, $p);
+        switch ($message['text']) {
+            case __("Above, Small"):
+                $link_preview = 1;
+                $link_preview_prefer_small_media = 1;
+                $link_preview_show_above_text = 1;
+                break;
+
+            case __("Above, Large"):
+            case __("Above"):
+                $link_preview = 1;
+                $link_preview_prefer_small_media = 0;
+                $link_preview_show_above_text = 1;
+                break;
+
+            case __("Below, Small"):
+                $link_preview = 1;
+                $link_preview_prefer_small_media = 1;
+                $link_preview_show_above_text = 0;
+                break;
+
+            case __("Below, Large"):
+            case __("Below"):
+                $link_preview = 1;
+                $link_preview_prefer_small_media = 0;
+                $link_preview_show_above_text = 0;
+                break;
+
+            default:
+                $link_preview = 0;
+                $link_preview_prefer_small_media = 1;
+                $link_preview_show_above_text = 0;
+                break;
+        }
+
+        edit_com($tg->update_from, [
+            "col2" => $link_preview_prefer_small_media,
+            "col3" => $link_preview_show_above_text,
+        ]);
+
         $tg->sendMessage([
             'chat_id' => $tg->update_from,
             'text' => __("Please send the text to which you want the attachment to be attached.") . "\n\n" .
@@ -52,7 +169,7 @@ if (!empty($comm) && $comm['name'] == "attach") {
             'parse_mode' => 'html',
             'disable_web_page_preview' => true,
         ]);
-    } elseif (count($comm) == 2) {
+    } elseif (count($comm) == 4) {
         if (empty($message['text'])) {
             $tg->sendMessage([
                 'chat_id' => $tg->update_from,
@@ -64,8 +181,8 @@ if (!empty($comm) && $comm['name'] == "attach") {
         $text = $message['text'];
 
         edit_com($tg->update_from, [
-            'col2' => $text,
-            'col3' => !empty($message['entities']) ? json_encode($message['entities']) : 'null',
+            'col4' => $text,
+            'col5' => !empty($message['entities']) ? json_encode($message['entities']) : 'null',
         ]);
 
         $tg->sendMessage([
@@ -86,7 +203,7 @@ if (!empty($comm) && $comm['name'] == "attach") {
         ]);
 
         exit;
-    } elseif (count($comm) == 4) {
+    } elseif (count($comm) == 6) {
         if (
             empty($message['text']) ||
             (
@@ -105,10 +222,10 @@ if (!empty($comm) && $comm['name'] == "attach") {
             exit;
         }
 
-        $text = $comm['col2'];
-        $entities = $comm['col3'] != 'null' ? json_decode($comm['col3'], true) : [];
+        $text = $comm['col4'];
+        $entities = $comm['col5'] != 'null' ? json_decode($comm['col5'], true) : [];
 
-        $parse_mode = 'null';
+        $parse_mode = null;
 
         if ($message['text'] == __("Unchanged")) {
             $new_text = convert_to_styled_text($text, $entities, 'html');
@@ -149,17 +266,26 @@ if (!empty($comm) && $comm['name'] == "attach") {
                 'chat_id' => $tg->update_from,
                 'message_id' => $m['message_id'],
             ], ['send_error' => false]);
-        } else {
-            $text = htmlspecialchars($text);
-            $parse_mode = 'html';
         }
 
-        $attach_url = generate_attachment_url($comm['col1']);
+        $link_preview_options = [
+            'is_disabled' => false,
+            'url' => $comm['col1'],
+            'show_above_text' => (bool)$comm['col3'],
+            'prefer_small_media' => (bool)$comm['col2'],
+            'prefer_large_media' => !$comm['col2'],
+        ];
+
+        if (strpos($comm['col1'], MAIN_LINK) === 0) {
+            $link_preview_options['prefer_small_media'] = false;
+            $link_preview_options['prefer_large_media'] = true;
+        }
 
         $m = $tg->sendMessage([
             'chat_id' => $tg->update_from,
-            'text' => hide_link($attach_url, $parse_mode) . $text,
+            'text' => $text,
             'parse_mode' => $parse_mode,
+            'link_preview_options' => json_encode($link_preview_options),
         ], ['send_error' => false]);
 
         if (!$m) {

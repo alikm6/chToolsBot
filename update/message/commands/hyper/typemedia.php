@@ -90,36 +90,126 @@ if (!empty($comm) && $comm['name'] == "hyper_typemedia") {
             exit;
         }
 
+        edit_com($tg->update_from, ['col4' => $message['text']]);
+
+        if ($comm['col2'] != 'photo' && $comm['col2'] != 'video' && $comm['col2'] != 'animation') {
+            $message['text'] = __("Below");
+            $comm = get_com($tg->update_from);
+        } else {
+            $tg->sendMessage([
+                'chat_id' => $tg->update_from,
+                'text' => __("Please choose where you would like the caption to be displayed.") .
+                    cancel_text(),
+                'reply_markup' => $tg->replyKeyboardMarkup([
+                        'keyboard' => apply_rtl_to_keyboard([
+                            [__("Below"), __("Above")],
+                        ]),
+                        'resize_keyboard' => true,
+                        'one_time_keyboard' => true,
+                    ]
+                ),
+            ]);
+
+            exit;
+        }
+    }
+    if (count($comm) == 5) {
+        if (
+            empty($message['text']) ||
+            (
+                $message['text'] != __("Below") &&
+                $message['text'] != __("Above")
+            )
+        ) {
+            $tg->sendMessage([
+                'chat_id' => $tg->update_from,
+                'text' => __("Please select an option correctly.") . cancel_text(),
+            ]);
+
+            exit;
+        }
+
+        $show_caption_above_media = $message['text'] == __("Below") ? 0 : 1;
+
+        edit_com($tg->update_from, [
+            'col5' => $show_caption_above_media,
+        ]);
+
+        if ($comm['col2'] != 'photo' && $comm['col2'] != 'video' && $comm['col2'] != 'animation') {
+            $message['text'] = __("No");
+            $comm = get_com($tg->update_from);
+        } else {
+            $tg->sendMessage([
+                'chat_id' => $tg->update_from,
+                'text' => __("Do you want your media to be sent as a spoiler (pixelated)?") .
+                    cancel_text(),
+                'reply_markup' => $tg->replyKeyboardMarkup([
+                        'keyboard' => apply_rtl_to_keyboard([
+                            [__("No"), __("Yes")],
+                        ]),
+                        'resize_keyboard' => true,
+                        'one_time_keyboard' => true,
+                    ]
+                ),
+            ]);
+
+            exit;
+        }
+    }
+    if (count($comm) == 6) {
+        if (
+            empty($message['text']) ||
+            (
+                $message['text'] != __("No") &&
+                $message['text'] != __("Yes")
+            )
+        ) {
+            $tg->sendMessage([
+                'chat_id' => $tg->update_from,
+                'text' => __("Please select an option correctly.") . cancel_text(),
+            ]);
+
+            exit;
+        }
+
+        $has_media_spoiler = $message['text'] == __("No") ? 0 : 1;
+
         $m = false;
         if ($comm['col2'] == 'photo') {
             $m = $tg->sendPhoto([
                 'chat_id' => $tg->update_from,
                 'photo' => $comm['col3'],
-                'caption' => $message['text'],
+                'caption' => $comm['col4'],
                 'parse_mode' => $comm['col1'],
                 'reply_markup' => $tg->replyKeyboardRemove(),
+                'has_spoiler' => $has_media_spoiler,
+                'show_caption_above_media' => $comm['col5'],
             ], ['send_error' => false]);
         } elseif ($comm['col2'] == 'video') {
             $m = $tg->sendVideo([
                 'chat_id' => $tg->update_from,
                 'video' => $comm['col3'],
-                'caption' => $message['text'],
+                'caption' => $comm['col4'],
                 'parse_mode' => $comm['col1'],
                 'reply_markup' => $tg->replyKeyboardRemove(),
+                'has_spoiler' => $has_media_spoiler,
+                'show_caption_above_media' => $comm['col5'],
             ], ['send_error' => false]);
         } elseif ($comm['col2'] == 'animation') {
             $m = $tg->sendAnimation([
                 'chat_id' => $tg->update_from,
                 'animation' => $comm['col3'],
-                'caption' => $message['text'],
+                'caption' => $comm['col4'],
                 'parse_mode' => $comm['col1'],
                 'reply_markup' => $tg->replyKeyboardRemove(),
+                'has_spoiler' => $has_media_spoiler,
+                'show_caption_above_media' => $comm['col5'],
             ], ['send_error' => false]);
         } elseif ($comm['col2'] == 'document') {
             $m = $tg->sendDocument([
                 'chat_id' => $tg->update_from,
                 'document' => $comm['col3'],
-                'caption' => $message['text'],
+                'caption' => $comm['col4'],
                 'parse_mode' => $comm['col1'],
                 'reply_markup' => $tg->replyKeyboardRemove(),
             ], ['send_error' => false]);
@@ -127,7 +217,7 @@ if (!empty($comm) && $comm['name'] == "hyper_typemedia") {
             $m = $tg->sendAudio([
                 'chat_id' => $tg->update_from,
                 'audio' => $comm['col3'],
-                'caption' => $message['text'],
+                'caption' => $comm['col4'],
                 'parse_mode' => $comm['col1'],
                 'reply_markup' => $tg->replyKeyboardRemove(),
             ], ['send_error' => false]);
@@ -135,7 +225,7 @@ if (!empty($comm) && $comm['name'] == "hyper_typemedia") {
             $m = $tg->sendVoice([
                 'chat_id' => $tg->update_from,
                 'voice' => $comm['col3'],
-                'caption' => $message['text'],
+                'caption' => $comm['col4'],
                 'parse_mode' => $comm['col1'],
                 'reply_markup' => $tg->replyKeyboardRemove(),
             ], ['send_error' => false]);

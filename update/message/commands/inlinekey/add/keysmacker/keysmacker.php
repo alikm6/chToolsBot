@@ -5,9 +5,9 @@
 
 $comm = get_com($tg->update_from);
 if (!empty($comm) && $comm['name'] == "inlinekey_add_keysmacker") {
-    if (count($comm) == 8) {
+    if (count($comm) == 2) {
         edit_com($tg->update_from, [
-            'col8' => 'keysmacker',
+            'col2' => 'keysmacker',
         ]);
 
         $tg->sendMessage([
@@ -27,7 +27,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_keysmacker") {
                 'one_time_keyboard' => true,
             ]),
         ]);
-    } elseif (count($comm) == 9) {
+    } elseif (count($comm) == 3) {
         if ($message['text'] != __("List") && $message['text'] != __("One by One")) {
             $tg->sendMessage([
                 'chat_id' => $tg->update_from,
@@ -38,18 +38,24 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_keysmacker") {
             exit;
         }
 
+        $data = json_decode($comm['col1'], true);
+
         $inline_id = generateRandomString(30);
 
         $keyboard_id = $db->insert('inlinekey', [
             'user_id' => $tg->update_from,
             'inline_id' => $inline_id,
-            'type' => $comm['col1'],
-            'file_unique_id' => $comm['col2'] != 'null' ? $comm['col2'] : null,
-            'data' => $comm['col3'] != 'null' ? $comm['col3'] : null,
-            'text' => $comm['col4'] != 'null' ? $comm['col4'] : null,
-            'parse_mode' => $comm['col5'] != 'null' ? $comm['col5'] : null,
-            'attach_url' => $comm['col6'] != 'null' ? $comm['col6'] : null,
-            'web_page_preview' => $comm['col7'] != 'null' ? $comm['col7'] : null,
+            'type' => $data['type'],
+            'file_unique_id' => $data['file_unique_id'] ?? null,
+            'data' => $data['data'] ?? null,
+            'text' => $data['text'] ?? null,
+            'parse_mode' => $data['parse_mode'] ?? null,
+            'attach_url' => $data['attach_url'] ?? null,
+            'link_preview' => $data['link_preview'] ?? 0,
+            'link_preview_prefer_small_media' => $data['link_preview_prefer_small_media'] ?? 1,
+            'link_preview_show_above_text' => $data['link_preview_show_above_text'] ?? 0,
+            'show_caption_above_media' => $data['show_caption_above_media'] ?? 0,
+            'has_media_spoiler' => $data['has_media_spoiler'] ?? 0,
         ]);
 
         if (!$keyboard_id) {

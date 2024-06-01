@@ -2,10 +2,6 @@
 -- version 4.9.5deb2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Sep 10, 2023 at 06:08 PM
--- Server version: 8.0.34-0ubuntu0.20.04.1
--- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -18,9 +14,6 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
---
--- Database: `farsbot_chtools_source`
---
 
 -- --------------------------------------------------------
 
@@ -177,8 +170,12 @@ CREATE TABLE `tbl_inlinekey` (
   `data` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `text` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `parse_mode` enum('html','markdown','markdownv2') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `has_media_spoiler` tinyint NOT NULL DEFAULT '0',
+  `link_preview` tinyint NOT NULL DEFAULT '0',
+  `link_preview_prefer_small_media` tinyint NOT NULL DEFAULT '1',
+  `link_preview_show_above_text` tinyint NOT NULL DEFAULT '0',
   `attach_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `web_page_preview` tinyint DEFAULT NULL,
+  `show_caption_above_media` tinyint NOT NULL DEFAULT '0',
   `keyboard` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `counter_type` enum('percent','count') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'count',
   `show_alert` tinyint NOT NULL DEFAULT '0',
@@ -247,7 +244,6 @@ CREATE TABLE `tbl_settings` (
   `id` int NOT NULL,
   `user_id` bigint NOT NULL,
   `language_code` enum('en_US','fa_IR') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'en_US',
-  `sendto_web_page_preview` tinyint NOT NULL DEFAULT '0',
   `sendto_notification` tinyint NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

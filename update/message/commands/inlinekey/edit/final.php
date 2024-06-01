@@ -118,29 +118,30 @@ if ($comm['name'] == "inlinekey_edit_final") {
             $same_data = [];
 
             if ($result['type'] == 'text') {
-                $tmp_text = $result['text'];
+                $link_preview_options = [
+                    'is_disabled' => !$result['link_preview'],
+                    'show_above_text' => (bool)$result['link_preview_show_above_text'],
+                    'prefer_small_media' => (bool)$result['link_preview_prefer_small_media'],
+                    'prefer_large_media' => !$result['link_preview_prefer_small_media'],
+                ];
 
                 if (!empty($result['attach_url'])) {
-                    if (empty($result['parse_mode'])) {
-                        $tmp_text = hide_link($result['attach_url'], 'html') . htmlspecialchars($tmp_text);
-                        $result['parse_mode'] = 'html';
-                    } elseif ($result['parse_mode'] == 'markdown') {
-                        $tmp_text = hide_link($result['attach_url'], 'markdown') . $tmp_text;
-                    } elseif ($result['parse_mode'] == 'markdownv2') {
-                        $tmp_text = hide_link($result['attach_url'], 'markdownv2') . $tmp_text;
-                    } elseif ($result['parse_mode'] == 'html') {
-                        $tmp_text = hide_link($result['attach_url'], 'html') . $tmp_text;
-                    }
+                    $link_preview_options['is_disabled'] = false;
+                    $link_preview_options['url'] = $result['attach_url'];
 
-                    $result['web_page_preview'] = 1;
+                    if (strpos($result['attach_url'], MAIN_LINK) === 0) {
+                        $link_preview_options['prefer_small_media'] = false;
+                        $link_preview_options['prefer_large_media'] = true;
+                    }
                 }
 
-                $same_data['text'] = $tmp_text;
+                $same_data['text'] = $result['text'];
                 $same_data['parse_mode'] = $result['parse_mode'];
-                $same_data['disable_web_page_preview'] = $result['web_page_preview'] == 0;
+                $same_data['link_preview_options'] = json_encode($link_preview_options);
             } elseif ($result['type'] == 'photo' || $result['type'] == 'video' || $result['type'] == 'animation' || $result['type'] == 'document' || $result['type'] == 'voice' || $result['type'] == 'audio') {
                 $same_data['caption'] = $result['text'];
                 $same_data['parse_mode'] = $result['parse_mode'];
+                $same_data['show_caption_above_media'] = $result['show_caption_above_media'];
             }
 
             $same_data["reply_markup"] = convert_inlinekey_counter_text($result['keyboard'], $result['counter_type']);

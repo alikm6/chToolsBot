@@ -129,160 +129,168 @@ if (stripos($inline_query['query'], 'share') === 0) {
     $tg->answerInlineQuery($p, ['send_error' => false]);
 }
 
-function convert_to_inline_results($p): array
+function convert_to_inline_results($parameters): array
 {
     global $tg;
-    $p['keyboard'] = convert_inlinekey_counter_text($p['keyboard'], $p['counter_type']);
-    $tmp = [];
-    if ($p['type'] == 'text') {
-        $tmp_text = $p['text'];
+    $parameters['keyboard'] = convert_inlinekey_counter_text($parameters['keyboard'], $parameters['counter_type']);
+    $result = [];
+    if ($parameters['type'] == 'text') {
+        $link_preview_options = [
+            'is_disabled' => !$parameters['link_preview'],
+            'show_above_text' => (bool)$parameters['link_preview_show_above_text'],
+            'prefer_small_media' => (bool)$parameters['link_preview_prefer_small_media'],
+            'prefer_large_media' => !$parameters['link_preview_prefer_small_media'],
+        ];
 
-        if (!empty($p['attach_url'])) {
-            if (empty($p['parse_mode'])) {
-                $tmp_text = hide_link($p['attach_url'], 'html') . htmlspecialchars($tmp_text);
-                $p['parse_mode'] = 'html';
-            } elseif ($p['parse_mode'] == 'markdown') {
-                $tmp_text = hide_link($p['attach_url'], 'markdown') . $tmp_text;
-            } elseif ($p['parse_mode'] == 'markdownv2') {
-                $tmp_text = hide_link($p['attach_url'], 'markdownv2') . $tmp_text;
-            } elseif ($p['parse_mode'] == 'html') {
-                $tmp_text = hide_link($p['attach_url'], 'html') . $tmp_text;
+        if (!empty($parameters['attach_url'])) {
+            $link_preview_options['is_disabled'] = false;
+            $link_preview_options['url'] = $parameters['attach_url'];
+
+            if (strpos($parameters['attach_url'], MAIN_LINK) === 0) {
+                $link_preview_options['prefer_small_media'] = false;
+                $link_preview_options['prefer_large_media'] = true;
             }
-
-            $p['web_page_preview'] = 1;
         }
 
-        $tmp['type'] = 'article';
-        $tmp['id'] = $p['inline_id'];
-        $tmp['title'] = sprintf(
+        $result['type'] = 'article';
+        $result['id'] = $parameters['inline_id'];
+        $result['title'] = sprintf(
             __("The message contains a inline button of type %s"),
             __("text")
         );
-        $tmp['message_text'] = $tmp_text;
-        $tmp['parse_mode'] = $p['parse_mode'];
-        $tmp['disable_web_page_preview'] = $p['web_page_preview'] == 0;
-        $tmp['reply_markup'] = json_decode($p['keyboard']);
-    } elseif ($p['type'] == 'photo') {
-        $tmp['type'] = 'photo';
-        $tmp['id'] = $p['inline_id'];
-        $tmp['title'] = sprintf(
+        $result['input_message_content'] = [
+            'message_text' => $parameters['text'],
+            'parse_mode' => $parameters['parse_mode'] != null ? $parameters['parse_mode'] : "",
+            'link_preview_options' => $link_preview_options,
+        ];
+        $result['reply_markup'] = json_decode($parameters['keyboard']);
+    } elseif ($parameters['type'] == 'photo') {
+        $result['type'] = 'photo';
+        $result['id'] = $parameters['inline_id'];
+        $result['title'] = sprintf(
             __("The message contains a inline button of type %s"),
             __("photo")
         );
-        if ($p['text'] != null) {
-            $tmp['caption'] = $p['text'];
+        if ($parameters['text'] != null) {
+            $result['caption'] = $parameters['text'];
         }
-        $tmp['parse_mode'] = $p['parse_mode'];
-        $tmp['photo_file_id'] = get_file_id_from_file_unique_id($p['file_unique_id']);
-        $tmp['reply_markup'] = json_decode($p['keyboard']);
-    } elseif ($p['type'] == 'video') {
-        $tmp['type'] = 'video';
-        $tmp['id'] = $p['inline_id'];
-        $tmp['title'] = sprintf(
+        $result['parse_mode'] = $parameters['parse_mode'];
+        $result['photo_file_id'] = get_file_id_from_file_unique_id($parameters['file_unique_id']);
+        $result['reply_markup'] = json_decode($parameters['keyboard']);
+        $result['show_caption_above_media'] = (bool)$parameters['show_caption_above_media'];
+        $result['has_spoiler'] = (bool)$parameters['show_caption_above_media'];
+    } elseif ($parameters['type'] == 'video') {
+        $result['type'] = 'video';
+        $result['id'] = $parameters['inline_id'];
+        $result['title'] = sprintf(
             __("The message contains a inline button of type %s"),
             __("video")
         );
-        if ($p['text'] != null) {
-            $tmp['caption'] = $p['text'];
+        if ($parameters['text'] != null) {
+            $result['caption'] = $parameters['text'];
         }
-        $tmp['parse_mode'] = $p['parse_mode'];
-        $tmp['video_file_id'] = get_file_id_from_file_unique_id($p['file_unique_id']);
-        $tmp['reply_markup'] = json_decode($p['keyboard']);
-    } elseif ($p['type'] == 'animation') {
-        $tmp['type'] = 'gif';
-        $tmp['id'] = $p['inline_id'];
-        $tmp['title'] = sprintf(
+        $result['parse_mode'] = $parameters['parse_mode'];
+        $result['video_file_id'] = get_file_id_from_file_unique_id($parameters['file_unique_id']);
+        $result['reply_markup'] = json_decode($parameters['keyboard']);
+        $result['show_caption_above_media'] = (bool)$parameters['show_caption_above_media'];
+        $result['has_spoiler'] = (bool)$parameters['show_caption_above_media'];
+    } elseif ($parameters['type'] == 'animation') {
+        $result['type'] = 'gif';
+        $result['id'] = $parameters['inline_id'];
+        $result['title'] = sprintf(
             __("The message contains a inline button of type %s"),
             __("gif")
         );
-        if ($p['text'] != null) {
-            $tmp['caption'] = $p['text'];
+        if ($parameters['text'] != null) {
+            $result['caption'] = $parameters['text'];
         }
-        $tmp['parse_mode'] = $p['parse_mode'];
-        $tmp['gif_file_id'] = get_file_id_from_file_unique_id($p['file_unique_id']);
-        $tmp['reply_markup'] = json_decode($p['keyboard']);
-    } elseif ($p['type'] == 'document') {
-        $tmp['type'] = 'document';
-        $tmp['id'] = $p['inline_id'];
-        $tmp['title'] = sprintf(
+        $result['parse_mode'] = $parameters['parse_mode'];
+        $result['gif_file_id'] = get_file_id_from_file_unique_id($parameters['file_unique_id']);
+        $result['reply_markup'] = json_decode($parameters['keyboard']);
+        $result['show_caption_above_media'] = (bool)$parameters['show_caption_above_media'];
+        $result['has_spoiler'] = (bool)$parameters['show_caption_above_media'];
+    } elseif ($parameters['type'] == 'document') {
+        $result['type'] = 'document';
+        $result['id'] = $parameters['inline_id'];
+        $result['title'] = sprintf(
             __("The message contains a inline button of type %s"),
             __("document")
         );
-        if ($p['text'] != null) {
-            $tmp['caption'] = $p['text'];
+        if ($parameters['text'] != null) {
+            $result['caption'] = $parameters['text'];
         }
-        $tmp['parse_mode'] = $p['parse_mode'];
-        $tmp['document_file_id'] = get_file_id_from_file_unique_id($p['file_unique_id']);
-        $tmp['reply_markup'] = json_decode($p['keyboard']);
-    } elseif ($p['type'] == 'audio') {
-        $tmp['type'] = 'audio';
-        $tmp['id'] = $p['inline_id'];
-        $tmp['title'] = sprintf(
+        $result['parse_mode'] = $parameters['parse_mode'];
+        $result['document_file_id'] = get_file_id_from_file_unique_id($parameters['file_unique_id']);
+        $result['reply_markup'] = json_decode($parameters['keyboard']);
+    } elseif ($parameters['type'] == 'audio') {
+        $result['type'] = 'audio';
+        $result['id'] = $parameters['inline_id'];
+        $result['title'] = sprintf(
             __("The message contains a inline button of type %s"),
             __("audio")
         );
-        if ($p['text'] != null) {
-            $tmp['caption'] = $p['text'];
+        if ($parameters['text'] != null) {
+            $result['caption'] = $parameters['text'];
         }
-        $tmp['parse_mode'] = $p['parse_mode'];
-        $tmp['audio_file_id'] = get_file_id_from_file_unique_id($p['file_unique_id']);
-        $tmp['reply_markup'] = json_decode($p['keyboard']);
-    } elseif ($p['type'] == 'sticker') {
-        $tmp['type'] = 'sticker';
-        $tmp['id'] = $p['inline_id'];
-        $tmp['sticker_file_id'] = get_file_id_from_file_unique_id($p['file_unique_id']);
-        $tmp['reply_markup'] = json_decode($p['keyboard']);
+        $result['parse_mode'] = $parameters['parse_mode'];
+        $result['audio_file_id'] = get_file_id_from_file_unique_id($parameters['file_unique_id']);
+        $result['reply_markup'] = json_decode($parameters['keyboard']);
+    } elseif ($parameters['type'] == 'sticker') {
+        $result['type'] = 'sticker';
+        $result['id'] = $parameters['inline_id'];
+        $result['sticker_file_id'] = get_file_id_from_file_unique_id($parameters['file_unique_id']);
+        $result['reply_markup'] = json_decode($parameters['keyboard']);
     }/* elseif($p['type'] == 'video_note') {
 		$tmp['type'] = 'video_note';
 		$tmp['id'] = $p['inline_id'];
 		$tmp['video_note_file_id'] = get_file_id_from_file_unique_id($p['file_unique_id']);
 		$tmp['reply_markup'] = json_decode($p['keyboard']);
-	}*/ elseif ($p['type'] == 'voice') {
-        $tmp['type'] = 'voice';
-        $tmp['id'] = $p['inline_id'];
-        $tmp['title'] = sprintf(
+	}*/ elseif ($parameters['type'] == 'voice') {
+        $result['type'] = 'voice';
+        $result['id'] = $parameters['inline_id'];
+        $result['title'] = sprintf(
             __("The message contains a inline button of type %s"),
             __("voice")
         );
-        if ($p['text'] != null) {
-            $tmp['caption'] = $p['text'];
+        if ($parameters['text'] != null) {
+            $result['caption'] = $parameters['text'];
         }
-        $tmp['parse_mode'] = $p['parse_mode'];
-        $tmp['voice_file_id'] = get_file_id_from_file_unique_id($p['file_unique_id']);
-        $tmp['reply_markup'] = json_decode($p['keyboard']);
-    } elseif ($p['type'] == 'contact') {
-        $contact = json_decode($p['data'], true);
-        $tmp['type'] = 'contact';
-        $tmp['id'] = $p['inline_id'];
-        $tmp['phone_number'] = $contact['phone_number'];
-        $tmp['first_name'] = $contact['first_name'];
+        $result['parse_mode'] = $parameters['parse_mode'];
+        $result['voice_file_id'] = get_file_id_from_file_unique_id($parameters['file_unique_id']);
+        $result['reply_markup'] = json_decode($parameters['keyboard']);
+    } elseif ($parameters['type'] == 'contact') {
+        $contact = json_decode($parameters['data'], true);
+        $result['type'] = 'contact';
+        $result['id'] = $parameters['inline_id'];
+        $result['phone_number'] = $contact['phone_number'];
+        $result['first_name'] = $contact['first_name'];
         if ($contact['last_name'] != null) {
-            $tmp['last_name'] = $contact['last_name'];
+            $result['last_name'] = $contact['last_name'];
         }
-        $tmp['reply_markup'] = json_decode($p['keyboard']);
-    } elseif ($p['type'] == 'venue') {
-        $venue = json_decode($p['data'], true);
-        $tmp['type'] = 'venue';
-        $tmp['id'] = $p['inline_id'];
-        $tmp['latitude'] = $venue['location']['latitude'];
-        $tmp['longitude'] = $venue['location']['longitude'];
-        $tmp['title'] = $venue['title'];
-        $tmp['address'] = $venue['address'];
+        $result['reply_markup'] = json_decode($parameters['keyboard']);
+    } elseif ($parameters['type'] == 'venue') {
+        $venue = json_decode($parameters['data'], true);
+        $result['type'] = 'venue';
+        $result['id'] = $parameters['inline_id'];
+        $result['latitude'] = $venue['location']['latitude'];
+        $result['longitude'] = $venue['location']['longitude'];
+        $result['title'] = $venue['title'];
+        $result['address'] = $venue['address'];
         if ($venue['foursquare_id'] != null) {
-            $tmp['foursquare_id'] = $venue['foursquare_id'];
+            $result['foursquare_id'] = $venue['foursquare_id'];
         }
-        $tmp['reply_markup'] = json_decode($p['keyboard']);
-    } elseif ($p['type'] == 'location') {
-        $location = json_decode($p['data'], true);
-        $tmp['type'] = 'location';
-        $tmp['id'] = $p['inline_id'];
-        $tmp['title'] = sprintf(
+        $result['reply_markup'] = json_decode($parameters['keyboard']);
+    } elseif ($parameters['type'] == 'location') {
+        $location = json_decode($parameters['data'], true);
+        $result['type'] = 'location';
+        $result['id'] = $parameters['inline_id'];
+        $result['title'] = sprintf(
             __("The message contains a inline button of type %s"),
             __("location")
         );
-        $tmp['latitude'] = $location['latitude'];
-        $tmp['longitude'] = $location['longitude'];
-        $tmp['reply_markup'] = json_decode($p['keyboard']);
+        $result['latitude'] = $location['latitude'];
+        $result['longitude'] = $location['longitude'];
+        $result['reply_markup'] = json_decode($parameters['keyboard']);
     }
-    return array_filter($tmp);
+    return array_filter($result);
 }

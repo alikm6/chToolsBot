@@ -43,83 +43,146 @@ if (!empty($comm) && $comm['name'] == "hyper_typetext") {
         $p = ["col2" => $message['text']];
         edit_com($tg->update_from, $p);
 
-
         $keyboard = $tg->replyKeyboardMarkup([
             'keyboard' => [["skip"]],
             'resize_keyboard' => true,
             'one_time_keyboard' => true,
         ]);
+
         $tg->sendMessage([
             'chat_id' => $tg->update_from,
             'text' => __("Please send the file you want to be displayed at the bottom of the text. (You are allowed to send any file.)") . "\n\n" .
-                __("If you do not want a file to be displayed at the bottom of the text, send \"skip\".") .
+                __("If you do not want a file to be displayed at the bottom of the text, send \"skip\".") . "\n\n" .
+                __("You can also send a link so that its preview is displayed at the bottom of the text.") .
                 cancel_text(),
             'reply_markup' => $keyboard,
         ]);
-
     } elseif (count($comm) == 3) {
         if (
-            (empty($message['audio']) && empty($message['animation']) && empty($message['document']) && empty($message['photo']) && empty($message['sticker']) && empty($message['video']) && empty($message['voice']) && empty($message['text']) && empty($message['video_note'])) ||
-            (!empty($message['text']) && strtolower($message['text']) != "skip")
+            empty($message['audio']) &&
+            empty($message['animation']) &&
+            empty($message['document']) &&
+            empty($message['photo']) &&
+            empty($message['sticker']) &&
+            empty($message['video']) &&
+            empty($message['voice']) &&
+            empty($message['text']) &&
+            empty($message['video_note']) &&
+            (
+                empty($message['text']) || (
+                    strtolower($message['text']) != 'skip' &&
+                    !is_url($message['text'])
+                )
+            )
         ) {
             $tg->sendMessage([
                 'chat_id' => $tg->update_from,
-                'text' => __("Input is incorrect, please send a file or select an option.") .
+                'text' => __("Input is incorrect, please send a file or a link, or select an option.") .
                     cancel_text(),
             ]);
             exit;
         }
 
-        $attachment_id = attach_message($tg->update_from, 'hyper', null, ATTACH_CHANNEL, $message);
-
-        if (!$attachment_id && strtolower($message['text']) != "skip") {
-            $keyboard = $tg->replyKeyboardMarkup([
-                'keyboard' => [["skip"]],
-                'resize_keyboard' => true,
-                'one_time_keyboard' => true,
-            ]);
-            $tg->sendMessage([
-                'chat_id' => $tg->update_from,
-                'text' => __("An error occurred while attaching the file. Please resend this file.") .
-                    cancel_text(),
-                'reply_markup' => $keyboard,
-            ]);
-            exit;
-        }
-
-        if (strtolower($message['text']) != "skip") {
-            $attach_url = generate_attachment_url($attachment_id);
-
-            $text = $comm['col2'];
-            $text = hide_link($attach_url, $comm['col1']) . $text;
-            edit_com($tg->update_from, ["col2" => $text, "col3" => 'attached']);
-            $comm = get_com($tg->update_from);
-
-            $message['text'] = __("Yes");
+        $attach_url = null;
+        if (!empty($message['text']) && strtolower($message['text']) == 'skip') {
+            $attach_url = 'null';
+        } elseif (!empty($message['text']) && is_url($message['text'])) {
+            $attach_url = $message['text'];
         } else {
-            $p = ["col3" => 'skip'];
-            edit_com($tg->update_from, $p);
+            $attachment_id = attach_message($tg->update_from, 'inlinekey', null, ATTACH_CHANNEL, $message);
 
-            $keyboard = $tg->replyKeyboardMarkup([
-                'keyboard' => apply_rtl_to_keyboard([
-                    [__("No"), __("Yes")],
-                ]),
-                'resize_keyboard' => true,
-                'one_time_keyboard' => true,
-            ]);
+            if (!$attachment_id) {
+                $tg->sendMessage([
+                    'chat_id' => $tg->update_from,
+                    'text' => __("An error occurred while attaching the file. Please resend this file.") .
+                        cancel_text(),
+                ]);
+                exit;
+            }
+
+            $attach_url = generate_attachment_url($attachment_id);
+        }
+
+        edit_com($tg->update_from, ['col3' => $attach_url]);
+
+        if ($attach_url != 'null' && strpos($attach_url, MAIN_LINK) === 0) {
             $tg->sendMessage([
                 'chat_id' => $tg->update_from,
                 'text' =>
-                    __("Do you want your link preview to be displayed at the bottom of the text?") . "\n\n" .
+                    __("Where would you like the attachment to be displayed in this message?") . "\n\n" .
                     __("Please select an option.") .
                     cancel_text(),
-                'reply_markup' => $keyboard,
+                'reply_markup' => $tg->replyKeyboardMarkup([
+                    'keyboard' => apply_rtl_to_keyboard([
+                        [__("Below"), __("Above")],
+                    ]),
+                    'resize_keyboard' => true,
+                    'one_time_keyboard' => true,
+                ]),
             ]);
-            exit;
+        } elseif ($attach_url != 'null') {
+            $tg->sendMessage([
+                'chat_id' => $tg->update_from,
+                'text' =>
+                    __("Where would you like the link preview to be displayed in this message?") . "\n\n" .
+                    __("Please select an option.") .
+                    cancel_text(),
+                'reply_markup' => $tg->replyKeyboardMarkup([
+                    'keyboard' => apply_rtl_to_keyboard([
+                        [__("Above, Small"), __("Above, Large")],
+                        [__("Below, Small"), __("Below, Large")],
+                    ]),
+                    'resize_keyboard' => true,
+                    'one_time_keyboard' => true,
+                ]),
+            ]);
+        } else {
+            $tg->sendMessage([
+                'chat_id' => $tg->update_from,
+                'text' =>
+                    __("If the text you send contains a link, how to display the preview of the link?") . "\n\n" .
+                    __("Please select an option.") .
+                    cancel_text(),
+                'reply_markup' => $tg->replyKeyboardMarkup([
+                    'keyboard' => apply_rtl_to_keyboard([
+                        [__("Disable")],
+                        [__("Above, Small"), __("Above, Large")],
+                        [__("Below, Small"), __("Below, Large")],
+                    ]),
+                    'resize_keyboard' => true,
+                    'one_time_keyboard' => true,
+                ]),
+            ]);
         }
+
+        exit;
     }
     if (count($comm) == 4) {
-        if ($message['text'] != __("Yes") && $message['text'] != __("No")) {
+        if (
+            empty($message['text']) ||
+            (
+                $comm['col3'] == 'null' &&
+                $message['text'] != __("Disable") &&
+                $message['text'] != __("Above, Small") &&
+                $message['text'] != __("Above, Large") &&
+                $message['text'] != __("Below, Small") &&
+                $message['text'] != __("Below, Large")
+            ) ||
+            (
+                $comm['col3'] != 'null' &&
+                strpos($comm['col3'], MAIN_LINK) === 0 &&
+                $message['text'] != __("Above") &&
+                $message['text'] != __("Below")
+            ) ||
+            (
+                $comm['col3'] != 'null' &&
+                strpos($comm['col3'], MAIN_LINK) !== 0 &&
+                $message['text'] != __("Above, Small") &&
+                $message['text'] != __("Above, Large") &&
+                $message['text'] != __("Below, Small") &&
+                $message['text'] != __("Below, Large")
+            )
+        ) {
             $tg->sendMessage([
                 'chat_id' => $tg->update_from,
                 'text' => __("Input is incorrect, please select an item correctly.") . cancel_text(),
@@ -127,17 +190,62 @@ if (!empty($comm) && $comm['name'] == "hyper_typetext") {
             exit;
         }
 
-        if ($message['text'] == __("Yes")) {
-            $disable_web_page_preview = false;
-        } else {
-            $disable_web_page_preview = true;
+        switch ($message['text']) {
+            case __("Above, Small"):
+                $link_preview = 1;
+                $link_preview_prefer_small_media = 1;
+                $link_preview_show_above_text = 1;
+                break;
+
+            case __("Above, Large"):
+            case __("Above"):
+                $link_preview = 1;
+                $link_preview_prefer_small_media = 0;
+                $link_preview_show_above_text = 1;
+                break;
+
+            case __("Below, Small"):
+                $link_preview = 1;
+                $link_preview_prefer_small_media = 1;
+                $link_preview_show_above_text = 0;
+                break;
+
+            case __("Below, Large"):
+            case __("Below"):
+                $link_preview = 1;
+                $link_preview_prefer_small_media = 0;
+                $link_preview_show_above_text = 0;
+                break;
+
+            default:
+                $link_preview = 0;
+                $link_preview_prefer_small_media = 1;
+                $link_preview_show_above_text = 0;
+                break;
+        }
+
+        $link_preview_options = [
+            'is_disabled' => !$link_preview,
+            'show_above_text' => (bool)$link_preview_show_above_text,
+            'prefer_small_media' => (bool)$link_preview_prefer_small_media,
+            'prefer_large_media' => !$link_preview_prefer_small_media,
+        ];
+
+        if ($comm['col3'] != 'null') {
+            $link_preview_options['is_disabled'] = false;
+            $link_preview_options['url'] = $comm['col3'];
+
+            if (strpos($comm['col3'], MAIN_LINK) === 0) {
+                $link_preview_options['prefer_small_media'] = false;
+                $link_preview_options['prefer_large_media'] = true;
+            }
         }
 
         $m = $tg->sendMessage([
             'chat_id' => $tg->update_from,
             'text' => $comm['col2'],
             'parse_mode' => $comm['col1'],
-            'disable_web_page_preview' => $disable_web_page_preview,
+            'link_preview_options' => json_encode($link_preview_options),
             'reply_markup' => $tg->replyKeyboardRemove(),
         ], ['send_error' => false]);
         if (!$m) {

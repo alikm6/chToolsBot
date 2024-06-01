@@ -41,6 +41,8 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_typemedia") {
             $p['col5'] = 'null';
             $p['col6'] = 'null';
             $p['col7'] = 'null';
+            $p['col8'] = 0;
+            $p['col9'] = 0;
         } elseif (!empty($message['sticker'])) {
             $p['col1'] = 'sticker';
             $p['col2'] = $message['sticker']['file_unique_id'];
@@ -48,6 +50,8 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_typemedia") {
             $p['col5'] = 'null';
             $p['col6'] = 'null';
             $p['col7'] = 'null';
+            $p['col8'] = 0;
+            $p['col9'] = 0;
         } else {
             $tg->sendMessage([
                 'chat_id' => $tg->update_from,
@@ -63,7 +67,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_typemedia") {
 
         edit_com($tg->update_from, $p);
 
-        if (isset($p['col7'])) {
+        if (isset($p['col9'])) {
             $comm = get_com($tg->update_from);
         } else {
             $tg->sendMessage([
@@ -94,6 +98,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_typemedia") {
 
         if (strtolower($message['text']) == 'null' || (strtolower($message['text']) == 'skip' && $comm['col3'] == 'null')) {
             edit_com($tg->update_from, ['col5' => 'null', 'col6' => 'null', 'col7' => 'null']);
+            $message['text'] = __("Below");
             $comm = get_com($tg->update_from);
         } else {
             if (strtolower($message['text']) == 'skip') {
@@ -230,19 +235,107 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_typemedia") {
         }
 
         edit_com($tg->update_from, $p);
-        $comm = get_com($tg->update_from);
+
+        if ($comm['col1'] != 'photo' && $comm['col1'] != 'video' && $comm['col1'] != 'animation') {
+            $message['text'] = __("Below");
+            $comm = get_com($tg->update_from);
+        } else {
+            $tg->sendMessage([
+                'chat_id' => $tg->update_from,
+                'text' => __("Please choose where you would like the caption to be displayed.") .
+                    cancel_text(),
+                'reply_markup' => $tg->replyKeyboardMarkup([
+                        'keyboard' => apply_rtl_to_keyboard([
+                            [__("Below"), __("Above")],
+                        ]),
+                        'resize_keyboard' => true,
+                        'one_time_keyboard' => true,
+                    ]
+                ),
+            ]);
+
+            exit;
+        }
     }
     if (count($comm) == 8) {
+        if (
+            empty($message['text']) ||
+            (
+                $message['text'] != __("Below") &&
+                $message['text'] != __("Above")
+            )
+        ) {
+            $tg->sendMessage([
+                'chat_id' => $tg->update_from,
+                'text' => __("Please select an option correctly.") . cancel_text(),
+            ]);
+
+            exit;
+        }
+
+        $show_caption_above_media = $message['text'] == __("Below") ? 0 : 1;
+
+        edit_com($tg->update_from, [
+            'col8' => $show_caption_above_media,
+        ]);
+
+        if ($comm['col1'] != 'photo' && $comm['col1'] != 'video' && $comm['col1'] != 'animation') {
+            $message['text'] = __("No");
+            $comm = get_com($tg->update_from);
+        } else {
+            $tg->sendMessage([
+                'chat_id' => $tg->update_from,
+                'text' => __("Do you want your media to be sent as a spoiler (pixelated)?") .
+                    cancel_text(),
+                'reply_markup' => $tg->replyKeyboardMarkup([
+                        'keyboard' => apply_rtl_to_keyboard([
+                            [__("No"), __("Yes")],
+                        ]),
+                        'resize_keyboard' => true,
+                        'one_time_keyboard' => true,
+                    ]
+                ),
+            ]);
+
+            exit;
+        }
+    }
+    if (count($comm) == 9) {
+        if (
+            empty($message['text']) ||
+            (
+                $message['text'] != __("No") &&
+                $message['text'] != __("Yes")
+            )
+        ) {
+            $tg->sendMessage([
+                'chat_id' => $tg->update_from,
+                'text' => __("Please select an option correctly.") . cancel_text(),
+            ]);
+
+            exit;
+        }
+
+        $has_media_spoiler = $message['text'] == __("No") ? 0 : 1;
+
+        edit_com($tg->update_from, [
+            'col9' => $has_media_spoiler,
+        ]);
+
+        $comm = get_com($tg->update_from);
+    }
+    if (count($comm) == 10) {
         empty_com($tg->update_from);
         add_com($tg->update_from, 'inlinekey_add_keysmacker');
         edit_com($tg->update_from, [
-            'col1' => $comm['col1'],    //type
-            'col2' => $comm['col2'],    //file_unique_id
-            'col3' => 'null',           //data
-            'col4' => $comm['col5'],    //text
-            'col5' => $comm['col7'],    //parse_mode
-            'col6' => 'null',           //attach_url
-            'col7' => 'null',           //web_page_preview
+            'col1' => json_encode([
+                'type' => $comm['col1'],
+                'file_unique_id' => $comm['col2'],
+                'text' => $comm['col5'] != 'null' ? $comm['col5'] : null,
+                'parse_mode' => $comm['col7'] != 'null' ? $comm['col7'] : null,
+                'show_caption_above_media' => $comm['col8'],
+                'has_media_spoiler' => $comm['col9'],
+            ])
         ]);
     }
 }

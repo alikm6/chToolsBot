@@ -114,18 +114,28 @@ function get_inlinekey_edit_keyboard($inlinekey)
             $keyboard[] = [__("Add attachment")];
         }
 
-        if (empty($inlinekey['attach_url'])) {
-            if ($inlinekey['web_page_preview'] == 0) {
-                $keyboard[] = [__("Enable link preview")];
-            } else {
-                $keyboard[] = [__("Disable link preview")];
-            }
-        }
+        $keyboard[] = [__("Edit link preview settings")];
     } elseif ($inlinekey['type'] == 'photo' || $inlinekey['type'] == 'video' || $inlinekey['type'] == 'animation' || $inlinekey['type'] == 'document' || $inlinekey['type'] == 'audio' || $inlinekey['type'] == 'voice') {
         if (!empty($inlinekey['text'])) {
             $keyboard[] = [__("Edit caption"), __("Delete caption")];
+
+            if ($inlinekey['type'] == 'photo' || $inlinekey['type'] == 'video' || $inlinekey['type'] == 'animation') {
+                if ($inlinekey['show_caption_above_media'] == 0) {
+                    $keyboard[] = [__("Show caption above media")];
+                } else {
+                    $keyboard[] = [__("Show caption below media")];
+                }
+            }
         } else {
             $keyboard[] = [__("Add caption")];
+        }
+
+        if ($inlinekey['type'] == 'photo' || $inlinekey['type'] == 'video' || $inlinekey['type'] == 'animation') {
+            if ($inlinekey['has_media_spoiler'] == 0) {
+                $keyboard[] = [__("Add spoiler effect")];
+            } else {
+                $keyboard[] = [__("Remove spoiler effect")];
+            }
         }
     }
 
@@ -183,29 +193,29 @@ function send_inlinekey_message($chat_id, $parameters, $send_error = true)
     $m = false;
 
     if ($parameters['type'] == 'text') {
-        $tmp_text = $parameters['text'];
+        $link_preview_options = [
+            'is_disabled' => !$parameters['link_preview'],
+            'show_above_text' => (bool)$parameters['link_preview_show_above_text'],
+            'prefer_small_media' => (bool)$parameters['link_preview_prefer_small_media'],
+            'prefer_large_media' => !$parameters['link_preview_prefer_small_media'],
+        ];
 
         if (!empty($parameters['attach_url'])) {
-            if (empty($parameters['parse_mode'])) {
-                $tmp_text = hide_link($parameters['attach_url'], 'html') . htmlspecialchars($tmp_text);
-                $parameters['parse_mode'] = 'html';
-            } elseif ($parameters['parse_mode'] == 'markdown') {
-                $tmp_text = hide_link($parameters['attach_url'], 'markdown') . $tmp_text;
-            } elseif ($parameters['parse_mode'] == 'markdownv2') {
-                $tmp_text = hide_link($parameters['attach_url'], 'markdownv2') . $tmp_text;
-            } elseif ($parameters['parse_mode'] == 'html') {
-                $tmp_text = hide_link($parameters['attach_url'], 'html') . $tmp_text;
-            }
+            $link_preview_options['is_disabled'] = false;
+            $link_preview_options['url'] = $parameters['attach_url'];
 
-            $parameters['web_page_preview'] = 1;
+            if (strpos($parameters['attach_url'], MAIN_LINK) === 0) {
+                $link_preview_options['prefer_small_media'] = false;
+                $link_preview_options['prefer_large_media'] = true;
+            }
         }
 
         $m = $tg->sendMessage([
             'chat_id' => $chat_id,
-            'text' => $tmp_text,
+            'text' => $parameters['text'],
             'reply_markup' => $parameters['keyboard'],
             'parse_mode' => $parameters['parse_mode'],
-            'disable_web_page_preview' => $parameters['web_page_preview'] == 0,
+            'link_preview_options' => json_encode($link_preview_options),
         ], ['send_error' => $send_error]);
 
     } elseif ($parameters['type'] == 'photo') {
@@ -215,6 +225,8 @@ function send_inlinekey_message($chat_id, $parameters, $send_error = true)
             'reply_markup' => $parameters['keyboard'],
             'parse_mode' => $parameters['parse_mode'],
             'caption' => $parameters['text'],
+            'has_spoiler' => $parameters['has_media_spoiler'],
+            'show_caption_above_media' => $parameters['show_caption_above_media'],
         ], ['send_error' => $send_error]);
     } elseif ($parameters['type'] == 'video') {
         $m = $tg->sendVideo([
@@ -223,6 +235,8 @@ function send_inlinekey_message($chat_id, $parameters, $send_error = true)
             'reply_markup' => $parameters['keyboard'],
             'parse_mode' => $parameters['parse_mode'],
             'caption' => $parameters['text'],
+            'has_spoiler' => $parameters['has_media_spoiler'],
+            'show_caption_above_media' => $parameters['show_caption_above_media'],
         ], ['send_error' => $send_error]);
     } elseif ($parameters['type'] == 'animation') {
         $m = $tg->sendAnimation([
@@ -231,6 +245,8 @@ function send_inlinekey_message($chat_id, $parameters, $send_error = true)
             'reply_markup' => $parameters['keyboard'],
             'parse_mode' => $parameters['parse_mode'],
             'caption' => $parameters['text'],
+            'has_spoiler' => $parameters['has_media_spoiler'],
+            'show_caption_above_media' => $parameters['show_caption_above_media'],
         ], ['send_error' => $send_error]);
     } elseif ($parameters['type'] == 'document') {
         $m = $tg->sendDocument([

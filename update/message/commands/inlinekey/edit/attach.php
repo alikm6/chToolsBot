@@ -11,29 +11,45 @@ if ($comm['name'] == "inlinekey_edit_attach") {
         "id" => $comm['col1'],
     ]);
     if (count($comm) == 2) {
-        if (empty($message['photo']) && empty($message['video']) && empty($message['animation']) && empty($message['document']) && empty($message['voice']) && empty($message['audio']) && empty($message['sticker']) && empty($message['video_note'])) {
+        if (
+            empty($message['photo']) &&
+            empty($message['video']) &&
+            empty($message['animation']) &&
+            empty($message['document']) &&
+            empty($message['voice']) &&
+            empty($message['audio']) &&
+            empty($message['sticker']) &&
+            empty($message['video_note']) &&
+            (
+                empty($message['text']) || !is_url($message['text'])
+            )
+        ) {
             $tg->sendMessage([
                 'chat_id' => $tg->update_from,
-                'text' => __("Input is incorrect, you must send us the attachment file.") .
+                'text' => __("Input is incorrect, you must send us a attachment file or a link.") .
                     cancel_text(),
                 'reply_markup' => $tg->replyKeyboardRemove(),
             ]);
             exit;
         }
 
-        $attachment_id = attach_message($tg->update_from, 'inlinekey', $comm['col1'], ATTACH_CHANNEL, $message);
+        if (!empty($message['text']) && is_url($message['text'])) {
+            $result['attach_url'] = $message['text'];
+        } else {
+            $attachment_id = attach_message($tg->update_from, 'inlinekey', $comm['col1'], ATTACH_CHANNEL, $message);
 
-        if (!$attachment_id) {
-            $tg->sendMessage([
-                'chat_id' => $tg->update_from,
-                'text' => __("An error occurred while attaching the file. Please resend this file.") .
-                    cancel_text(),
-                'reply_markup' => $tg->replyKeyboardRemove(),
-            ]);
-            exit;
+            if (!$attachment_id) {
+                $tg->sendMessage([
+                    'chat_id' => $tg->update_from,
+                    'text' => __("An error occurred while attaching the file. Please resend this file.") .
+                        cancel_text(),
+                    'reply_markup' => $tg->replyKeyboardRemove(),
+                ]);
+                exit;
+            }
+
+            $result['attach_url'] = generate_attachment_url($attachment_id);
         }
-
-        $result['attach_url'] = generate_attachment_url($attachment_id);
 
         $m = send_inlinekey_message($tg->update_from, $result, false);
 
