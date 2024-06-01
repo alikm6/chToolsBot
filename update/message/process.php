@@ -32,28 +32,18 @@ if (!empty($message['reply_to_message'])) {
     ]);
 
     if (strtolower($message['text']) == 'none') {
-        if (!empty($content['text'])) {
-            $text = convert_to_styled_text($content["text"], (!empty($content['entities']) ? $content['entities'] : []));
+        $tmp = $tg->copyMessage([
+            'chat_id' => $tg->update_from,
+            'from_chat_id' => $content['chat']['id'],
+            'message_id' => $content['message_id'],
+            'reply_markup' => !empty($content['reply_markup']) ? json_encode($content['reply_markup']) : null,
+        ], ['send_error' => false]);
 
+        if (!$tmp) {
             $tg->sendMessage([
                 'chat_id' => $tg->update_from,
-                'text' => $text,
-                "parse_mode" => 'html',
-                "disable_web_page_preview" => !(get_attach_link($text) || $setting['sendto_web_page_preview'] == 1),
+                'text' => __("Your content is not supported by our bot!"),
             ]);
-        } else {
-            $tmp = $tg->copyMessage([
-                'chat_id' => $tg->update_from,
-                'from_chat_id' => $content['chat']['id'],
-                'message_id' => $content['message_id'],
-            ], ['send_error' => false]);
-
-            if (!$tmp) {
-                $tg->sendMessage([
-                    'chat_id' => $tg->update_from,
-                    'text' => __("Your content is not supported by our bot!"),
-                ]);
-            }
         }
 
         exit;

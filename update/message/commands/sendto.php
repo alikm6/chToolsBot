@@ -338,26 +338,13 @@ if (!empty($comm) && $comm['name'] == "sendto") {
             $setting = $db->rawQueryOne($q, [
                 'user_id' => $tg->update_from,
             ]);
-            if (!empty($message_details['text'])) {
-                $text = convert_to_styled_text($message_details["text"], (!empty($message_details['entities']) ? $message_details['entities'] : []));
 
-                $m = $tg->sendMessage([
-                    'chat_id' => $comm['col3'],
-                    'text' => $text,
-                    "parse_mode" => 'html',
-                    "disable_web_page_preview" => !(get_attach_link($text) || $setting['sendto_web_page_preview'] == 1),
-                    'disable_notification' => !$setting['sendto_notification'],
-                    'reply_markup' => !empty($message_details['reply_markup']) ? json_encode($message_details['reply_markup']) : null,
-                ], ['send_error' => false]);
-            } else {
-                $m = $tg->copyMessage([
-                    'chat_id' => $comm['col3'],
-                    'from_chat_id' => $message_details['chat_id'],
-                    'message_id' => $message_details['message_id'],
-                    'disable_notification' => !$setting['sendto_notification'],
-                    'reply_markup' => !empty($message_details['reply_markup']) ? json_encode($message_details['reply_markup']) : null,
-                ], ['send_error' => false]);
-            }
+            $m = $tg->copyMessage([
+                'chat_id' => $comm['col3'],
+                'from_chat_id' => $message_details['chat_id'],
+                'message_id' => $message_details['message_id'],
+                'reply_markup' => !empty($message_details['reply_markup']) ? json_encode($message_details['reply_markup']) : null,
+            ], ['send_error' => false]);
         } elseif ($message_details['type'] == 'inlinekey') {
             $q = "select * from inlinekey where inline_id=? and status = 1 limit 1";
             $result = $db->rawQueryOne($q, [
