@@ -17,22 +17,6 @@ function get_sendto_setting_keyboard_and_text($callback_data = [])
 
     $keyboard[] = [
         [
-            "text" => ($setting['sendto_web_page_preview'] == 0) ? __("❌ Disabled") : __("✅ Enabled"),
-            "callback_data" => encode_callback_data(['action' => 'set', 'col' => 'sendto_web_page_preview', 'val' => ($setting['sendto_web_page_preview'] == 0) ? 1 : 0, 'func' => 'get_sendto_setting_keyboard_and_text']),
-        ],
-        [
-            "text" => __("🔗 Web Page Preview:"),
-            "callback_data" => encode_callback_data([
-                'action' => 'alert',
-                'text' =>
-                    __("In Telegram, the first link of any text can have a preview.") . "\n" .
-                    __("If this option is enabled, a link preview will be displayed."),
-            ]),
-        ],
-    ];
-
-    $keyboard[] = [
-        [
             "text" => ($setting['sendto_notification'] == 0) ? __("❌ Disabled") : __("✅ Enabled"),
             "callback_data" => encode_callback_data(['action' => 'set', 'col' => 'sendto_notification', 'val' => ($setting['sendto_notification'] == 0) ? 1 : 0, 'func' => 'get_sendto_setting_keyboard_and_text']),
         ],
