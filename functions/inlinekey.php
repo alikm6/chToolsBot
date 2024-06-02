@@ -193,29 +193,12 @@ function send_inlinekey_message($chat_id, $parameters, $send_error = true)
     $m = false;
 
     if ($parameters['type'] == 'text') {
-        $link_preview_options = [
-            'is_disabled' => !$parameters['link_preview'],
-            'show_above_text' => (bool)$parameters['link_preview_show_above_text'],
-            'prefer_small_media' => (bool)$parameters['link_preview_prefer_small_media'],
-            'prefer_large_media' => !$parameters['link_preview_prefer_small_media'],
-        ];
-
-        if (!empty($parameters['attach_url'])) {
-            $link_preview_options['is_disabled'] = false;
-            $link_preview_options['url'] = $parameters['attach_url'];
-
-            if (strpos($parameters['attach_url'], MAIN_LINK) === 0) {
-                $link_preview_options['prefer_small_media'] = false;
-                $link_preview_options['prefer_large_media'] = true;
-            }
-        }
-
         $m = $tg->sendMessage([
             'chat_id' => $chat_id,
             'text' => $parameters['text'],
             'reply_markup' => $parameters['keyboard'],
             'parse_mode' => $parameters['parse_mode'],
-            'link_preview_options' => json_encode($link_preview_options),
+            'link_preview_options' => get_inlinekey_link_preview_options($parameters),
         ], ['send_error' => $send_error]);
 
     } elseif ($parameters['type'] == 'photo') {
@@ -501,4 +484,35 @@ function convert_inlinekey_counter_text($keyboard, $counter_type)
         }
     }
     return json_encode(['inline_keyboard' => $keys]);
+}
+
+function get_inlinekey_link_preview_options($inlinekey, $json_encode = true)
+{
+    $link_preview_options = null;
+
+    if ($inlinekey['type'] == 'text') {
+        $link_preview_options = [
+            'is_disabled' => !$inlinekey['link_preview'],
+            'show_above_text' => (bool)$inlinekey['link_preview_show_above_text'],
+        ];
+
+        if (!empty($inlinekey['attach_url'])) {
+            $link_preview_options['is_disabled'] = false;
+            $link_preview_options['url'] = $inlinekey['attach_url'];
+
+            if (strpos($inlinekey['attach_url'], MAIN_LINK) === 0) {
+                $link_preview_options['prefer_small_media'] = false;
+                $link_preview_options['prefer_large_media'] = true;
+            } else {
+                $link_preview_options['prefer_small_media'] = (bool)$inlinekey['link_preview_prefer_small_media'];
+                $link_preview_options['prefer_large_media'] = !$inlinekey['link_preview_prefer_small_media'];
+            }
+        }
+
+        if($json_encode) {
+            $link_preview_options = json_encode($link_preview_options);
+        }
+    }
+
+    return $link_preview_options;
 }

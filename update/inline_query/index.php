@@ -135,23 +135,6 @@ function convert_to_inline_results($parameters): array
     $parameters['keyboard'] = convert_inlinekey_counter_text($parameters['keyboard'], $parameters['counter_type']);
     $result = [];
     if ($parameters['type'] == 'text') {
-        $link_preview_options = [
-            'is_disabled' => !$parameters['link_preview'],
-            'show_above_text' => (bool)$parameters['link_preview_show_above_text'],
-            'prefer_small_media' => (bool)$parameters['link_preview_prefer_small_media'],
-            'prefer_large_media' => !$parameters['link_preview_prefer_small_media'],
-        ];
-
-        if (!empty($parameters['attach_url'])) {
-            $link_preview_options['is_disabled'] = false;
-            $link_preview_options['url'] = $parameters['attach_url'];
-
-            if (strpos($parameters['attach_url'], MAIN_LINK) === 0) {
-                $link_preview_options['prefer_small_media'] = false;
-                $link_preview_options['prefer_large_media'] = true;
-            }
-        }
-
         $result['type'] = 'article';
         $result['id'] = $parameters['inline_id'];
         $result['title'] = sprintf(
@@ -161,7 +144,7 @@ function convert_to_inline_results($parameters): array
         $result['input_message_content'] = [
             'message_text' => $parameters['text'],
             'parse_mode' => $parameters['parse_mode'] != null ? $parameters['parse_mode'] : "",
-            'link_preview_options' => $link_preview_options,
+            'link_preview_options' => get_inlinekey_link_preview_options($parameters, false),
         ];
         $result['reply_markup'] = json_decode($parameters['keyboard']);
     } elseif ($parameters['type'] == 'photo') {

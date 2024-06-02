@@ -118,26 +118,9 @@ if ($comm['name'] == "inlinekey_edit_final") {
             $same_data = [];
 
             if ($result['type'] == 'text') {
-                $link_preview_options = [
-                    'is_disabled' => !$result['link_preview'],
-                    'show_above_text' => (bool)$result['link_preview_show_above_text'],
-                    'prefer_small_media' => (bool)$result['link_preview_prefer_small_media'],
-                    'prefer_large_media' => !$result['link_preview_prefer_small_media'],
-                ];
-
-                if (!empty($result['attach_url'])) {
-                    $link_preview_options['is_disabled'] = false;
-                    $link_preview_options['url'] = $result['attach_url'];
-
-                    if (strpos($result['attach_url'], MAIN_LINK) === 0) {
-                        $link_preview_options['prefer_small_media'] = false;
-                        $link_preview_options['prefer_large_media'] = true;
-                    }
-                }
-
                 $same_data['text'] = $result['text'];
                 $same_data['parse_mode'] = $result['parse_mode'];
-                $same_data['link_preview_options'] = json_encode($link_preview_options);
+                $same_data['link_preview_options'] = get_inlinekey_link_preview_options($result);
             } elseif ($result['type'] == 'photo' || $result['type'] == 'video' || $result['type'] == 'animation' || $result['type'] == 'document' || $result['type'] == 'voice' || $result['type'] == 'audio') {
                 $same_data['caption'] = $result['text'];
                 $same_data['parse_mode'] = $result['parse_mode'];
