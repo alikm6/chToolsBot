@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: chToolsBot\n"
-"POT-Creation-Date: 2024-06-02 12:29+0330\n"
-"PO-Revision-Date: 2024-06-02 12:29+0330\n"
+"POT-Creation-Date: 2024-06-03 02:16+0330\n"
+"PO-Revision-Date: 2024-06-03 02:18+0330\n"
 "Last-Translator: \n"
 "Language-Team: Ali Karimi\n"
 "Language: fa_IR\n"
@@ -60,7 +60,7 @@ msgstr "در حال ارسال ..."
 #: update/message/commands/inlinekey/add/final.php:206
 #: update/message/commands/inlinekey/add/keysmacker/keysmacker.php:62
 #: update/message/commands/inlinekey/delete.php:89
-#: update/message/commands/inlinekey/edit/attach.php:59
+#: update/message/commands/inlinekey/edit/attach.php:68
 #: update/message/commands/inlinekey/edit/caption.php:157
 #: update/message/commands/inlinekey/edit/final.php:40
 #: update/message/commands/inlinekey/edit/language_code.php:49
@@ -494,7 +494,7 @@ msgid "You can also attach a file to your message."
 msgstr "همچنین شما می توانید یک فایل را ضمیمه پیام خود کنید."
 
 #: functions/help.php:228 update/message/admin_commands/stats.php:17
-#: update/message/commands/inlinekey/edit/attach.php:71
+#: update/message/commands/inlinekey/edit/attach.php:80
 #: update/message/commands/inlinekey/edit/caption.php:172
 #: update/message/commands/inlinekey/edit/edit.php:131
 #: update/message/commands/inlinekey/edit/edit.php:158
@@ -1004,7 +1004,7 @@ msgstr "فوروارد"
 #: update/message/commands/inlinekey/add/final.php:121
 #: update/message/commands/inlinekey/add/keysmacker/keysmacker.php:34
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:88
-#: update/message/commands/inlinekey/add/typetext.php:245
+#: update/message/commands/inlinekey/add/typetext.php:254
 #: update/message/commands/inlinekey/edit/final.php:18
 #: update/message/commands/inlinekey/edit/final.php:104
 #: update/message/commands/inlinekey/edit/keyboard/keyboard.php:12
@@ -1202,8 +1202,8 @@ msgstr ""
 
 #: update/message/commands/attach.php:57
 #: update/message/commands/hyper/typetext.php:97
-#: update/message/commands/inlinekey/add/typetext.php:158
-#: update/message/commands/inlinekey/edit/attach.php:44
+#: update/message/commands/inlinekey/add/typetext.php:167
+#: update/message/commands/inlinekey/edit/attach.php:53
 msgid "An error occurred while attaching the file. Please resend this file."
 msgstr ""
 "خطایی در ضمیمه کردن فایل مورد نظر رخ داده است، لطفا این فایل را مجدد ارسال "
@@ -1211,7 +1211,7 @@ msgstr ""
 
 #: update/message/commands/attach.php:72
 #: update/message/commands/hyper/typetext.php:112
-#: update/message/commands/inlinekey/add/typetext.php:173
+#: update/message/commands/inlinekey/add/typetext.php:182
 #: update/message/commands/inlinekey/edit/edit.php:315
 msgid "Where would you like the attachment to be displayed in this message?"
 msgstr "فایل ضمیمه در کدام قسمت از این پیام نمایش داده شود؟"
@@ -1220,9 +1220,9 @@ msgstr "فایل ضمیمه در کدام قسمت از این پیام نمای
 #: update/message/commands/hyper/typetext.php:113
 #: update/message/commands/hyper/typetext.php:128
 #: update/message/commands/hyper/typetext.php:144
-#: update/message/commands/inlinekey/add/typetext.php:174
-#: update/message/commands/inlinekey/add/typetext.php:189
-#: update/message/commands/inlinekey/add/typetext.php:205
+#: update/message/commands/inlinekey/add/typetext.php:183
+#: update/message/commands/inlinekey/add/typetext.php:198
+#: update/message/commands/inlinekey/add/typetext.php:214
 #: update/message/commands/inlinekey/edit/edit.php:62
 #: update/message/commands/inlinekey/edit/edit.php:316
 #: update/message/commands/inlinekey/edit/edit.php:331
@@ -1249,11 +1249,11 @@ msgstr "لطفا یک گزینه را انتخاب کنید."
 #: update/message/commands/inlinekey/add/typemedia.php:249
 #: update/message/commands/inlinekey/add/typemedia.php:264
 #: update/message/commands/inlinekey/add/typemedia.php:276
-#: update/message/commands/inlinekey/add/typetext.php:178
-#: update/message/commands/inlinekey/add/typetext.php:210
-#: update/message/commands/inlinekey/add/typetext.php:226
-#: update/message/commands/inlinekey/add/typetext.php:232
-#: update/message/commands/inlinekey/add/typetext.php:271
+#: update/message/commands/inlinekey/add/typetext.php:187
+#: update/message/commands/inlinekey/add/typetext.php:219
+#: update/message/commands/inlinekey/add/typetext.php:235
+#: update/message/commands/inlinekey/add/typetext.php:241
+#: update/message/commands/inlinekey/add/typetext.php:280
 #: update/message/commands/inlinekey/edit/edit.php:320
 #: update/message/commands/inlinekey/edit/edit.php:352
 #: update/message/commands/inlinekey/edit/link_preview_options.php:20
@@ -1273,11 +1273,11 @@ msgstr "پایین"
 #: update/message/commands/hyper/typetext.php:198
 #: update/message/commands/inlinekey/add/typemedia.php:249
 #: update/message/commands/inlinekey/add/typemedia.php:265
-#: update/message/commands/inlinekey/add/typetext.php:178
-#: update/message/commands/inlinekey/add/typetext.php:210
-#: update/message/commands/inlinekey/add/typetext.php:225
-#: update/message/commands/inlinekey/add/typetext.php:231
-#: update/message/commands/inlinekey/add/typetext.php:258
+#: update/message/commands/inlinekey/add/typetext.php:187
+#: update/message/commands/inlinekey/add/typetext.php:219
+#: update/message/commands/inlinekey/add/typetext.php:234
+#: update/message/commands/inlinekey/add/typetext.php:240
+#: update/message/commands/inlinekey/add/typetext.php:267
 #: update/message/commands/inlinekey/edit/edit.php:320
 #: update/message/commands/inlinekey/edit/edit.php:352
 #: update/message/commands/inlinekey/edit/link_preview_options.php:19
@@ -1288,7 +1288,7 @@ msgstr "بالا"
 
 #: update/message/commands/attach.php:87
 #: update/message/commands/hyper/typetext.php:127
-#: update/message/commands/inlinekey/add/typetext.php:188
+#: update/message/commands/inlinekey/add/typetext.php:197
 #: update/message/commands/inlinekey/edit/edit.php:330
 msgid "Where would you like the link preview to be displayed in this message?"
 msgstr "پیش‌نمایش لینک در کدام قسمت از این پیام نمایش داده شود؟"
@@ -1298,9 +1298,9 @@ msgstr "پیش‌نمایش لینک در کدام قسمت از این پیام
 #: update/message/commands/hyper/typetext.php:132
 #: update/message/commands/hyper/typetext.php:177
 #: update/message/commands/hyper/typetext.php:191
-#: update/message/commands/inlinekey/add/typetext.php:193
-#: update/message/commands/inlinekey/add/typetext.php:237
-#: update/message/commands/inlinekey/add/typetext.php:251
+#: update/message/commands/inlinekey/add/typetext.php:202
+#: update/message/commands/inlinekey/add/typetext.php:246
+#: update/message/commands/inlinekey/add/typetext.php:260
 #: update/message/commands/inlinekey/edit/edit.php:335
 #: update/message/commands/inlinekey/edit/link_preview_options.php:31
 #: update/message/commands/inlinekey/edit/link_preview_options.php:45
@@ -1312,9 +1312,9 @@ msgstr "بالا، کوچک"
 #: update/message/commands/hyper/typetext.php:132
 #: update/message/commands/hyper/typetext.php:178
 #: update/message/commands/hyper/typetext.php:197
-#: update/message/commands/inlinekey/add/typetext.php:193
-#: update/message/commands/inlinekey/add/typetext.php:238
-#: update/message/commands/inlinekey/add/typetext.php:257
+#: update/message/commands/inlinekey/add/typetext.php:202
+#: update/message/commands/inlinekey/add/typetext.php:247
+#: update/message/commands/inlinekey/add/typetext.php:266
 #: update/message/commands/inlinekey/edit/edit.php:335
 #: update/message/commands/inlinekey/edit/link_preview_options.php:32
 #: update/message/commands/inlinekey/edit/link_preview_options.php:51
@@ -1326,9 +1326,9 @@ msgstr "بالا، بزرگ"
 #: update/message/commands/hyper/typetext.php:133
 #: update/message/commands/hyper/typetext.php:179
 #: update/message/commands/hyper/typetext.php:204
-#: update/message/commands/inlinekey/add/typetext.php:194
-#: update/message/commands/inlinekey/add/typetext.php:239
-#: update/message/commands/inlinekey/add/typetext.php:264
+#: update/message/commands/inlinekey/add/typetext.php:203
+#: update/message/commands/inlinekey/add/typetext.php:248
+#: update/message/commands/inlinekey/add/typetext.php:273
 #: update/message/commands/inlinekey/edit/edit.php:336
 #: update/message/commands/inlinekey/edit/link_preview_options.php:33
 #: update/message/commands/inlinekey/edit/link_preview_options.php:58
@@ -1340,9 +1340,9 @@ msgstr "پایین، کوچک"
 #: update/message/commands/hyper/typetext.php:133
 #: update/message/commands/hyper/typetext.php:180
 #: update/message/commands/hyper/typetext.php:210
-#: update/message/commands/inlinekey/add/typetext.php:194
-#: update/message/commands/inlinekey/add/typetext.php:240
-#: update/message/commands/inlinekey/add/typetext.php:270
+#: update/message/commands/inlinekey/add/typetext.php:203
+#: update/message/commands/inlinekey/add/typetext.php:249
+#: update/message/commands/inlinekey/add/typetext.php:279
 #: update/message/commands/inlinekey/edit/edit.php:336
 #: update/message/commands/inlinekey/edit/link_preview_options.php:34
 #: update/message/commands/inlinekey/edit/link_preview_options.php:64
@@ -1891,7 +1891,7 @@ msgstr ""
 "شود."
 
 #: update/message/commands/hyper/typetext.php:143
-#: update/message/commands/inlinekey/add/typetext.php:204
+#: update/message/commands/inlinekey/add/typetext.php:213
 msgid ""
 "If the text you send contains a link, where would you like the link preview to "
 "be displayed in this message?"
@@ -1901,8 +1901,8 @@ msgstr ""
 
 #: update/message/commands/hyper/typetext.php:148
 #: update/message/commands/hyper/typetext.php:164
-#: update/message/commands/inlinekey/add/typetext.php:209
-#: update/message/commands/inlinekey/add/typetext.php:224
+#: update/message/commands/inlinekey/add/typetext.php:218
+#: update/message/commands/inlinekey/add/typetext.php:233
 #: update/message/commands/inlinekey/edit/edit.php:351
 #: update/message/commands/inlinekey/edit/link_preview_options.php:18
 msgid "Disable"
@@ -1941,7 +1941,7 @@ msgstr "لطفا یک مطلب دیگر ارسال کنید."
 #: update/message/commands/inlinekey/add/final.php:26
 #: update/message/commands/inlinekey/add/keysmacker/bylist.php:139
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:23
-#: update/message/commands/inlinekey/edit/attach.php:72
+#: update/message/commands/inlinekey/edit/attach.php:81
 #: update/message/commands/inlinekey/edit/caption.php:173
 #: update/message/commands/inlinekey/edit/edit.php:132
 #: update/message/commands/inlinekey/edit/edit.php:159
@@ -2081,7 +2081,7 @@ msgid "⚠ Error: The link of one of the buttons has a problem."
 msgstr "⚠ خطا: لینک یکی از دکمه ها دچار مشکل می باشد."
 
 #: update/message/commands/inlinekey/add/keysmacker/bylist.php:146
-#: update/message/commands/inlinekey/edit/attach.php:66
+#: update/message/commands/inlinekey/edit/attach.php:75
 #: update/message/commands/inlinekey/edit/caption.php:166
 #: update/message/commands/inlinekey/edit/edit.php:126
 #: update/message/commands/inlinekey/edit/edit.php:153
@@ -2309,6 +2309,11 @@ msgid ""
 msgstr ""
 "در صورتی که نمی خواهید فایلی در انتهای مطلب به نمایش در آید none را ارسال کنید."
 
+#: update/message/commands/inlinekey/add/typetext.php:154
+#: update/message/commands/inlinekey/edit/attach.php:40
+msgid "The link you have sent is too long, please send a shorter link."
+msgstr "لینک ارسالی شما طولانی می‌باشد، لطفا یک لینک کوتاه‌تر ارسال کنید."
+
 #: update/message/commands/inlinekey/delete.php:26
 msgid "Please send us the inline code of the item you want to delete."
 msgstr "لطفا کد inline موردی را که می خواهید حذف کنید را برای ما ارسال کنید."
@@ -2355,7 +2360,7 @@ msgid "Input is incorrect, you must send us a attachment file or a link."
 msgstr ""
 "ورودی اشتباه می باشد، شما باید فایل ضمیمه یا یک لینک را برای ما ارسال کنید."
 
-#: update/message/commands/inlinekey/edit/attach.php:67
+#: update/message/commands/inlinekey/edit/attach.php:76
 #: update/message/commands/inlinekey/edit/caption.php:167
 #: update/message/commands/inlinekey/edit/edit.php:127
 #: update/message/commands/inlinekey/edit/edit.php:154

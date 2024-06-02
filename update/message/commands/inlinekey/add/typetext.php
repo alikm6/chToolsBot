@@ -148,6 +148,15 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_typetext") {
         if (!empty($message['text']) && strtolower($message['text']) == 'none') {
             $attach_url = 'null';
         } elseif (!empty($message['text']) && is_url($message['text'])) {
+            if(strlen($message['text']) > 255) {
+                $tg->sendMessage([
+                    'chat_id' => $message['chat']['id'],
+                    'text' => __("The link you have sent is too long, please send a shorter link.") .
+                        cancel_text(),
+                ]);
+                exit;
+            }
+
             $attach_url = $message['text'];
         } else {
             $attachment_id = attach_message($tg->update_from, 'inlinekey', null, ATTACH_CHANNEL, $message);
