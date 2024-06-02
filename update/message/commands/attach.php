@@ -272,13 +272,14 @@ if (!empty($comm) && $comm['name'] == "attach") {
             'is_disabled' => false,
             'url' => $comm['col1'],
             'show_above_text' => (bool)$comm['col3'],
-            'prefer_small_media' => (bool)$comm['col2'],
-            'prefer_large_media' => !$comm['col2'],
         ];
 
         if (strpos($comm['col1'], MAIN_LINK) === 0) {
             $link_preview_options['prefer_small_media'] = false;
             $link_preview_options['prefer_large_media'] = true;
+        } else {
+            $link_preview_options['prefer_small_media'] = (bool)$comm['col2'];
+            $link_preview_options['prefer_large_media'] = !$comm['col2'];
         }
 
         $m = $tg->sendMessage([

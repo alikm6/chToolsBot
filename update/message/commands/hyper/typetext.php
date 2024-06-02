@@ -140,14 +140,13 @@ if (!empty($comm) && $comm['name'] == "hyper_typetext") {
             $tg->sendMessage([
                 'chat_id' => $tg->update_from,
                 'text' =>
-                    __("If the text you send contains a link, how to display the preview of the link?") . "\n\n" .
+                    __("If the text you send contains a link, where would you like the link preview to be displayed in this message?") . "\n\n" .
                     __("Please select an option.") .
                     cancel_text(),
                 'reply_markup' => $tg->replyKeyboardMarkup([
                     'keyboard' => apply_rtl_to_keyboard([
                         [__("Disable")],
-                        [__("Above, Small"), __("Above, Large")],
-                        [__("Below, Small"), __("Below, Large")],
+                        [__("Below"), __("Above")],
                     ]),
                     'resize_keyboard' => true,
                     'one_time_keyboard' => true,
@@ -163,10 +162,8 @@ if (!empty($comm) && $comm['name'] == "hyper_typetext") {
             (
                 $comm['col3'] == 'null' &&
                 $message['text'] != __("Disable") &&
-                $message['text'] != __("Above, Small") &&
-                $message['text'] != __("Above, Large") &&
-                $message['text'] != __("Below, Small") &&
-                $message['text'] != __("Below, Large")
+                $message['text'] != __("Above") &&
+                $message['text'] != __("Below")
             ) ||
             (
                 $comm['col3'] != 'null' &&
@@ -227,8 +224,6 @@ if (!empty($comm) && $comm['name'] == "hyper_typetext") {
         $link_preview_options = [
             'is_disabled' => !$link_preview,
             'show_above_text' => (bool)$link_preview_show_above_text,
-            'prefer_small_media' => (bool)$link_preview_prefer_small_media,
-            'prefer_large_media' => !$link_preview_prefer_small_media,
         ];
 
         if ($comm['col3'] != 'null') {
@@ -238,6 +233,9 @@ if (!empty($comm) && $comm['name'] == "hyper_typetext") {
             if (strpos($comm['col3'], MAIN_LINK) === 0) {
                 $link_preview_options['prefer_small_media'] = false;
                 $link_preview_options['prefer_large_media'] = true;
+            } else {
+                $link_preview_options['prefer_small_media'] = (bool)$link_preview_prefer_small_media;
+                $link_preview_options['prefer_large_media'] = !$link_preview_prefer_small_media;
             }
         }
 

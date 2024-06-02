@@ -201,14 +201,13 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_typetext") {
             $tg->sendMessage([
                 'chat_id' => $tg->update_from,
                 'text' =>
-                    __("If the text you send contains a link, how to display the preview of the link?") . "\n\n" .
+                    __("If the text you send contains a link, where would you like the link preview to be displayed in this message?") . "\n\n" .
                     __("Please select an option.") .
                     cancel_text(),
                 'reply_markup' => $tg->replyKeyboardMarkup([
                     'keyboard' => apply_rtl_to_keyboard([
                         [__("Disable")],
-                        [__("Above, Small"), __("Above, Large")],
-                        [__("Below, Small"), __("Below, Large")],
+                        [__("Below"), __("Above")],
                     ]),
                     'resize_keyboard' => true,
                     'one_time_keyboard' => true,
@@ -223,10 +222,8 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_typetext") {
             (
                 $comm['col4'] == 'null' &&
                 $message['text'] != __("Disable") &&
-                $message['text'] != __("Above, Small") &&
-                $message['text'] != __("Above, Large") &&
-                $message['text'] != __("Below, Small") &&
-                $message['text'] != __("Below, Large")
+                $message['text'] != __("Above") &&
+                $message['text'] != __("Below")
             ) ||
             (
                 $comm['col4'] != 'null' &&

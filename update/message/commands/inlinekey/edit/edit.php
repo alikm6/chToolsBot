@@ -343,14 +343,13 @@ if (!empty($comm) && $comm['name'] == "inlinekey_edit") {
                 $tg->sendMessage([
                     'chat_id' => $tg->update_from,
                     'text' =>
-                        __("If the text of this message contains a link, how to display the preview of the link?") . "\n\n" .
+                        __("If the text of this message contains a link, where would you like the link preview to be displayed in this message?") . "\n\n" .
                         __("Please select an option.") .
                         cancel_text(),
                     'reply_markup' => $tg->replyKeyboardMarkup([
                         'keyboard' => apply_rtl_to_keyboard([
                             [__("Disable")],
-                            [__("Above, Small"), __("Above, Large")],
-                            [__("Below, Small"), __("Below, Large")],
+                            [__("Below"), __("Above")],
                         ]),
                         'resize_keyboard' => true,
                         'one_time_keyboard' => true,

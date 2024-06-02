@@ -16,10 +16,8 @@ if ($comm['name'] == "inlinekey_edit_link_preview_options") {
             (
                 empty($result['attach_url']) &&
                 $message['text'] != __("Disable") &&
-                $message['text'] != __("Above, Small") &&
-                $message['text'] != __("Above, Large") &&
-                $message['text'] != __("Below, Small") &&
-                $message['text'] != __("Below, Large")
+                $message['text'] != __("Above") &&
+                $message['text'] != __("Below")
             ) ||
             (
                 !empty($result['attach_url']) &&
