@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: chToolsBot\n"
-"POT-Creation-Date: 2024-06-03 02:16+0330\n"
-"PO-Revision-Date: 2024-06-03 02:18+0330\n"
+"POT-Creation-Date: 2024-06-03 15:40+0330\n"
+"PO-Revision-Date: 2024-06-03 15:42+0330\n"
 "Last-Translator: \n"
 "Language-Team: Ali Karimi\n"
 "Language: fa_IR\n"
@@ -48,7 +48,7 @@ msgstr "پایان یافته"
 msgid "Sending ..."
 msgstr "در حال ارسال ..."
 
-#: functions/attach.php:84 functions/attach.php:103 functions/inlinekey.php:322
+#: functions/attach.php:84 functions/attach.php:103 functions/inlinekey.php:346
 #: functions/main.php:118 functions/main.php:194 functions/main.php:206
 #: functions/main.php:217 update/callback_query/channels/delete.php:26
 #: update/callback_query/inlinekey.php:79 update/callback_query/inlinekey.php:95
@@ -65,7 +65,7 @@ msgstr "در حال ارسال ..."
 #: update/message/commands/inlinekey/edit/final.php:40
 #: update/message/commands/inlinekey/edit/language_code.php:49
 #: update/message/commands/inlinekey/edit/link_preview_options.php:89
-#: update/message/commands/language.php:85 update/message/commands/sendto.php:398
+#: update/message/commands/language.php:85 update/message/commands/sendto.php:407
 #: update/message/commands/start.php:32 update/message/commands/start.php:89
 #: update/message/index.php:16 update/message/pre_process_file.php:21
 #: update/message/pre_process_file.php:40
@@ -627,7 +627,7 @@ msgstr "نمایش ندادن پنجره بعد از رای دادن"
 msgid "Edit language of successful vote registration message"
 msgstr "ویرایش زبان پیام موفقیت آمیز بودن ثبت رای"
 
-#: functions/inlinekey.php:345 functions/inlinekey.php:368
+#: functions/inlinekey.php:369 functions/inlinekey.php:392
 #: update/message/commands/inlinekey/add/keysmacker/keysmacker.php:129
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:33
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:55
@@ -654,7 +654,7 @@ msgstr "ویرایش زبان پیام موفقیت آمیز بودن ثبت ر�
 msgid "#Button_%d"
 msgstr "#دکمه_%d"
 
-#: functions/inlinekey.php:346
+#: functions/inlinekey.php:370
 msgid ""
 "The robot could not add this button, the text of the button, link or ... may "
 "be affected."
@@ -662,15 +662,15 @@ msgstr ""
 "ربات نمی تواند این دکمه را اضافه کند، ممکن است متن دکمه، لینک و یا ... دچار "
 "مشکل باشند."
 
-#: functions/inlinekey.php:347
+#: functions/inlinekey.php:371
 msgid "Try adding the button again after checking and fixing the problem."
 msgstr "پس از بررسی و رفع مشکل دوباره برای افزودن دکمه تلاش کنید."
 
-#: functions/inlinekey.php:348
+#: functions/inlinekey.php:372
 msgid "Now select the next button type."
 msgstr "حالا نوع دکمه بعدی را انتخاب کنید."
 
-#: functions/inlinekey.php:365
+#: functions/inlinekey.php:389
 msgid ""
 "Your desired button has been successfully added and a preview of it is shown "
 "above."
@@ -678,11 +678,11 @@ msgstr ""
 "دکمه مورد نظر شما با موفقیت افزوده شد و پیش نمایشی از آن در بالا به نمایش در "
 "آمده است."
 
-#: functions/inlinekey.php:366
+#: functions/inlinekey.php:390
 msgid "If you no longer want to add a button, send /submit."
 msgstr "اگه دیگر نمی خواهید دکمه ای را بیافزایید /submit را ارسال کنید."
 
-#: functions/inlinekey.php:369
+#: functions/inlinekey.php:393
 #: update/message/commands/inlinekey/add/keysmacker/keysmacker.php:130
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:75
 #: update/message/commands/inlinekey/edit/keyboard/keyboard.php:89
@@ -690,7 +690,7 @@ msgstr "اگه دیگر نمی خواهید دکمه ای را بیافزایی�
 msgid "Please select a button type."
 msgstr "لطفا نوع دکمه را انتخاب کنید."
 
-#: functions/inlinekey.php:383 functions/inlinekey.php:387
+#: functions/inlinekey.php:407 functions/inlinekey.php:411
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:30
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:41
 #: update/message/commands/inlinekey/edit/keyboard/onebyone.php:32
@@ -698,7 +698,7 @@ msgstr "لطفا نوع دکمه را انتخاب کنید."
 msgid "Counter ➕"
 msgstr "شمارنده ➕"
 
-#: functions/inlinekey.php:383 functions/inlinekey.php:387
+#: functions/inlinekey.php:407 functions/inlinekey.php:411
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:30
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:39
 #: update/message/commands/inlinekey/edit/keyboard/onebyone.php:32
@@ -706,7 +706,7 @@ msgstr "شمارنده ➕"
 msgid "Url 🔗"
 msgstr "لینک دار 🔗"
 
-#: functions/inlinekey.php:384 functions/inlinekey.php:388
+#: functions/inlinekey.php:408 functions/inlinekey.php:412
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:30
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:45
 #: update/message/commands/inlinekey/edit/keyboard/onebyone.php:32
@@ -714,7 +714,7 @@ msgstr "لینک دار 🔗"
 msgid "Publisher 🎁"
 msgstr "انتشار دهنده 🎁"
 
-#: functions/inlinekey.php:384 functions/inlinekey.php:388
+#: functions/inlinekey.php:408 functions/inlinekey.php:412
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:30
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:43
 #: update/message/commands/inlinekey/edit/keyboard/onebyone.php:32
@@ -722,13 +722,13 @@ msgstr "انتشار دهنده 🎁"
 msgid "Alert 📭"
 msgstr "هشدار دهنده 📭"
 
-#: functions/inlinekey.php:405 functions/inlinekey.php:420
+#: functions/inlinekey.php:429 functions/inlinekey.php:444
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:64
 #: update/message/commands/inlinekey/edit/keyboard/onebyone.php:66
 msgid "↩️ Back"
 msgstr "↪️ بازگشت"
 
-#: functions/inlinekey.php:418
+#: functions/inlinekey.php:442
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:84
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:93
 #: update/message/commands/inlinekey/edit/keyboard/onebyone.php:86
@@ -736,7 +736,7 @@ msgstr "↪️ بازگشت"
 msgid "➡️ Next to the Last Button"
 msgstr "➡️ در کنار آخرین دکمه"
 
-#: functions/inlinekey.php:419
+#: functions/inlinekey.php:443
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:50
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:84
 #: update/message/commands/inlinekey/add/keysmacker/onebyone.php:95
@@ -817,25 +817,38 @@ msgid "Click on the left column to see a description of each section."
 msgstr "روی ستون سمت راست کلیک کنید تا توضیحات هر بخش را مشاهده کنید."
 
 #: functions/sendto.php:20
-msgid "❌ Disabled"
-msgstr "❌ غیرفعال"
-
-#: functions/sendto.php:20
-msgid "✅ Enabled"
-msgstr "✅ فعال"
-
-#: functions/sendto.php:24
 msgid "📢 Notified to Members:"
 msgstr "📢 آگاه سازی کاربران:"
 
-#: functions/sendto.php:25
+#: functions/sendto.php:21
 msgid ""
-"If this feature is enabled, when this content is sent to your Telegram channel "
-"by this bot, subscribers will be notified."
+"If this feature is enabled, when a message is sent to your channel using the /"
+"sendto command, users will receive a notification indicating that a new "
+"message has been posted in your channel."
 msgstr ""
-"اگر این قابلیت فعال باشد، زمانی که این مطلب توسط این ربات به کانال تلگرامی شما "
-"ارسال می‌شود، کاربر یک نوتیفیکیشن دریافت می‌کند که متوجه می‌شود مطلب جدیدی در "
-"کانال شما درج شده است."
+"اگر این قابلیت فعال باشد، زمانی که مطلبی با استفاده از دستور ‎/sendto به کانال "
+"شما ارسال می‌شود، کاربران یک نوتیفیکیشن دریافت می‌کنند که متوجه می‌شوند مطلب "
+"جدیدی در کانال شما درج شده است."
+
+#: functions/sendto.php:24 functions/sendto.php:35
+msgid "❌ Disabled"
+msgstr "❌ غیرفعال"
+
+#: functions/sendto.php:24 functions/sendto.php:35
+msgid "✅ Enabled"
+msgstr "✅ فعال"
+
+#: functions/sendto.php:31
+msgid "🛡 Protected Mode:"
+msgstr "🛡 حالت حفاظت‌شده:"
+
+#: functions/sendto.php:32
+msgid ""
+"If this feature is enabled, when a message is sent to your channel using the /"
+"sendto command, users will not be able to save, copy, or forward it."
+msgstr ""
+"اگر این قابلیت فعال باشد، زمانی که مطلبی با استفاده از دستور ‎/sendto به کانال "
+"شما ارسال می‌شود، کاربران امکان دخیره، کپی و یا فوروارد آن را نخواهند داشت."
 
 #: languages/nothing.php:5
 msgid "Tools 🔧"
@@ -2676,13 +2689,13 @@ msgstr ""
 "به نظر می رسد که کانال %s متعلق به شما نیست زیرا شما در لیست ادمین های این "
 "کانال نمی باشید."
 
-#: update/message/commands/sendto.php:358
+#: update/message/commands/sendto.php:360
 msgid ""
 "The message containing the inline button you selected appears to have been "
 "deleted."
 msgstr "به نظر می رسد پیام حاوی دکمه شیشه‌ای که انتخاب کرده بودید حذف شده است."
 
-#: update/message/commands/sendto.php:377
+#: update/message/commands/sendto.php:379
 msgid ""
 "This message containing the inline button cannot be sent to the target channel "
 "without a quote, because to send without a quote, the message must have no "
@@ -2692,7 +2705,7 @@ msgstr ""
 "ارسال نمود زیرا برای ارسال بدون نقل قول، پیام باید فاقد دکمه شیشه ای انتشار "
 "دهنده باشد."
 
-#: update/message/commands/sendto.php:408
+#: update/message/commands/sendto.php:417
 msgid ""
 "An error occurred while posting to the channel, please try again by sending "
 "the /sendto command!"
@@ -2700,11 +2713,11 @@ msgstr ""
 "خطایی در هنگام ارسال مطلب به کانال رخ داده است، لطفا با ارسال دستور /sendto "
 "دوباره تلاش کنید!"
 
-#: update/message/commands/sendto.php:415
+#: update/message/commands/sendto.php:424
 msgid "The content was successfully posted on the channel."
 msgstr "مطلب مورد نظر با موفقیت در کانال درج شد."
 
-#: update/message/commands/sendto.php:430
+#: update/message/commands/sendto.php:439
 msgid "➕ Add channel to your channel list: "
 msgstr "➕ افزودن کانال به لیست کانال های شما: "
 

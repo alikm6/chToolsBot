@@ -329,21 +329,23 @@ if (!empty($comm) && $comm['name'] == "sendto") {
             exit;
         }
 
+        $q = "select * from settings where user_id=? limit 1";
+        $user_settings = $db->rawQueryOne($q, [
+            'user_id' => $tg->update_from,
+        ]);
+
         $message_details = json_decode($comm['col2'], true);
 
         $m = false;
 
         if ($message_details['type'] == 'message') {
-            $q = "select * from settings where user_id=? limit 1";
-            $setting = $db->rawQueryOne($q, [
-                'user_id' => $tg->update_from,
-            ]);
-
             $m = $tg->copyMessage([
                 'chat_id' => $comm['col3'],
                 'from_chat_id' => $message_details['chat_id'],
                 'message_id' => $message_details['message_id'],
                 'reply_markup' => !empty($message_details['reply_markup']) ? json_encode($message_details['reply_markup']) : null,
+                'disable_notification' => $user_settings['sendto_notification'] == 0,
+                'protect_content' => $user_settings['sendto_protect_content'] == 1,
             ], ['send_error' => false]);
         } elseif ($message_details['type'] == 'inlinekey') {
             $q = "select * from inlinekey where inline_id=? and status = 1 limit 1";
@@ -385,7 +387,14 @@ if (!empty($comm) && $comm['name'] == "sendto") {
                 }
             }
 
-            $m = send_inlinekey_message($comm['col3'], $result, false);
+            $m = send_inlinekey_message(
+                $comm['col3'],
+                $result,
+                false,
+                $user_settings['sendto_notification'] == 0,
+                $user_settings['sendto_protect_content'] == 1
+            );
+
             if ($m) {
                 $tmp = $db->insert('inlinekey_chosen', [
                     'from_id' => $tg->update_from,

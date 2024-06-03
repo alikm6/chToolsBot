@@ -184,7 +184,7 @@ function inlinekey_have_counter($keyboard)
     return false;
 }
 
-function send_inlinekey_message($chat_id, $parameters, $send_error = true)
+function send_inlinekey_message($chat_id, $parameters, $send_error = true, $disable_notification = false, $protect_content = false)
 {
     global $tg;
 
@@ -199,6 +199,8 @@ function send_inlinekey_message($chat_id, $parameters, $send_error = true)
             'reply_markup' => $parameters['keyboard'],
             'parse_mode' => $parameters['parse_mode'],
             'link_preview_options' => get_inlinekey_link_preview_options($parameters),
+            'disable_notification' => $disable_notification,
+            'protect_content' => $protect_content,
         ], ['send_error' => $send_error]);
 
     } elseif ($parameters['type'] == 'photo') {
@@ -210,6 +212,8 @@ function send_inlinekey_message($chat_id, $parameters, $send_error = true)
             'caption' => $parameters['text'],
             'has_spoiler' => $parameters['has_media_spoiler'],
             'show_caption_above_media' => $parameters['show_caption_above_media'],
+            'disable_notification' => $disable_notification,
+            'protect_content' => $protect_content,
         ], ['send_error' => $send_error]);
     } elseif ($parameters['type'] == 'video') {
         $m = $tg->sendVideo([
@@ -220,6 +224,8 @@ function send_inlinekey_message($chat_id, $parameters, $send_error = true)
             'caption' => $parameters['text'],
             'has_spoiler' => $parameters['has_media_spoiler'],
             'show_caption_above_media' => $parameters['show_caption_above_media'],
+            'disable_notification' => $disable_notification,
+            'protect_content' => $protect_content,
         ], ['send_error' => $send_error]);
     } elseif ($parameters['type'] == 'animation') {
         $m = $tg->sendAnimation([
@@ -230,6 +236,8 @@ function send_inlinekey_message($chat_id, $parameters, $send_error = true)
             'caption' => $parameters['text'],
             'has_spoiler' => $parameters['has_media_spoiler'],
             'show_caption_above_media' => $parameters['show_caption_above_media'],
+            'disable_notification' => $disable_notification,
+            'protect_content' => $protect_content,
         ], ['send_error' => $send_error]);
     } elseif ($parameters['type'] == 'document') {
         $m = $tg->sendDocument([
@@ -238,6 +246,8 @@ function send_inlinekey_message($chat_id, $parameters, $send_error = true)
             'reply_markup' => $parameters['keyboard'],
             'parse_mode' => $parameters['parse_mode'],
             'caption' => $parameters['text'],
+            'disable_notification' => $disable_notification,
+            'protect_content' => $protect_content,
         ], ['send_error' => $send_error]);
     } elseif ($parameters['type'] == 'audio') {
         $m = $tg->sendAudio([
@@ -246,18 +256,24 @@ function send_inlinekey_message($chat_id, $parameters, $send_error = true)
             'reply_markup' => $parameters['keyboard'],
             'parse_mode' => $parameters['parse_mode'],
             'caption' => $parameters['text'],
+            'disable_notification' => $disable_notification,
+            'protect_content' => $protect_content,
         ], ['send_error' => $send_error]);
     } elseif ($parameters['type'] == 'sticker') {
         $m = $tg->sendSticker([
             'chat_id' => $chat_id,
             'sticker' => get_file_id_from_file_unique_id($parameters['file_unique_id']),
             'reply_markup' => $parameters['keyboard'],
+            'disable_notification' => $disable_notification,
+            'protect_content' => $protect_content,
         ], ['send_error' => $send_error]);
     } elseif ($parameters['type'] == 'video_note') {
         $m = $tg->sendVideoNote([
             'chat_id' => $chat_id,
             'video_note' => get_file_id_from_file_unique_id($parameters['file_unique_id']),
             'reply_markup' => $parameters['keyboard'],
+            'disable_notification' => $disable_notification,
+            'protect_content' => $protect_content,
         ], ['send_error' => $send_error]);
     } elseif ($parameters['type'] == 'voice') {
         $m = $tg->sendVoice([
@@ -266,6 +282,8 @@ function send_inlinekey_message($chat_id, $parameters, $send_error = true)
             'reply_markup' => $parameters['keyboard'],
             'parse_mode' => $parameters['parse_mode'],
             'caption' => $parameters['text'],
+            'disable_notification' => $disable_notification,
+            'protect_content' => $protect_content,
         ], ['send_error' => $send_error]);
     } elseif ($parameters['type'] == 'contact') {
         $contact = json_decode($parameters['data'], true);
@@ -275,6 +293,8 @@ function send_inlinekey_message($chat_id, $parameters, $send_error = true)
             'first_name' => $contact['first_name'],
             'last_name' => $contact['last_name'],
             'reply_markup' => $parameters['keyboard'],
+            'disable_notification' => $disable_notification,
+            'protect_content' => $protect_content,
         ], ['send_error' => $send_error]);
     } elseif ($parameters['type'] == 'venue') {
         $venue = json_decode($parameters['data'], true);
@@ -286,6 +306,8 @@ function send_inlinekey_message($chat_id, $parameters, $send_error = true)
             'address' => $venue['address'],
             'foursquare_id' => $venue['foursquare_id'],
             'reply_markup' => $parameters['keyboard'],
+            'disable_notification' => $disable_notification,
+            'protect_content' => $protect_content,
         ], ['send_error' => $send_error]);
     } elseif ($parameters['type'] == 'location') {
         $location = json_decode($parameters['data'], true);
@@ -294,6 +316,8 @@ function send_inlinekey_message($chat_id, $parameters, $send_error = true)
             'latitude' => $location['latitude'],
             'longitude' => $location['longitude'],
             'reply_markup' => $parameters['keyboard'],
+            'disable_notification' => $disable_notification,
+            'protect_content' => $protect_content,
         ], ['send_error' => $send_error]);
     }
 

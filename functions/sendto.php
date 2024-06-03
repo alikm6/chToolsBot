@@ -17,15 +17,26 @@ function get_sendto_setting_keyboard_and_text($callback_data = [])
 
     $keyboard[] = [
         [
+            "text" => __("📢 Notified to Members:"),
+            "callback_data" => encode_callback_data(['action' => 'alert', 'text' => __("If this feature is enabled, when a message is sent to your channel using the /sendto command, users will receive a notification indicating that a new message has been posted in your channel.")]),
+        ],
+        [
             "text" => ($setting['sendto_notification'] == 0) ? __("❌ Disabled") : __("✅ Enabled"),
             "callback_data" => encode_callback_data(['action' => 'set', 'col' => 'sendto_notification', 'val' => ($setting['sendto_notification'] == 0) ? 1 : 0, 'func' => 'get_sendto_setting_keyboard_and_text']),
         ],
+    ];
+
+    $keyboard[] = [
         [
-            "text" => __("📢 Notified to Members:"),
-            "callback_data" => encode_callback_data(['action' => 'alert', 'text' => __("If this feature is enabled, when this content is sent to your Telegram channel by this bot, subscribers will be notified.")]),
+            "text" => __("🛡 Protected Mode:"),
+            "callback_data" => encode_callback_data(['action' => 'alert', 'text' => __("If this feature is enabled, when a message is sent to your channel using the /sendto command, users will not be able to save, copy, or forward it.")]),
+        ],
+        [
+            "text" => ($setting['sendto_protect_content'] == 0) ? __("❌ Disabled") : __("✅ Enabled"),
+            "callback_data" => encode_callback_data(['action' => 'set', 'col' => 'sendto_protect_content', 'val' => ($setting['sendto_protect_content'] == 0) ? 1 : 0, 'func' => 'get_sendto_setting_keyboard_and_text']),
         ],
     ];
 
-    $keyboard = json_encode(["inline_keyboard" => $keyboard]);
+    $keyboard = json_encode(["inline_keyboard" => apply_rtl_to_keyboard($keyboard)]);
     return ['text' => $text, 'keyboard' => $keyboard];
 }
