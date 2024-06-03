@@ -244,7 +244,8 @@ CREATE TABLE `tbl_settings` (
   `id` int NOT NULL,
   `user_id` bigint NOT NULL,
   `language_code` enum('en_US','fa_IR') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'en_US',
-  `sendto_notification` tinyint NOT NULL DEFAULT '1'
+  `sendto_notification` tinyint NOT NULL DEFAULT '1',
+  `sendto_protect_content` tinyint NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
