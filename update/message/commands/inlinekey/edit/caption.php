@@ -29,18 +29,31 @@ if ($comm['name'] == "inlinekey_edit_caption") {
             'col3' => !empty($message['entities']) ? json_encode($message['entities']) : 'null',
         ]);
 
+        if (
+            empty($message['entities']) ||
+            htmlspecialchars($message['text']) == convert_to_styled_text($message['text'], $message['entities'], 'html')
+        ) {
+            $keyboard = [
+                [__("Simple Text")],
+                [__("HTML Format")],
+                [__("Markdown Format"), __("Markdown V2 Format")],
+            ];
+        } else {
+            $keyboard = [
+                [__("Unchanged")],
+                [__("Simple Text")],
+                [__("HTML Format")],
+                [__("Markdown Format"), __("Markdown V2 Format")],
+            ];
+        }
+
         $tg->sendMessage([
             'chat_id' => $tg->update_from,
             'text' => __("Your text was received by our robot.") . "\n\n" .
                 __("Now select your text format.") .
                 cancel_text(),
             'reply_markup' => $tg->replyKeyboardMarkup([
-                    'keyboard' => apply_rtl_to_keyboard([
-                        [__("Unchanged")],
-                        [__("Simple Text")],
-                        [__("HTML Format")],
-                        [__("Markdown Format"), __("Markdown V2 Format")],
-                    ]),
+                    'keyboard' => apply_rtl_to_keyboard($keyboard),
                     'resize_keyboard' => true,
                     'one_time_keyboard' => true,
                 ]

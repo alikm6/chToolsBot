@@ -106,6 +106,8 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_typemedia") {
 
                 if ($comm['col4'] != 'null') {
                     $message['entities'] = json_decode($comm['col4'], true);
+                } else {
+                    $message['entities'] = null;
                 }
             }
 
@@ -116,18 +118,31 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_typemedia") {
                 'col6' => !empty($message['entities']) ? json_encode($message['entities']) : 'null',
             ]);
 
+            if (
+                empty($message['entities']) ||
+                htmlspecialchars($message['text']) == convert_to_styled_text($message['text'], $message['entities'], 'html')
+            ) {
+                $keyboard = [
+                    [__("Simple Text")],
+                    [__("HTML Format")],
+                    [__("Markdown Format"), __("Markdown V2 Format")],
+                ];
+            } else {
+                $keyboard = [
+                    [__("Unchanged")],
+                    [__("Simple Text")],
+                    [__("HTML Format")],
+                    [__("Markdown Format"), __("Markdown V2 Format")],
+                ];
+            }
+
             $tg->sendMessage([
                 'chat_id' => $tg->update_from,
                 'text' => __("Your text was received by our robot.") . "\n" .
                     __("Now select your text format.") .
                     cancel_text(),
                 'reply_markup' => $tg->replyKeyboardMarkup([
-                        'keyboard' => apply_rtl_to_keyboard([
-                            [__("Unchanged")],
-                            [__("Simple Text")],
-                            [__("HTML Format")],
-                            [__("Markdown Format"), __("Markdown V2 Format")],
-                        ]),
+                        'keyboard' => apply_rtl_to_keyboard($keyboard),
                         'resize_keyboard' => true,
                         'one_time_keyboard' => true,
                     ]
