@@ -79,7 +79,7 @@ if (!empty($message['reply_to_message'])) {
                 'parse_mode' => 'html',
             ]);
         } else {
-            $attachment_id = attach_file($tg->update_from, 'process', null, ATTACH_CHANNEL, 'photo', $file['file_id'], $file['file_unique_id']);
+            $attachment_id = attach_file($tg->update_from, 'process', null, ATTACH_CHANNEL, 'photo', $file['file_id'], $file['file_unique_id'], $file['file_size'] ?? null);
 
             if (!$attachment_id) {
                 $tg->sendMessage([
@@ -107,7 +107,7 @@ if (!empty($message['reply_to_message'])) {
                 'parse_mode' => 'html',
             ]);
         } else {
-            $attachment_id = attach_file($tg->update_from, 'process', null, ATTACH_CHANNEL, 'animation', $file['file_id'], $file['file_unique_id']);
+            $attachment_id = attach_file($tg->update_from, 'process', null, ATTACH_CHANNEL, 'animation', $file['file_id'], $file['file_unique_id'], $file['file_size'] ?? null);
 
             if (!$attachment_id) {
                 $tg->sendMessage([
@@ -135,7 +135,7 @@ if (!empty($message['reply_to_message'])) {
                 'parse_mode' => 'html',
             ]);
         } else {
-            $attachment_id = attach_file($tg->update_from, 'process', null, ATTACH_CHANNEL, 'document', $file['file_id'], $file['file_unique_id']);
+            $attachment_id = attach_file($tg->update_from, 'process', null, ATTACH_CHANNEL, 'document', $file['file_id'], $file['file_unique_id'], $file['file_size'] ?? null);
 
             if (!$attachment_id) {
                 $tg->sendMessage([
@@ -163,7 +163,7 @@ if (!empty($message['reply_to_message'])) {
                 'parse_mode' => 'html',
             ]);
         } else {
-            $attachment_id = attach_file($tg->update_from, 'process', null, ATTACH_CHANNEL, 'video', $file['file_id'], $file['file_unique_id']);
+            $attachment_id = attach_file($tg->update_from, 'process', null, ATTACH_CHANNEL, 'video', $file['file_id'], $file['file_unique_id'], $file['file_size'] ?? null);
 
             if (!$attachment_id) {
                 $tg->sendMessage([
@@ -191,7 +191,7 @@ if (!empty($message['reply_to_message'])) {
                 'parse_mode' => 'html',
             ]);
         } else {
-            $attachment_id = attach_file($tg->update_from, 'process', null, ATTACH_CHANNEL, 'voice', $file['file_id'], $file['file_unique_id']);
+            $attachment_id = attach_file($tg->update_from, 'process', null, ATTACH_CHANNEL, 'voice', $file['file_id'], $file['file_unique_id'], $file['file_size'] ?? null);
 
             if (!$attachment_id) {
                 $tg->sendMessage([
@@ -219,7 +219,7 @@ if (!empty($message['reply_to_message'])) {
                 'parse_mode' => 'html',
             ]);
         } else {
-            $attachment_id = attach_file($tg->update_from, 'process', null, ATTACH_CHANNEL, 'audio', $file['file_id'], $file['file_unique_id']);
+            $attachment_id = attach_file($tg->update_from, 'process', null, ATTACH_CHANNEL, 'audio', $file['file_id'], $file['file_unique_id'], $file['file_size'] ?? null);
 
             if (!$attachment_id) {
                 $tg->sendMessage([
@@ -239,7 +239,7 @@ if (!empty($message['reply_to_message'])) {
     } elseif (!empty($content['sticker'])) {
         $file = $content['sticker'];
 
-        $attachment_id = attach_file($tg->update_from, 'process', null, ATTACH_CHANNEL, 'sticker', $file['file_id'], $file['file_unique_id']);
+        $attachment_id = attach_file($tg->update_from, 'process', null, ATTACH_CHANNEL, 'sticker', $file['file_id'], $file['file_unique_id'], $file['file_size'] ?? null);
 
         if (!$attachment_id) {
             $tg->sendMessage([
@@ -258,7 +258,7 @@ if (!empty($message['reply_to_message'])) {
     } elseif (!empty($content['video_note'])) {
         $file = $content['video_note'];
 
-        $attachment_id = attach_file($tg->update_from, 'process', null, ATTACH_CHANNEL, 'video_note', $file['file_id'], $file['file_unique_id']);
+        $attachment_id = attach_file($tg->update_from, 'process', null, ATTACH_CHANNEL, 'video_note', $file['file_id'], $file['file_unique_id'], $file['file_size'] ?? null);
 
         if (!$attachment_id) {
             $tg->sendMessage([

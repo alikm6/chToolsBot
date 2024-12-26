@@ -38,10 +38,11 @@ CREATE TABLE `tbl_admins` (
 CREATE TABLE `tbl_attachments` (
   `id` int NOT NULL,
   `attachment_id` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `type` enum('photo','document','animation','video','video_note','voice','audio','sticker') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `tg_file_unique_id` varchar(31) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `channel_id` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `message_id` int NOT NULL,
+  `type` enum('photo','document','animation','video','video_note','voice','audio','sticker','url') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `tg_file_unique_id` varchar(31) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `channel_id` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `message_id` int DEFAULT NULL,
+  `url` text COLLATE utf8mb4_general_ci,
   `date` int UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

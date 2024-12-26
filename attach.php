@@ -18,4 +18,10 @@ if (empty($attachment)) {
     die();
 }
 
-header("location: https://t.me/" . $attachment['channel_id'] . "/" . $attachment['message_id']);
+if (!empty($attachment['channel_id']) && !empty($attachment['message_id'])) {
+    header("location: https://t.me/" . $attachment['channel_id'] . "/" . $attachment['message_id']);
+} elseif (!empty($attachment['url'])) {
+    header("location: " . $attachment['url']);
+} else {
+    http_response_code(500);
+}

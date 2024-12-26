@@ -41,6 +41,16 @@ const BOT_NAME = "My Bot Name";
 // Once the bot is added as an administrator, you can set the ATTACH_CHANNEL variable to the username of the channel, without the "@" symbol.
 const ATTACH_CHANNEL = 'attach_channel';
 
+// Define whether the bot should use the IMGBB API to upload images.
+// Set ATTACH_IMGBB_STATE to true to enable image uploads via IMGBB API.
+// Set it to false if you do not want to use IMGBB.
+const ATTACH_IMGBB_STATE = false;
+
+// Define the IMGBB API Key.
+// If ATTACH_IMGBB_STATE is true, you must provide your IMGBB API key here.
+// You can obtain an API key by signing up at https://api.imgbb.com and creating an API key.
+const ATTACH_IMGBB_API_KEY = '';
+
 // Define the TG_ERROR_REPORTING_CHAT_ID variable
 // This variable should contain the numeric ID of the Telegram account where you want to log errors.
 // To find your Telegram account ID, you can send a message to the "get_id_bot" bot on Telegram and it will reply with your account ID.
@@ -89,3 +99,8 @@ const BANNER_LINK = [
     'en_US' => MAIN_LINK . "/img/banner-en.jpg",
     'fa_IR' => MAIN_LINK . "/img/banner-fa.jpg",
 ];
+
+// Do not change
+const TEMP_FILES_DIR_PATH_PREFIX = 'files/temp';
+const TEMP_FILES_DIR_FULL_PATH = __DIR__ . '/' . TEMP_FILES_DIR_PATH_PREFIX;
+const TEMP_FILES_DIR_URL = MAIN_LINK . '/' . TEMP_FILES_DIR_PATH_PREFIX;

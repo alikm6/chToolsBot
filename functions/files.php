@@ -74,3 +74,8 @@ function get_file_from_message($message): array
 
     return $r;
 }
+
+function generate_file_temp_path(string $extension): string
+{
+    return TEMP_FILES_DIR_FULL_PATH . '/' . time() . '_' . generateRandomString(5) . '.' . $extension;
+}
