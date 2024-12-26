@@ -1,6 +1,6 @@
 <?php
 
-function markdownv2_special_chars_encode($text)
+function markdownv2_special_chars_encode(string $text): string
 {
     $specialChars = ['_', '*', '[', ']', '(', ')', '~', '`', '>', '#', '+', '-', '=', '|', '{', '}', '.', '!'];
     $escapedChars = ['\\_', '\\*', '\\[', '\\]', '\\(', '\\)', '\\~', '\\`', '\\>', '\\#', '\\+', '\\-', '\\=', '\\|', '\\{', '\\}', '\\.', '\\!'];
@@ -11,7 +11,7 @@ function markdownv2_special_chars_encode($text)
     return $text;
 }
 
-function markdown_special_chars_encode($text, $mode = 'default')
+function markdown_special_chars_encode(string $text, string $mode = 'default'): string
 {
     if ($mode == 'default') {
         $specialChars = ['_', '*', '`', '['];
@@ -31,7 +31,22 @@ function markdown_special_chars_encode($text, $mode = 'default')
     return $text;
 }
 
-function convert_to_styled_text($text, $entities = [], $format = 'html')
+function special_chars_encode(string $text, string $format = 'html'): string
+{
+    $format = strtolower($format);
+
+    if ($format == 'html') {
+        return htmlspecialchars($text);
+    } elseif ($format == 'markdown') {
+        return markdown_special_chars_encode($text);
+    } elseif ($format == 'markdownv2') {
+        return markdownv2_special_chars_encode($text);
+    } else {
+        throw new InvalidArgumentException('Invalid format!');
+    }
+}
+
+function convert_to_styled_text(string $text, ?array $entities = null, string $format = 'html'): string
 {
     $format = strtolower($format);
 
@@ -40,13 +55,7 @@ function convert_to_styled_text($text, $entities = [], $format = 'html')
     }
 
     if (empty($entities)) {
-        if ($format == 'html') {
-            return htmlspecialchars($text);
-        } elseif ($format == 'markdown') {
-            return markdown_special_chars_encode($text);
-        } else {
-            return markdownv2_special_chars_encode($text);
-        }
+        return special_chars_encode($text, $format);
     }
 
     foreach ($entities as $key => $entity) {
@@ -76,6 +85,12 @@ function convert_to_styled_text($text, $entities = [], $format = 'html')
             unset($entities[$key]);
         }
     }
+
+    if (empty($entities)) {
+        return special_chars_encode($text, $format);
+    }
+
+    $entities = array_values($entities);
 
     $offsets = [];
     $lengths = [];
@@ -113,6 +128,12 @@ function convert_to_styled_text($text, $entities = [], $format = 'html')
         }
     }
 
+    if (empty($entities)) {
+        return special_chars_encode($text, $format);
+    }
+
+    $entities = array_values($entities);
+
     $sub_texts_offsets = [];
 
     foreach ($entities as $entity) {
@@ -142,7 +163,7 @@ function convert_to_styled_text($text, $entities = [], $format = 'html')
             'text' => mb_convert_encoding(
                 $segment,
                 'UTF-8',
-                'UTF-16'
+                'UTF-16',
             ),
         ];
     }
@@ -160,7 +181,7 @@ function convert_to_styled_text($text, $entities = [], $format = 'html')
                 continue;
             }
 
-            unset($opened_tags[count($opened_tags) - 1]);
+            unset($opened_tags[array_key_last($opened_tags)]);
 
             if ($format == 'html') {
                 if ($entity['type'] == 'bold') {
@@ -265,7 +286,7 @@ function convert_to_styled_text($text, $entities = [], $format = 'html')
             if (empty($opened_tags)) {
                 $final_text .= markdown_special_chars_encode($sub_text['text']);
             } else {
-                $final_text .= markdown_special_chars_encode($sub_text['text'], $opened_tags[count($opened_tags) - 1]);
+                $final_text .= markdown_special_chars_encode($sub_text['text'], $opened_tags[array_key_last($opened_tags)]);
             }
         } else {
             $final_text .= markdownv2_special_chars_encode($sub_text['text']);
