@@ -12,11 +12,13 @@
     }
   ],
   "require": {
-    "php-curl-class/php-curl-class": "dev-master",
+    "php-curl-class/php-curl-class": "9.*",
     "morilog/jalali": "3.*",
-    "alikm6/php-telegram-bot": "v1.3.72",
+    "alikm6/php-telegram-bot": "v1.4.74",
     "alikm6/php-pomo": "1.*",
-    "thingengineer/mysqli-database-class": "dev-bugfix",
-    "ext-json": "*"
+    "thingengineer/mysqli-database-class": "dev-bugfix02",
+    "ext-json": "*",
+    "ext-curl": "*",
+    "ext-fileinfo": "*"
   }
 }
