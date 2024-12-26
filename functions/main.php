@@ -338,14 +338,9 @@ function dbChatToTG($db_chat): array
     ];
 }
 
-function markdownspecialchars($string)
-{
-    return str_replace(['*', '_', '[', '`'], ['\*', '\_', '\[', '\`'], $string);
-}
-
 function is_url($url)
 {
-    if (preg_match('#\b(http|https|ftp|ftps)?://[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))#', $url)) {
+    if (preg_match('#^(http://|https://)?(www\.)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:[0-9]{1,5})?(/\S*)?(\#[\w-]*)?$#', $url)) {
         return true;
     } else {
         return false;
@@ -432,25 +427,6 @@ function send_error($err_message, $err_code = null)
         ], ['send_error' => false]);
     }
     exit;
-}
-
-function get_url_of_str($str)
-{
-    $re = '#\b(http|https|ftp|ftps)?://[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))#';
-
-    preg_match_all($re, $str, $matches);
-
-    return $matches[0];
-}
-
-function get_attach_link($str)
-{
-    $urls = get_url_of_str($str);
-    if (stripos($urls[0], str_replace(["https://", "http://"], ["://", "://"], MAIN_LINK) . "/attach.php?id=") !== false) {
-        return $urls[0];
-    }
-
-    return false;
 }
 
 function convert_time_to_text($time): string
