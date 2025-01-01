@@ -4,7 +4,6 @@
 /** @var array $message */
 /** @var array $setting */
 
-
 if ($message['text'][0] == '/') {
     $words = explode('_', $message['text']);
     $command = $words[0];

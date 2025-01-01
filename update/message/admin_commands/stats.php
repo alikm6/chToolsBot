@@ -36,19 +36,17 @@ if (!empty($comm) && $comm['name'] == "stats") {
     if (
         empty($message['text']) ||
         (
-            !in_array(
-                $message['text'], [
-                    __("Total"),
-                    __("Today"),
-                    __("24 hours ago"),
-                    __("1 week ago"),
-                    __("10 days ago"),
-                    __("1 month ago"),
-                    __("3 months ago"),
-                    __("6 months ago"),
-                    __("1 year ago"),
-                ]
-            ) &&
+            !in_array($message['text'], [
+                __("Total"),
+                __("Today"),
+                __("24 hours ago"),
+                __("1 week ago"),
+                __("10 days ago"),
+                __("1 month ago"),
+                __("3 months ago"),
+                __("6 months ago"),
+                __("1 year ago"),
+            ]) &&
             strtotime($message['text']) === false
         )
     ) {

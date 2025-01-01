@@ -139,7 +139,7 @@ function convert_to_inline_results($parameters): array
         $result['id'] = $parameters['inline_id'];
         $result['title'] = sprintf(
             __("The message contains a inline button of type %s"),
-            __("text")
+            __("text"),
         );
         $result['input_message_content'] = [
             'message_text' => $parameters['text'],
@@ -152,7 +152,7 @@ function convert_to_inline_results($parameters): array
         $result['id'] = $parameters['inline_id'];
         $result['title'] = sprintf(
             __("The message contains a inline button of type %s"),
-            __("photo")
+            __("photo"),
         );
         if ($parameters['text'] != null) {
             $result['caption'] = $parameters['text'];
@@ -167,7 +167,7 @@ function convert_to_inline_results($parameters): array
         $result['id'] = $parameters['inline_id'];
         $result['title'] = sprintf(
             __("The message contains a inline button of type %s"),
-            __("video")
+            __("video"),
         );
         if ($parameters['text'] != null) {
             $result['caption'] = $parameters['text'];
@@ -182,7 +182,7 @@ function convert_to_inline_results($parameters): array
         $result['id'] = $parameters['inline_id'];
         $result['title'] = sprintf(
             __("The message contains a inline button of type %s"),
-            __("gif")
+            __("gif"),
         );
         if ($parameters['text'] != null) {
             $result['caption'] = $parameters['text'];
@@ -197,7 +197,7 @@ function convert_to_inline_results($parameters): array
         $result['id'] = $parameters['inline_id'];
         $result['title'] = sprintf(
             __("The message contains a inline button of type %s"),
-            __("document")
+            __("document"),
         );
         if ($parameters['text'] != null) {
             $result['caption'] = $parameters['text'];
@@ -210,7 +210,7 @@ function convert_to_inline_results($parameters): array
         $result['id'] = $parameters['inline_id'];
         $result['title'] = sprintf(
             __("The message contains a inline button of type %s"),
-            __("audio")
+            __("audio"),
         );
         if ($parameters['text'] != null) {
             $result['caption'] = $parameters['text'];
@@ -233,7 +233,7 @@ function convert_to_inline_results($parameters): array
         $result['id'] = $parameters['inline_id'];
         $result['title'] = sprintf(
             __("The message contains a inline button of type %s"),
-            __("voice")
+            __("voice"),
         );
         if ($parameters['text'] != null) {
             $result['caption'] = $parameters['text'];
@@ -269,7 +269,7 @@ function convert_to_inline_results($parameters): array
         $result['id'] = $parameters['inline_id'];
         $result['title'] = sprintf(
             __("The message contains a inline button of type %s"),
-            __("location")
+            __("location"),
         );
         $result['latitude'] = $location['latitude'];
         $result['longitude'] = $location['longitude'];

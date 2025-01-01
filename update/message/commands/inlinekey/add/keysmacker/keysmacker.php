@@ -132,10 +132,9 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_keysmacker") {
                 'reply_markup' => get_inlinekey_keysmacker_one_by_one_type_keyboard(0),
             ]);
             edit_com($tg->update_from, [
-                    'col1' => $keyboard_id,
-                    'col2' => json_encode([]),
-                ]
-            );
+                'col1' => $keyboard_id,
+                'col2' => json_encode([]),
+            ]);
         }
     }
     exit;

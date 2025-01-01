@@ -82,7 +82,7 @@ if ($comm['name'] == "inlinekey_edit_final") {
                 'text' => __("The message in our database has been edited.") . "\n\n" .
                     sprintf(
                         __("The requested message has been published %s times."),
-                        count($inlinekey_chosen)
+                        count($inlinekey_chosen),
                     ) . "\n" .
                     __("Do you want the changes you made to be applied everywhere?"),
                 'reply_markup' => $keyboard,

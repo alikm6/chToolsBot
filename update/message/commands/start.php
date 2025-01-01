@@ -41,13 +41,13 @@ if (empty($user)) {
 
             $text = sprintf(
                 __("User with ID %s became a member of the robot!"),
-                "<a href='tg://user?id={$tg->update_from}'>{$tg->update_from}</a>"
+                "<a href='tg://user?id={$tg->update_from}'>{$tg->update_from}</a>",
             );
 
             if (!empty($p['referral_user_id'])) {
                 $text .= "\n" . sprintf(
                         __("Referred by user with ID %s"),
-                        "<a href='tg://user?id={$p['referral_user_id']}'>{$p['referral_user_id']}</a>"
+                        "<a href='tg://user?id={$p['referral_user_id']}'>{$p['referral_user_id']}</a>",
                     );
             }
 

@@ -71,7 +71,7 @@ if ($message['text'][0] == '/') {
                 sprintf(
                     "(Page %s of %s)",
                     $page,
-                    ceil($count_inlinekeys / $limit)
+                    ceil($count_inlinekeys / $limit),
                 );
 
             $text .= "\n\n";

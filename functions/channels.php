@@ -107,7 +107,7 @@ function get_channels_delete_keyboard_and_text($callback_data = []): array
             implode(__(" 👉 "), [
                 "<b>" . __("Manage Channels") . "</b>",
                 sprintf(__("\"%s\" <b>Deletion</b>"), tgChatToText(dbChatToTG($db_tg_channel), 'html')),
-            ])
+            ]),
         ) . "\n\n"
         . __("This will delete target channel and it will not be reversible!") . "\n" .
         __("Are you sure you want to do this?? 🤔");

@@ -51,11 +51,10 @@ if ($comm['name'] == "inlinekey_edit_text") {
             'text' => __("Your text was received by our robot.") . "\n\n" .
                 __("Now select your text format.") . cancel_text(),
             'reply_markup' => $tg->replyKeyboardMarkup([
-                    'keyboard' => apply_rtl_to_keyboard($keyboard),
-                    'resize_keyboard' => true,
-                    'one_time_keyboard' => true,
-                ]
-            ),
+                'keyboard' => apply_rtl_to_keyboard($keyboard),
+                'resize_keyboard' => true,
+                'one_time_keyboard' => true,
+            ]),
         ]);
 
         exit;
@@ -116,7 +115,7 @@ if ($comm['name'] == "inlinekey_edit_text") {
                     __("If you submitted the format incorrectly, send us the correct format again.") . "\n\n" .
                     sprintf(
                         __("Otherwise, first edit your text and then back to the editing section of the inline button by sending %s."),
-                        "/inlinekey_edit_{$result['id']}"
+                        "/inlinekey_edit_{$result['id']}",
                     ) .
                     cancel_text(),
             ]);

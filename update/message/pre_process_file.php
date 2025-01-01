@@ -22,7 +22,6 @@ if ($tmp_file['status']) {
         }
     }
 
-
     $q = "select * from file_and_user_relation where tg_file_unique_id = ? and user_id = ? limit 1";
     $file_and_user_relation = $db->rawQueryOne($q, [
         'tg_file_unique_id' => $tmp_file['details']['file_unique_id'],

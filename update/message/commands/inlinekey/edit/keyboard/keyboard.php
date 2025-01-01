@@ -96,6 +96,5 @@ if ($comm['name'] == "inlinekey_edit_keyboard") {
     exit;
 }
 
-
 require realpath(__DIR__) . '/bylist.php';
 require realpath(__DIR__) . '/onebyone.php';

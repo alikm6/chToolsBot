@@ -46,7 +46,7 @@ function attach_file($user_id, $target_type, $target_id, $channel_id, $file_type
         ], ['send_error' => false]);
 
         if ($file) {
-            $url = "https://api.telegram.org/file/bot"  . TOKEN . "/{$file['file_path']}";
+            $url = "https://api.telegram.org/file/bot" . TOKEN . "/{$file['file_path']}";
 
             $file_extension = pathinfo($file['file_path'], PATHINFO_EXTENSION);
             $file_path = generate_file_temp_path($file_extension);

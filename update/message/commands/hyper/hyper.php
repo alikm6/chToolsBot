@@ -25,14 +25,13 @@ if ($message['text'][0] == '/') {
                 'text' => __("Please select your post format. (<a href='https://telegra.ph/chToolsBot-Guide-Text-Formatting-EN-09-10'>Guide</a>)") .
                     cancel_text(),
                 'reply_markup' => $tg->replyKeyboardMarkup([
-                        'keyboard' => apply_rtl_to_keyboard([
-                            [__("HTML Format")],
-                            [__("Markdown Format"), __("Markdown V2 Format")],
-                        ]),
-                        'resize_keyboard' => true,
-                        'one_time_keyboard' => true,
-                    ]
-                ),
+                    'keyboard' => apply_rtl_to_keyboard([
+                        [__("HTML Format")],
+                        [__("Markdown Format"), __("Markdown V2 Format")],
+                    ]),
+                    'resize_keyboard' => true,
+                    'one_time_keyboard' => true,
+                ]),
                 'parse_mode' => 'html',
                 'disable_web_page_preview' => true,
             ]);

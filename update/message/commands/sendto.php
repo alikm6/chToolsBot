@@ -265,7 +265,7 @@ if (!empty($comm) && $comm['name'] == "sendto") {
                 "text" =>
                     sprintf(
                         __("Our bot does not have access to channel %s."),
-                        $comm['col3']
+                        $comm['col3'],
                     ) . "\n\n" .
                     __("Please re-send /sendto command after making sure the bot is in the channel."),
                 'reply_markup' => mainMenu(),
@@ -298,7 +298,7 @@ if (!empty($comm) && $comm['name'] == "sendto") {
                 "chat_id" => $tg->update_from,
                 "text" => sprintf(
                     __("Our bot is not registered as administrator of channel %s."),
-                    $comm['col3']
+                    $comm['col3'],
                 ),
                 'reply_markup' => mainMenu(),
             ]);
@@ -321,7 +321,7 @@ if (!empty($comm) && $comm['name'] == "sendto") {
                 "text" =>
                     sprintf(
                         __("Channel %s does not seem to belong to you because you are not on the channel admin list."),
-                        $comm['col3']
+                        $comm['col3'],
                     ),
                 'reply_markup' => mainMenu(),
             ]);
@@ -392,7 +392,7 @@ if (!empty($comm) && $comm['name'] == "sendto") {
                 $result,
                 false,
                 $user_settings['sendto_notification'] == 0,
-                $user_settings['sendto_protect_content'] == 1
+                $user_settings['sendto_protect_content'] == 1,
             );
 
             if ($m) {

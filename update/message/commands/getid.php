@@ -15,7 +15,7 @@ if ($message['text'][0] == '/') {
                 'chat_id' => $tg->update_from,
                 'text' => sprintf(
                         __("Your account ID is %s."),
-                        "<code>" . $tg->update_from . "</code>"
+                        "<code>" . $tg->update_from . "</code>",
                     ) . "\n\n" .
                     __("To extract a private channel ID (this ID is required to send to a private channel without quoting), forward a message from the desired channel to us.") .
                     cancel_text(),

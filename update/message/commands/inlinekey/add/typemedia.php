@@ -142,11 +142,10 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_typemedia") {
                     __("Now select your text format.") .
                     cancel_text(),
                 'reply_markup' => $tg->replyKeyboardMarkup([
-                        'keyboard' => apply_rtl_to_keyboard($keyboard),
-                        'resize_keyboard' => true,
-                        'one_time_keyboard' => true,
-                    ]
-                ),
+                    'keyboard' => apply_rtl_to_keyboard($keyboard),
+                    'resize_keyboard' => true,
+                    'one_time_keyboard' => true,
+                ]),
             ]);
 
             exit;
@@ -260,13 +259,12 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_typemedia") {
                 'text' => __("Please choose where you would like the caption to be displayed.") .
                     cancel_text(),
                 'reply_markup' => $tg->replyKeyboardMarkup([
-                        'keyboard' => apply_rtl_to_keyboard([
-                            [__("Below"), __("Above")],
-                        ]),
-                        'resize_keyboard' => true,
-                        'one_time_keyboard' => true,
-                    ]
-                ),
+                    'keyboard' => apply_rtl_to_keyboard([
+                        [__("Below"), __("Above")],
+                    ]),
+                    'resize_keyboard' => true,
+                    'one_time_keyboard' => true,
+                ]),
             ]);
 
             exit;
@@ -303,13 +301,12 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_typemedia") {
                 'text' => __("Do you want your media to be sent as a spoiler (pixelated)?") .
                     cancel_text(),
                 'reply_markup' => $tg->replyKeyboardMarkup([
-                        'keyboard' => apply_rtl_to_keyboard([
-                            [__("No"), __("Yes")],
-                        ]),
-                        'resize_keyboard' => true,
-                        'one_time_keyboard' => true,
-                    ]
-                ),
+                    'keyboard' => apply_rtl_to_keyboard([
+                        [__("No"), __("Yes")],
+                    ]),
+                    'resize_keyboard' => true,
+                    'one_time_keyboard' => true,
+                ]),
             ]);
 
             exit;
@@ -350,7 +347,7 @@ if (!empty($comm) && $comm['name'] == "inlinekey_add_typemedia") {
                 'parse_mode' => $comm['col7'] != 'null' ? $comm['col7'] : null,
                 'show_caption_above_media' => $comm['col8'],
                 'has_media_spoiler' => $comm['col9'],
-            ])
+            ]),
         ]);
     }
 }

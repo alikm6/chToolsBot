@@ -66,12 +66,12 @@ const SPONSOR_CHANNEL_ENABLE = false;
 const SPONSOR_CHANNELS = [
     [
         'link' => "https://t.me/sponser_channel_1",
-        'username' => "@sponser_channel_1"
+        'username' => "@sponser_channel_1",
     ],
     [
         'link' => "https://t.me/sponser_channel_2",
-        'username' => "@sponser_channel_2"
-    ]
+        'username' => "@sponser_channel_2",
+    ],
 ];
 
 // Define the DEFAULT_LANGUAGE and LANGUAGES variables

@@ -43,7 +43,7 @@ function get_inlinekey_stats_keyboard_and_text($callback_data = [])
             sprintf(
                 __("(Page %s of %s)"),
                 $callback_data['page'],
-                ceil($count_inlinekey_chosens / $callback_data['limit'])
+                ceil($count_inlinekey_chosens / $callback_data['limit']),
             ) . "\n\n";
 
         $inlinekey_chosens = array_slice($inlinekey_chosens, ($callback_data['page'] - 1) * $callback_data['limit'], $callback_data['limit']);
@@ -202,7 +202,6 @@ function send_inlinekey_message($chat_id, $parameters, $send_error = true, $disa
             'disable_notification' => $disable_notification,
             'protect_content' => $protect_content,
         ], ['send_error' => $send_error]);
-
     } elseif ($parameters['type'] == 'photo') {
         $m = $tg->sendPhoto([
             'chat_id' => $chat_id,
@@ -533,7 +532,7 @@ function get_inlinekey_link_preview_options($inlinekey, $json_encode = true)
             }
         }
 
-        if($json_encode) {
+        if ($json_encode) {
             $link_preview_options = json_encode($link_preview_options);
         }
     }

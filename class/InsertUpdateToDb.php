@@ -11,6 +11,7 @@ class InsertUpdateToDb
 
     /**
      * @param $chat
+     *
      * @return false|mixed
      * @throws Exception
      */
@@ -115,6 +116,7 @@ class InsertUpdateToDb
 
     /**
      * @param $user
+     *
      * @return false|mixed
      * @throws Exception
      */
@@ -218,6 +220,7 @@ class InsertUpdateToDb
 
     /**
      * @param $id
+     *
      * @return array|false
      * @throws Exception
      */
@@ -244,6 +247,7 @@ class InsertUpdateToDb
 
     /**
      * @param $id
+     *
      * @return array|false
      * @throws Exception
      */

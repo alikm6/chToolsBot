@@ -68,7 +68,7 @@ function get_help_config(): array
                         __("It's like adding your friend as admin.") . "\n" .
                         sprintf(
                             __("With the difference that when you want to admin your friend, when you type the first one or two letters of the ID or even their name, the search result will appear, but this is not the case with the robot and the robot must have a Latin ID (not a name). Type in <b>full</b> (I emphasize: complete and not just the first few letters) to appear in the search list of the add admin section, so in the search section of the add admin section type: %s"),
-                            "<code>" . BOT_USERNAME . "</code>"
+                            "<code>" . BOT_USERNAME . "</code>",
                         ),
                     'parse_mode' => 'html',
                 ],

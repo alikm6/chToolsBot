@@ -6,7 +6,6 @@ if ($message['text'][0] == '/') {
     $words = explode('_', $message['text']);
     $command = strtolower($words[0]);
     if ($command == '/inlinekey' && $words[1] == 'add') {
-
         add_com($tg->update_from, 'inlinekey_add');
         $tg->sendMessage([
             'chat_id' => $tg->update_from,

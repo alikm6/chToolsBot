@@ -41,7 +41,6 @@ if (!empty($comm) && $comm['name'] == "contact") {
             $main_contact = $db->rawQueryOne("select * from contact where id = ? limit 1", [
                 'id' => $comm['col1'],
             ]);
-
         }
 
         $contact_id = $db->insert('contact', [
