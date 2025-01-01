@@ -62,7 +62,8 @@ if (!empty($message['reply_to_message'])) {
         (!empty($content['photo']) || !empty($content['animation']) || !empty($content['document']) || !empty($content['video']) || !empty($content['voice']) || !empty($content['audio'])) &&
         strtolower($message['text']) == 'null'
     ) {
-        $message['text'] = null;
+        $message['text'] = '';
+        $message['entities'] = null;
     }
 
     $new_text = convert_to_styled_text($message['text'], $message['entities']);

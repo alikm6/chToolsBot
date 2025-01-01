@@ -339,11 +339,38 @@ if (!empty($comm) && $comm['name'] == "sendto") {
         $m = false;
 
         if ($message_details['type'] == 'message') {
+            $reply_markup = null;
+
+            if (!empty($message_details['reply_markup']['inline_keyboard'])) {
+                $inline_keyboard = [];
+
+                foreach ($message_details['reply_markup']['inline_keyboard'] as $row_key => $row) {
+                    $inline_keyboard[$row_key] = [];
+
+                    foreach ($row as $item) {
+                        if (empty($item['url'])) {
+                            continue;
+                        }
+
+                        $inline_keyboard[$row_key][] = $item;
+                    }
+
+                    if (empty($inline_keyboard[$row_key])) {
+                        unset($inline_keyboard[$row_key]);
+                    }
+                }
+
+                if (!empty($inline_keyboard)) {
+                    $reply_markup = json_encode([
+                        'inline_keyboard' => array_values($inline_keyboard),
+                    ]);
+                }
+            }
             $m = $tg->copyMessage([
                 'chat_id' => $comm['col3'],
                 'from_chat_id' => $message_details['chat_id'],
                 'message_id' => $message_details['message_id'],
-                'reply_markup' => !empty($message_details['reply_markup']) ? json_encode($message_details['reply_markup']) : null,
+                'reply_markup' => $reply_markup,
                 'disable_notification' => $user_settings['sendto_notification'] == 0,
                 'protect_content' => $user_settings['sendto_protect_content'] == 1,
             ], ['send_error' => false]);
