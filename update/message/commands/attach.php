@@ -32,7 +32,6 @@ if (!empty($comm) && $comm['name'] == "attach") {
             empty($message['sticker']) &&
             empty($message['video']) &&
             empty($message['voice']) &&
-            empty($message['text']) &&
             empty($message['video_note']) &&
             (
                 empty($message['text']) || !is_url($message['text'])
@@ -40,7 +39,7 @@ if (!empty($comm) && $comm['name'] == "attach") {
         ) {
             $tg->sendMessage([
                 'chat_id' => $tg->update_from,
-                'text' => __("Input is incorrect, please send a file or a link, or select an option.") . cancel_text(),
+                'text' => __("Input is incorrect, please send a file or a link.") . cancel_text(),
             ]);
             exit;
         }
@@ -168,6 +167,7 @@ if (!empty($comm) && $comm['name'] == "attach") {
                 cancel_text(),
             'parse_mode' => 'html',
             'disable_web_page_preview' => true,
+            'reply_markup' => $tg->replyKeyboardRemove(),
         ]);
     } elseif (count($comm) == 4) {
         if (empty($message['text'])) {

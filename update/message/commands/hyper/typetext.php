@@ -66,7 +66,6 @@ if (!empty($comm) && $comm['name'] == "hyper_typetext") {
             empty($message['sticker']) &&
             empty($message['video']) &&
             empty($message['voice']) &&
-            empty($message['text']) &&
             empty($message['video_note']) &&
             (
                 empty($message['text']) || (
