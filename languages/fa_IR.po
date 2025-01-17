@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: chToolsBot\n"
-"POT-Creation-Date: 2025-01-17 21:34+0330\n"
-"PO-Revision-Date: 2025-01-17 21:35+0330\n"
+"POT-Creation-Date: 2025-01-17 22:03+0330\n"
+"PO-Revision-Date: 2025-01-17 22:04+0330\n"
 "Last-Translator: \n"
 "Language-Team: Ali Karimi\n"
 "Language: fa_IR\n"
@@ -68,7 +68,7 @@ msgstr "در حال ارسال ..."
 #: update/message/commands/inlinekey/edit/language_code.php:49
 #: update/message/commands/inlinekey/edit/link_preview_options.php:89
 #: update/message/commands/language.php:84
-#: update/message/commands/sendto.php:434 update/message/commands/start.php:32
+#: update/message/commands/sendto.php:454 update/message/commands/start.php:32
 #: update/message/commands/start.php:89 update/message/index.php:16
 #: update/message/pre_process_file.php:21
 #: update/message/pre_process_file.php:39
@@ -2332,62 +2332,74 @@ msgstr "لطفا پیامی که می‌خواهید به صورت بدون نق
 msgid "If you want to post the message containing the inline button that you made with this robot in your channel, send the inline code of this message to the robot."
 msgstr "اگر می‌خواهید پیام حاوی دکمه شیشه ای که با این ربات ساخته اید را در کانال خود درج کنید کد اینلاین این پیام را برای ربات ارسال کنید."
 
-#: update/message/commands/sendto.php:210
+#: update/message/commands/sendto.php:188
+msgid "⚠️ Your sent message contains not only link buttons but also another type of inline buttons."
+msgstr "⚠️ پیام ارسالی شما علاوه بر دکمه لینک‌دار حاوی نوع دیگری از دکمه‌های شیشه‌ای نیز می‌باشد."
+
+#: update/message/commands/sendto.php:189
+msgid "<b>Please note that in this case, only the link buttons will be preserved, and the rest of the buttons will be removed.</b>"
+msgstr "<b>توجه داشته باشید که در این حالت فقط دکمه‌های لینک‌دار حفظ خواهند شد و بقیه دکمه‌ها حذف خواهند شد.</b>"
+
+#: update/message/commands/sendto.php:190
+msgid "❕ If this message was created using this bot, <b>to send it correctly, <u>use the /sendto command</u>, and in the next step, <u>send only the inline code of the message</u> to the bot. (Do not include the bot ID or any additional text.)</b>"
+msgstr "❕ اگر این پیام با استفاده از همین ربات ساخته شده است، <b>برای ارسال بدون نقص، <u>دستور /sendto را ارسال کنید</u> و در مرحله بعد <u>کد اینلاین پیام را به تنهایی</u> برای ربات ارسال کنید. (بدون آی‌دی ربات و هیچ عبارت اضافه دیگری)</b>"
+
+#: update/message/commands/sendto.php:230
 msgid "Please send the ID of the channel where you want this message to be included with @ for the robot."
 msgstr "لطفا آی دی کانالی که می‌خواهید این پیام در آن درج شود را همراه با @ برای ربات ارسال کنید."
 
-#: update/message/commands/sendto.php:211
+#: update/message/commands/sendto.php:231
 msgid "If the desired channel is private, just forward a message from the desired channel to the robot."
 msgstr "اگر کانال مورد نظر خصوصی می‌باشد کافی است یک پیام از کانال مورد نظر برای ربات فوروارد کنید."
 
-#: update/message/commands/sendto.php:212
+#: update/message/commands/sendto.php:232
 msgid "Also in /channels section you can add the desired channel to the list of predefined channels."
 msgstr "همچنین در بخش /channels می‌توانید کانال مورد نظر را به لیست کانال های از پیش تعریف شده اضافه کنید."
 
-#: update/message/commands/sendto.php:240
+#: update/message/commands/sendto.php:260
 msgid "Input is incorrect, please send the correct channel ID to the robot or forward a message from the desired channel to the robot."
 msgstr "ورودی اشتباه می‌باشد، لطفا به درستی آی دی کانال مورد نظر را برای ربات ارسال کنید یا یک پیام از کانال مورد نظر برای ربات فوروارد کنید."
 
-#: update/message/commands/sendto.php:267
+#: update/message/commands/sendto.php:287
 #, php-format
 msgid "Our bot does not have access to channel %s."
 msgstr "ربات ما به کانال %s دسترسی ندارد."
 
-#: update/message/commands/sendto.php:270
+#: update/message/commands/sendto.php:290
 msgid "Please re-send /sendto command after making sure the bot is in the channel."
 msgstr "لطفا پس از اطمینان از ادمین بودن ربات در کانال با ارسال دستور /sendto مجدد اقدام کنید."
 
-#: update/message/commands/sendto.php:284
+#: update/message/commands/sendto.php:304
 msgid "The ID you are looking for does not belong to the channel."
 msgstr "آی دی مورد نظر شما مربوط به کانال نمی‌باشد."
 
-#: update/message/commands/sendto.php:300
+#: update/message/commands/sendto.php:320
 #, php-format
 msgid "Our bot is not registered as administrator of channel %s."
 msgstr "ربات ما به عنوان ادمین کانال %s ثبت نشده است."
 
-#: update/message/commands/sendto.php:323
+#: update/message/commands/sendto.php:343
 #, php-format
 msgid "Channel %s does not seem to belong to you because you are not on the channel admin list."
 msgstr "به نظر می‌رسد که کانال %s متعلق به شما نیست زیرا شما در لیست ادمین های این کانال نمی باشید."
 
-#: update/message/commands/sendto.php:387
+#: update/message/commands/sendto.php:407
 msgid "The message containing the inline button you selected appears to have been deleted."
 msgstr "به نظر می‌رسد پیام حاوی دکمه شیشه‌ای که انتخاب کرده بودید حذف شده است."
 
-#: update/message/commands/sendto.php:406
+#: update/message/commands/sendto.php:426
 msgid "This message containing the inline button cannot be sent to the target channel without a quote, because to send without a quote, the message must have no publisher button."
 msgstr "این پیام حاوی دکمه شیشه ای را نمی توان به صورت بدون نقل قول به کانال مورد نظر ارسال نمود زیرا برای ارسال بدون نقل قول، پیام باید فاقد دکمه شیشه ای انتشار دهنده باشد."
 
-#: update/message/commands/sendto.php:444
+#: update/message/commands/sendto.php:464
 msgid "An error occurred while posting to the channel, please try again by sending the /sendto command!"
 msgstr "خطایی در هنگام ارسال مطلب به کانال رخ داده است، لطفا با ارسال دستور /sendto دوباره تلاش کنید!"
 
-#: update/message/commands/sendto.php:451
+#: update/message/commands/sendto.php:471
 msgid "The content was successfully posted on the channel."
 msgstr "مطلب مورد نظر با موفقیت در کانال درج شد."
 
-#: update/message/commands/sendto.php:466
+#: update/message/commands/sendto.php:486
 msgid "➕ Add channel to your channel list: "
 msgstr "➕ افزودن کانال به لیست کانال های شما: "
 

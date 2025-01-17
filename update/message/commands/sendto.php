@@ -177,6 +177,26 @@ if (!empty($comm) && $comm['name'] == "sendto") {
         if ($comm['col1'] == 'pending') {
             edit_com($tg->update_from, ['col1' => 'sent']);
 
+            $target_message = json_decode($comm['col2'], true);
+
+            if ($target_message['type'] == 'message' && !empty($target_message['reply_markup'])) {
+                foreach ($target_message['reply_markup']['inline_keyboard'] as $row_key => $row) {
+                    foreach ($row as $item) {
+                        if (empty($item['url'])) {
+                            $tg->sendMessage([
+                                'chat_id' => $tg->update_from,
+                                'text' => __("⚠️ Your sent message contains not only link buttons but also another type of inline buttons.") . "\n\n" .
+                                    __("<b>Please note that in this case, only the link buttons will be preserved, and the rest of the buttons will be removed.</b>") . "\n\n" .
+                                    __("❕ If this message was created using this bot, <b>to send it correctly, <u>use the /sendto command</u>, and in the next step, <u>send only the inline code of the message</u> to the bot. (Do not include the bot ID or any additional text.)</b>"),
+                                'parse_mode' => 'html',
+                            ]);
+
+                            break 2;
+                        }
+                    }
+                }
+            }
+
             $keyboard = [];
 
             $q = "select * from channels where user_id=?";
